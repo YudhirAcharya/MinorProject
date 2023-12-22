@@ -32,7 +32,7 @@
       "Calories": 400,
       "Allergies": ["Gluten"],
       "VegOrNonVeg": "Vegetarian",
-      "Health_Restrictions": ["highFat"],
+      "Health_Restrictions": [],
       "Price_Nepali_Rupees": 350
     },
     {
@@ -239,7 +239,7 @@
       "Ingredients": ["Chicken", "Flour", "Spices"],
       "Calories": 250,
       "Allergies": ["Gluten"],
-      "VegOrNonVeg": "Non-Veg",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": [],
       "Price_Nepali_Rupees": 150
     },
@@ -249,7 +249,7 @@
       "Ingredients": ["Chicken", "Flour", "Spices"],
       "Calories": 230,
       "Allergies": ["Gluten"],
-      "VegOrNonVeg": "Non-Veg",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": [],
       "Price_Nepali_Rupees": 130
     },
@@ -259,7 +259,7 @@
       "Ingredients": ["Pork", "Flour", "Spices"],
       "Calories": 270,
       "Allergies": ["Gluten"],
-      "VegOrNonVeg": "Non-Veg",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": [],
       "Price_Nepali_Rupees": 140
     },
@@ -275,7 +275,7 @@
       ],
       "Calories": 380,
       "Allergies": ["Gluten"],
-      "VegOrNonVeg": "Non-Veg",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highFat"],
       "Price_Nepali_Rupees": 250
     },
@@ -291,7 +291,7 @@
       ],
       "Calories": 410,
       "Allergies": ["Gluten"],
-      "VegOrNonVeg": "Non-Veg",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highFat"],
       "Price_Nepali_Rupees": 260
     },
@@ -307,7 +307,7 @@
       ],
       "Calories": 320,
       "Allergies": ["Gluten", "Dairy"],
-      "VegOrNonVeg": "Non-Veg",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highFat"],
       "Price_Nepali_Rupees": 200
     },
@@ -352,7 +352,7 @@
       ],
       "Calories": 420,
       "Allergies": ["Gluten", "Dairy"],
-      "VegOrNonVeg": "Non-Veg",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highFat"],
       "Price_Nepali_Rupees": 300
     },
@@ -387,7 +387,7 @@
       "Ingredients": ["Hot dog sausage", "Cornmeal batter"],
       "Calories": 250,
       "Allergies": ["Dairy", "Gluten"],
-      "VegOrNonVeg": "Non-Veg",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highSugar", "highFat"],
       "Price_Nepali_Rupees": 350
     },
@@ -401,7 +401,7 @@
       ],
       "Calories": 400,
       "Allergies": ["Gluten"],
-      "VegOrNonVeg": "Both",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highFat", "highSodium"],
       "Price_Nepali_Rupees": 450
     },
@@ -425,7 +425,7 @@
       ],
       "Calories": 350,
       "Allergies": ["Gluten"],
-      "VegOrNonVeg": "Both",
+      "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highFat", "highSodium"],
       "Price_Nepali_Rupees": 300
     }
