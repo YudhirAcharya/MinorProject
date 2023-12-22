@@ -82,7 +82,7 @@
     },
     {
       "Food_Id": 8,
-      "Food_Name": "Lasagna",
+      "Food_Name": "Beef Lasagna",
       "Ingredients": [
         "Pasta",
         "Tomato Sauce",
@@ -511,6 +511,84 @@
         "highCholesterol"
       ],
       "Price_Nepali_Rupees": 250
+    },
+    {
+      "Food_Id": 39,
+      "Food_Name": "Tea",
+      "Ingredients": ["Tea leaves", "Water"],
+      "Calories": 0,
+      "Allergies": [],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar"],
+      "Price_Nepali_Rupees": 50
+    },
+    {
+      "Food_Id": 40,
+      "Food_Name": "Lemonade",
+      "Ingredients": ["Lemon juice", "Water", "Sugar"],
+      "Calories": 120,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar"],
+      "Price_Nepali_Rupees": 80
+    },
+    {
+      "Food_Id": 41,
+      "Food_Name": "Milkshake",
+      "Ingredients": ["Milk", "Ice cream", "Flavoring"],
+      "Calories": 300,
+      "Allergies": ["Dairy"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar", "highFat"],
+      "Price_Nepali_Rupees": 150
+    },
+    {
+      "Food_Id": 42,
+      "Food_Name": "Green Tea",
+      "Ingredients": ["Green tea leaves", "Water"],
+      "Calories": 0,
+      "Allergies": [],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": [],
+      "Price_Nepali_Rupees": 60
+    },
+    {
+      "Food_Id": 43,
+      "Food_Name": "Banana Smoothie",
+      "Ingredients": ["Banana", "Yogurt", "Honey"],
+      "Calories": 220,
+      "Allergies": ["Dairy"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar"],
+      "Price_Nepali_Rupees": 120
+    },
+    {
+      "Food_Id": 44,
+      "Food_Name": "Coke",
+      "Ingredients": [
+        "Carbonated water",
+        "Sugar",
+        "Flavoring"
+      ],
+      "Calories": 140,
+      "Allergies": [],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar"],
+      "Price_Nepali_Rupees": 100
+    },
+    {
+      "Food_Id": 45,
+      "Food_Name": "Fanta",
+      "Ingredients": [
+        "Carbonated water",
+        "Sugar",
+        "Orange flavoring"
+      ],
+      "Calories": 160,
+      "Allergies": [],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar"],
+      "Price_Nepali_Rupees": 90
     }
   ]
 }
