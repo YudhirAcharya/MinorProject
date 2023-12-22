@@ -17,42 +17,6 @@
           "Quantity": 1
         }
       ]
-    },
-    {
-      "Order_Id": 2,
-      "Food_Name": "abc",
-      "Rating": 1,
-      "Delivery_Time": "0800",
-      "User_Age": 3,
-      "Number_of_Orders": 1,
-      "Other_Commodities": [
-        {
-          "Name": "cd",
-          "Quantity": 1
-        },
-        {
-          "Name": "Fruit Salad",
-          "Quantity": 1
-        }
-      ]
-    },
-    {
-      "Order_Id": 1,
-      "Food_Name": "Muffin",
-      "Rating": 4.5,
-      "Delivery_Time": "0800",
-      "User_Age": 30,
-      "Number_of_Orders": 2,
-      "Other_Commodities": [
-        {
-          "Name": "Coffee",
-          "Quantity": 1
-        },
-        {
-          "Name": "Fruit Salad",
-          "Quantity": 1
-        }
-      ]
     }
   ]
 }
