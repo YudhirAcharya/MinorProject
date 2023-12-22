@@ -254,7 +254,7 @@
       "Calories": 270,
       "Allergies": ["Gluten"],
       "VegOrNonVeg": "Non-Vegetarian",
-      "Health_Restrictions": [],
+      "Health_Restrictions": ["highFat"],
       "Price_Nepali_Rupees": 140
     },
     {
