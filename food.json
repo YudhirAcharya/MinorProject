@@ -1,0 +1,433 @@
+{
+  "foods": [
+    {
+      "Food_Id": 1,
+      "Food_Name": "Fish and Chips",
+      "Ingredients": ["Fish", "Potatoes", "Flour", "Oil"],
+      "Calories": 600,
+      "Allergies": ["Gluten", "Seafood"],
+      "VegOrNonVeg": "Non-Vegetarian",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 500
+    },
+    {
+      "Food_Id": 2,
+      "Food_Name": "French Fries",
+      "Ingredients": ["Potatoes", "Oil"],
+      "Calories": 300,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 250
+    },
+    {
+      "Food_Id": 3,
+      "Food_Name": "Avocado Sandwich",
+      "Ingredients": [
+        "Avocado",
+        "Bread",
+        "Tomato",
+        "Lettuce"
+      ],
+      "Calories": 400,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 350
+    },
+    {
+      "Food_Id": 4,
+      "Food_Name": "Fresh Salad",
+      "Ingredients": [
+        "Lettuce",
+        "Tomato",
+        "Cucumber",
+        "Bell Pepper"
+      ],
+      "Calories": 150,
+      "Allergies": [],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": [],
+      "Price_Nepali_Rupees": 200
+    },
+    {
+      "Food_Id": 5,
+      "Food_Name": "Tuna Sushi",
+      "Ingredients": ["Tuna", "Rice", "Seaweed"],
+      "Calories": 250,
+      "Allergies": ["Seafood"],
+      "VegOrNonVeg": "Non-Vegetarian",
+      "Health_Restrictions": ["highSodium"],
+      "Price_Nepali_Rupees": 450
+    },
+    {
+      "Food_Id": 6,
+      "Food_Name": "Chicken Wings",
+      "Ingredients": ["Chicken", "Spices", "Oil"],
+      "Calories": 400,
+      "Allergies": [],
+      "VegOrNonVeg": "Non-Vegetarian",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 300
+    },
+    {
+      "Food_Id": 7,
+      "Food_Name": "Saag Paneer",
+      "Ingredients": [
+        "Spinach",
+        "Paneer (Indian cheese)",
+        "Spices",
+        "Tomatoes",
+        "Onions"
+      ],
+      "Calories": 320,
+      "Allergies": ["Dairy"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": [],
+      "Price_NPR": 300
+    },
+    {
+      "Food_Id": 8,
+      "Food_Name": "Lasagna",
+      "Ingredients": [
+        "Pasta",
+        "Tomato Sauce",
+        "Ground Beef",
+        "Mozzarella Cheese",
+        "Ricotta Cheese",
+        "Herbs"
+      ],
+      "Calories": 540,
+      "Allergies": ["Dairy", "Gluten"],
+      "VegOrNonVeg": "Non-Vegetarian",
+      "Health_Restrictions": ["highFat", "highCholesterol"],
+      "Price_NPR": 500
+    },
+    {
+      "Food_Id": 9,
+      "Food_Name": "Falafel",
+      "Ingredients": [
+        "Chickpeas",
+        "Herbs",
+        "Spices",
+        "Garlic",
+        "Tahini Sauce"
+      ],
+      "Calories": 350,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highFat"],
+      "Price_NPR": 250
+    },
+    {
+      "Food_Id": 10,
+      "Food_Name": "Pancakes",
+      "Ingredients": [
+        "Flour",
+        "Eggs",
+        "Milk",
+        "Baking Powder",
+        "Butter",
+        "Maple Syrup"
+      ],
+      "Calories": 250,
+      "Allergies": ["Dairy", "Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar", "highFat"],
+      "Price_NPR": 200
+    },
+    {
+      "Food_Id": 11,
+      "Food_Name": "Omelette",
+      "Ingredients": [
+        "Eggs",
+        "Cheese",
+        "Vegetables",
+        "Herbs"
+      ],
+      "Calories": 220,
+      "Allergies": ["Dairy"],
+      "VegOrNonVeg": "Non-Vegetarian",
+      "Health_Restrictions": ["highCholesterol"],
+      "Price_NPR": 180
+    },
+    {
+      "Food_Id": 12,
+      "Food_Name": "Oatmeal",
+      "Ingredients": [
+        "Oats",
+        "Milk",
+        "Honey",
+        "Fruits",
+        "Nuts"
+      ],
+      "Calories": 180,
+      "Allergies": ["Dairy", "Nut", "Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar"],
+      "Price_NPR": 150
+    },
+    {
+      "Food_Id": 13,
+      "Food_Name": "Grilled Octopus",
+      "Ingredients": [
+        "Octopus",
+        "Olive Oil",
+        "Herbs",
+        "Lemon"
+      ],
+      "Calories": 210,
+      "Allergies": ["Seafood"],
+      "VegOrNonVeg": "Non-Vegetarian",
+      "Health_Restrictions": ["highSodium"],
+      "Price_NPR": 600
+    },
+    {
+      "Food_Id": 14,
+      "Food_Name": "Fish Tacos",
+      "Ingredients": [
+        "Fish",
+        "Tortillas",
+        "Cabbage",
+        "Salsa",
+        "Avocado",
+        "Lime"
+      ],
+      "Calories": 380,
+      "Allergies": ["Gluten", "Seafood"],
+      "VegOrNonVeg": "Non-Vegetarian",
+      "Health_Restrictions": ["highSodium"],
+      "Price_NPR": 400
+    },
+    {
+      "Food_Id": 15,
+      "Food_Name": "Veg Tacos",
+      "Ingredients": [
+        "Tortillas",
+        "Black Beans",
+        "Corn",
+        "Tomatoes",
+        "Cheese",
+        "Lettuce"
+      ],
+      "Calories": 280,
+      "Allergies": ["Dairy", "Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSodium"],
+      "Price_NPR": 300
+    },
+    {
+      "Food_Id": 16,
+      "Food_Name": "Bean Chili",
+      "Ingredients": [
+        "Kidney Beans",
+        "Black Beans",
+        "Tomatoes",
+        "Peppers",
+        "Onions",
+        "Spices"
+      ],
+      "Calories": 310,
+      "Allergies": ["None"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSodium"],
+      "Price_NPR": 280
+    },
+    {
+      "Food_Id": 17,
+      "Food_Name": "Kothey Chicken Momo",
+      "Ingredients": ["Chicken", "Flour", "Spices"],
+      "Calories": 250,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Non-Veg",
+      "Health_Restrictions": [],
+      "Price_Nepali_Rupees": 150
+    },
+    {
+      "Food_Id": 18,
+      "Food_Name": "Chicken Momo",
+      "Ingredients": ["Chicken", "Flour", "Spices"],
+      "Calories": 230,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Non-Veg",
+      "Health_Restrictions": [],
+      "Price_Nepali_Rupees": 130
+    },
+    {
+      "Food_Id": 19,
+      "Food_Name": "Pork Momo",
+      "Ingredients": ["Pork", "Flour", "Spices"],
+      "Calories": 270,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Non-Veg",
+      "Health_Restrictions": [],
+      "Price_Nepali_Rupees": 140
+    },
+    {
+      "Food_Id": 20,
+      "Food_Name": "Chicken Burger",
+      "Ingredients": [
+        "Chicken Patty",
+        "Bun",
+        "Lettuce",
+        "Tomato",
+        "Sauce"
+      ],
+      "Calories": 380,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Non-Veg",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 250
+    },
+    {
+      "Food_Id": 21,
+      "Food_Name": "Ham Burger",
+      "Ingredients": [
+        "Ham Patty",
+        "Bun",
+        "Lettuce",
+        "Tomato",
+        "Sauce"
+      ],
+      "Calories": 410,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Non-Veg",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 260
+    },
+    {
+      "Food_Id": 22,
+      "Food_Name": "Chicken Sandwich",
+      "Ingredients": [
+        "Chicken",
+        "Bread",
+        "Lettuce",
+        "Tomato",
+        "Mayonnaise"
+      ],
+      "Calories": 320,
+      "Allergies": ["Gluten", "Dairy"],
+      "VegOrNonVeg": "Non-Veg",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 200
+    },
+    {
+      "Food_Id": 23,
+      "Food_Name": "Grilled Cheese",
+      "Ingredients": ["Cheese", "Bread", "Butter"],
+      "Calories": 280,
+      "Allergies": ["Gluten", "Dairy"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 180
+    },
+    {
+      "Food_Id": 24,
+      "Food_Name": "Dal Bhat",
+      "Ingredients": ["Rice", "Lentil Soup", "Vegetables"],
+      "Calories": 320,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": [],
+      "Price_Nepali_Rupees": 220
+    },
+    {
+      "Food_Id": 25,
+      "Food_Name": "Roti Tarkari",
+      "Ingredients": ["Roti", "Vegetable Curry"],
+      "Calories": 280,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": [],
+      "Price_Nepali_Rupees": 180
+    },
+    {
+      "Food_Id": 26,
+      "Food_Name": "Chicken Pizza",
+      "Ingredients": [
+        "Chicken",
+        "Cheese",
+        "Tomato Sauce",
+        "Dough"
+      ],
+      "Calories": 420,
+      "Allergies": ["Gluten", "Dairy"],
+      "VegOrNonVeg": "Non-Veg",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 300
+    },
+    {
+      "Food_Id": 27,
+      "Food_Name": "Margherita Pizza",
+      "Ingredients": ["Cheese", "Tomato Sauce", "Dough"],
+      "Calories": 380,
+      "Allergies": ["Gluten", "Dairy"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 280
+    },
+    {
+      "Food_Id": 28,
+      "Food_Name": "White Pizza",
+      "Ingredients": [
+        "Cheese",
+        "Garlic",
+        "Olive Oil",
+        "Dough"
+      ],
+      "Calories": 360,
+      "Allergies": ["Gluten", "Dairy"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highFat"],
+      "Price_Nepali_Rupees": 260
+    },
+    {
+      "Food_Id": 29,
+      "Food_Name": "Corn Dog",
+      "Ingredients": ["Hot dog sausage", "Cornmeal batter"],
+      "Calories": 250,
+      "Allergies": ["Dairy", "Gluten"],
+      "VegOrNonVeg": "Non-Veg",
+      "Health_Restrictions": ["highSugar", "highFat"],
+      "Price_Nepali_Rupees": 350
+    },
+    {
+      "Food_Id": 30,
+      "Food_Name": "Biryani",
+      "Ingredients": [
+        "Basmati rice",
+        "Chicken/meat/vegetables",
+        "Spices"
+      ],
+      "Calories": 400,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Both",
+      "Health_Restrictions": ["highFat", "highSodium"],
+      "Price_Nepali_Rupees": 450
+    },
+    {
+      "Food_Id": 31,
+      "Food_Name": "Naan Roti",
+      "Ingredients": ["Flour", "Yeast", "Yogurt"],
+      "Calories": 300,
+      "Allergies": ["Dairy", "Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highFat", "highCholesterol"],
+      "Price_Nepali_Rupees": 200
+    },
+    {
+      "Food_Id": 32,
+      "Food_Name": "Chowmein",
+      "Ingredients": [
+        "Noodles",
+        "Vegetables",
+        "Meat (optional)"
+      ],
+      "Calories": 350,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Both",
+      "Health_Restrictions": ["highFat", "highSodium"],
+      "Price_Nepali_Rupees": 300
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+give a json file for food( Fish and Chips, French Fries,  Avocado Sandwich, Fresh Salad, Tuna Sushi, Chicken Wings, ) with Ingredients, Food_Id, Calories, Allergies(Dairy, Nut, Gluten, Seafood), VegOrNonVeg, Health Restrictions(highSugar, highSodium, highFat, highCholesterol ),Price in nepali rupees.
+
+
+
+items__
+
+Fish and Chips, French Fries,  Avocado Sandwich, Fresh Salad, Tuna Sushi, Chicken Wings,Saag Paneer, Lasagna, Falafel , Pancakes, Omlette, Oatmeal, Grilled Octopus, Fish Tacos , Veg Tacos, Bean Chili,Kothey Chicken Momo, Chicken Momo, Pork Momo, Chicken Burger ,Ham Burger, Chicken Sandwich,Grilled Cheese, Dal Bhat, Roti Tarkari, Chicken Pizza, Margherita Pizza, White Pizza, Corn Dog, Biryani, Naan Roti, Chowmein ,
