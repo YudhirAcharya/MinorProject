@@ -72,19 +72,13 @@
     },
     {
       "Food_Id": 7,
-      "Food_Name": "Saag Paneer",
-      "Ingredients": [
-        "Spinach",
-        "Paneer (Indian cheese)",
-        "Spices",
-        "Tomatoes",
-        "Onions"
-      ],
-      "Calories": 320,
-      "Allergies": ["Dairy"],
+      "Food_Name": "Sweet Potato",
+      "Ingredients": ["Sweet potato", "Spices", "Oil"],
+      "Calories": 180,
+      "Allergies": [],
       "VegOrNonVeg": "Vegetarian",
-      "Health_Restrictions": [],
-      "Price_NPR": 300
+      "Health_Restrictions": ["highSugar"],
+      "Price_Nepali_Rupees": 100
     },
     {
       "Food_Id": 8,
@@ -101,7 +95,7 @@
       "Allergies": ["Dairy", "Gluten"],
       "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highFat", "highCholesterol"],
-      "Price_NPR": 500
+      "Price_Nepali_Rupees": 500
     },
     {
       "Food_Id": 9,
@@ -117,7 +111,7 @@
       "Allergies": ["Gluten"],
       "VegOrNonVeg": "Vegetarian",
       "Health_Restrictions": ["highFat"],
-      "Price_NPR": 250
+      "Price_Nepali_Rupees": 250
     },
     {
       "Food_Id": 10,
@@ -134,7 +128,7 @@
       "Allergies": ["Dairy", "Gluten"],
       "VegOrNonVeg": "Vegetarian",
       "Health_Restrictions": ["highSugar", "highFat"],
-      "Price_NPR": 200
+      "Price_Nepali_Rupees": 200
     },
     {
       "Food_Id": 11,
@@ -149,7 +143,7 @@
       "Allergies": ["Dairy"],
       "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highCholesterol"],
-      "Price_NPR": 180
+      "Price_Nepali_Rupees": 180
     },
     {
       "Food_Id": 12,
@@ -165,7 +159,7 @@
       "Allergies": ["Dairy", "Nut", "Gluten"],
       "VegOrNonVeg": "Vegetarian",
       "Health_Restrictions": ["highSugar"],
-      "Price_NPR": 150
+      "Price_Nepali_Rupees": 150
     },
     {
       "Food_Id": 13,
@@ -180,7 +174,7 @@
       "Allergies": ["Seafood"],
       "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highSodium"],
-      "Price_NPR": 600
+      "Price_Nepali_Rupees": 600
     },
     {
       "Food_Id": 14,
@@ -197,7 +191,7 @@
       "Allergies": ["Gluten", "Seafood"],
       "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highSodium"],
-      "Price_NPR": 400
+      "Price_Nepali_Rupees": 400
     },
     {
       "Food_Id": 15,
@@ -214,7 +208,7 @@
       "Allergies": ["Dairy", "Gluten"],
       "VegOrNonVeg": "Vegetarian",
       "Health_Restrictions": ["highSodium"],
-      "Price_NPR": 300
+      "Price_Nepali_Rupees": 300
     },
     {
       "Food_Id": 16,
@@ -231,7 +225,7 @@
       "Allergies": ["None"],
       "VegOrNonVeg": "Vegetarian",
       "Health_Restrictions": ["highSodium"],
-      "Price_NPR": 280
+      "Price_Nepali_Rupees": 280
     },
     {
       "Food_Id": 17,
@@ -418,16 +412,105 @@
     {
       "Food_Id": 32,
       "Food_Name": "Chowmein",
-      "Ingredients": [
-        "Noodles",
-        "Vegetables",
-        "Meat (optional)"
-      ],
+      "Ingredients": ["Noodles", "Vegetables", "Meat"],
       "Calories": 350,
       "Allergies": ["Gluten"],
       "VegOrNonVeg": "Non-Vegetarian",
       "Health_Restrictions": ["highFat", "highSodium"],
       "Price_Nepali_Rupees": 300
+    },
+    {
+      "Food_Id": 33,
+      "Food_Name": "Tofu and Vegetables",
+      "Ingredients": [
+        "Tofu",
+        "Assorted Vegetables",
+        "Soy Sauce",
+        "Spices"
+      ],
+      "Calories": 250,
+      "Allergies": ["Dairy", "Gluten", "Seafood"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSodium", "highFat"],
+      "Price_Nepali_Rupees": 150
+    },
+    {
+      "Food_Id": 34,
+      "Food_Name": "Coffee",
+      "Ingredients": [
+        "Coffee beans",
+        "Water",
+        "Sugar (optional)",
+        "Milk (optional)"
+      ],
+      "Calories": 5,
+      "Allergies": ["Dairy"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar"],
+      "Price_Nepali_Rupees": 80
+    },
+    {
+      "Food_Id": 35,
+      "Food_Name": "Mango Sticky Rice",
+      "Ingredients": [
+        "Mango",
+        "Sticky rice",
+        "Coconut milk",
+        "Sugar"
+      ],
+      "Calories": 300,
+      "Allergies": ["Gluten", "Dairy"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar"],
+      "Price_Nepali_Rupees": 200
+    },
+    {
+      "Food_Id": 36,
+      "Food_Name": "Fruit Salad",
+      "Ingredients": [
+        "Assorted fruits",
+        "Honey",
+        "Lemon juice"
+      ],
+      "Calories": 120,
+      "Allergies": [],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": [],
+      "Price_Nepali_Rupees": 120
+    },
+    {
+      "Food_Id": 37,
+      "Food_Name": "Muffin",
+      "Ingredients": [
+        "Flour",
+        "Sugar",
+        "Eggs",
+        "Milk",
+        "Butter"
+      ],
+      "Calories": 250,
+      "Allergies": ["Dairy", "Gluten"],
+      "VegOrNonVeg": "Vegetarian",
+      "Health_Restrictions": ["highSugar"],
+      "Price_Nepali_Rupees": 150
+    },
+    {
+      "Food_Id": 38,
+      "Food_Name": "Sausages",
+      "Ingredients": [
+        "Ground meat (beef/pork/chicken)",
+        "Spices",
+        "Salt"
+      ],
+      "Calories": 300,
+      "Allergies": ["Gluten"],
+      "VegOrNonVeg": "Non-Vegetarian",
+      "Health_Restrictions": [
+        "highSodium",
+        "highFat",
+        "highCholesterol"
+      ],
+      "Price_Nepali_Rupees": 250
     }
   ]
 }
