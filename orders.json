@@ -2,49 +2,38 @@
   "orders": [
     {
       "Order_Id": 1,
-      "Food_Id": 1,
       "Food_Name": "Muffin",
       "Rating": 4.5,
       "Price": 150,
-      "Review": "Delicious and fresh!",
-      "Meal_Time": "0800",
-      "User_BMI": 23.5,
+      "D_Time": "0800",
       "User_Age": 30,
       "Calories": 250,
       "Number_of_Orders": 2,
       "Other_Commodities": [
         {
           "Name": "Coffee",
-          "Quantity": 1,
-          "Price": 100,
-          "Calories": 20
+          "Quantity": 1
         },
         {
           "Name": "Fruit Salad",
-          "Quantity": 1,
-          "Price": 200,
-          "Calories": 80
+          "Quantity": 1
         }
       ]
     },
     {
       "Order_Id": 2,
-      "Food_Id": 2,
+
       "Food_Name": "Sausages",
       "Rating": 4.0,
       "Price": 250,
-      "Review": "Tasty but a bit salty.",
       "Meal_Time": "1230",
-      "User_BMI": 26.1,
       "User_Age": 35,
       "Calories": 300,
       "Number_of_Orders": 1,
       "Other_Commodities": [
         {
           "Name": "Soft Drink",
-          "Quantity": 1,
-          "Price": 150,
-          "Calories": 100
+          "Quantity": 1
         }
       ]
     }
