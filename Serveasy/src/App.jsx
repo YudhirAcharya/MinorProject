@@ -6,7 +6,12 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
 
-  return <></>;
+  return (
+    <>
+      <h1 className=" text-blue-700">hello</h1>
+      <h2 className=" bg-slate-700">123</h2>
+    </>
+  );
 }
 
 export default App;
