@@ -1,7 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@charset "UTF-8";
+
+/* Import Tailwind CSS components and utilities */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Import Google Fonts or other @import statements */
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");
+
+/* Other styles */
 * {
-  font-family: Quicksand;
+  font-family: "Quicksand", sans-serif;
 }
