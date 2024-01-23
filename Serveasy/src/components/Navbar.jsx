@@ -38,7 +38,7 @@ const Navbar = () => {
           className={`${toggle ? "flex" : "hidden"} absolute mt-[270px] py-6  bg-primaryColor px-6 border-2 `}
         >
           <ul className=" list-none flex flex-col sm:even:hidden justify-end items-center flex-1">
-            {navLinks.map((nav, index) => (
+            {navLinks.map((nav) => (
               <li
                 key={nav.id}
                 className=" cursor-pointer text-[22px] mr-6"
