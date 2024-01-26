@@ -4,6 +4,7 @@ export default {
   theme: {
     colors: {
       primaryColor: "#fcde05",
+      warningColor: "#ff0f0f",
     },
     extend: {},
   },

@@ -1,15 +1,26 @@
 import React from "react";
 import FormInput from "../components/FormInput";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { SignUpinputs } from "../constants";
+
 const Signup = () => {
-  const fullNameRef = useRef();
+  const [values, setValues] = useState({
+    fullname: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const handleSubmit = (event) => {
     event.preventDefault(); //to prevent refresh on click
-    console.log(fullNameRef);
-    const data = new FormData(event.target);
-    //user data
-    console.log(Object.fromEntries(data.entries()));
   };
+  const onChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value, //update target name by value
+    });
+  };
+  console.log(values);
   return (
     <div className="flex flex-col w-4/5 md:w-1/2 border-2 text-center justify-center mx-auto my-auto pb-5">
       Sign Up
@@ -18,29 +29,18 @@ const Signup = () => {
         className=" flex flex-col items-center "
         onSubmit={handleSubmit}
       >
-        <FormInput
-          title="Full Name"
-          type="text"
-          placeholder="Gregor Clegane"
-          name="fullname"
-        />
-        <FormInput
-          title="User Name"
-          type="text"
-          placeholder="Gregor Gigglesbane"
-          name="username"
-        />
-        <FormInput
-          title="Email"
-          type="email"
-          placeholder="GregorGiggles@gmail.com"
-          name="email"
-        />
-        <FormInput title="Password" type="password" />
-        <FormInput
-          title="Confirm Password"
-          type="password"
-        />
+        {SignUpinputs.map((item) => {
+          return (
+            <FormInput
+              key={item.id}
+              {...item}
+              value={values[item.name]}
+              onChange={onChange}
+              isValid={item.pattern}
+            />
+          );
+        })}
+
         <button className=" border-2 rounded-md m-2 p-2 bg-primaryColor">
           Submit
         </button>

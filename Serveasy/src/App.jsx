@@ -12,6 +12,7 @@ function App() {
     <>
       <Navbar />
       <Signup />
+      <SignIn />
       <Footer />
     </>
   );
