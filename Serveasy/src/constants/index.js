@@ -1,5 +1,5 @@
 //has constant datas like footers and description
-
+let values = "";
 export const navLinks = [
   {
     id: "home",
@@ -30,9 +30,8 @@ export const SignUpinputs = [
     title: "Full Name",
     type: "text",
     placeholder: "Gregor Clegane",
-    errorMessage: "",
-    required: true,
-    pattern: "^[A-Za-z0-9]{3,16}$",
+    errorMessage: "Write your full name.",
+    pattern: /^[a-zA-Z]+ [a-zA-Z]+$/,
   },
   {
     id: 2,
@@ -40,10 +39,8 @@ export const SignUpinputs = [
     title: "User Name",
     type: "text",
     placeholder: "Gregor Gigglesbane",
-    errorMessage:
-      "User Name should be atleast 3-16 characters!",
-    required: true,
-    pattern: "^[A-Za-z0-9]{3,16}$",
+    errorMessage: "User Name should be 3-16 characters!",
+    pattern: /^[A-Za-z0-9]{3,16}$/,
   },
   {
     id: 3,
@@ -52,16 +49,14 @@ export const SignUpinputs = [
     type: "email",
     placeholder: "GregorGiggles@gmail.com",
     errorMessage: "Invalid Email",
-    required: true,
   },
   {
     id: 4,
     name: "password",
     title: "Password",
     type: "password",
-    errorMessage:
-      "Password should be atleast 8 characters!",
-    required: true,
+    errorMessage: "Password should be 8-20 characters!",
+    pattern: /^[A-Za-z0-9]{8,20}$/,
   },
   {
     id: 5,
@@ -69,6 +64,6 @@ export const SignUpinputs = [
     title: "Confirm Password",
     type: "password",
     errorMessage: "Passwords don't match!",
-    required: true,
+    pattern: /^[A-Za-z0-9]{8,20}$/,
   },
 ];
