@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <section className=" flex align-middle justify-between p-8">
-      <div className="flex justify-start md:flex-roe flex-row w-full mb-7">
+      <div className="flex justify-start md:flex-row flex-row w-full mb-7 gap-3">
         <div className="flex flex-1 flex-col items-center">
           footer
           <img
