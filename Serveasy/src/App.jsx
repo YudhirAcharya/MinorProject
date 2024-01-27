@@ -2,6 +2,7 @@ import "./App.css";
 // import React from "react";
 // import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import Signing from "./pages/Signing";
 // import Footer from "./components/Footer";
 // import { Routes, Route } from "react-router-dom";
 // import SignIn from "./pages/SignIn";
@@ -10,7 +11,7 @@ import Home from "./pages/Home";
 function App() {
   return (
     <>
-      <Home />
+      <Signing />
     </>
   );
 }
