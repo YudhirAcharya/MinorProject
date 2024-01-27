@@ -1,56 +1,42 @@
-import React from "react";
-import { useState } from "react";
-import { navLinks } from "../constants";
+// import React from "react";
+import { MdSearch } from "react-icons/md";
+import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
+import CardCountBadge from "./CardCountBadge";
+// import { navLinks } from "../constants";
+
 const Navbar = () => {
-  const [toggle, setToggle] = useState(false);
-  const toggleMenu = () => {
-    setToggle(!toggle);
-  };
   return (
-    <nav className=" bg-primaryColor navbar w-full py-5 flex justify-between items-center">
-      <img
-        src="./public/logos/logo_name.png"
-        alt="Serveasy logo"
-        className="w-[120px]  mx-8 h-auto"
-      />
-      <ul className=" list-none sm:flex hidden justify-end items-center flex-1">
-        {navLinks.map((nav) => (
-          <li
-            key={nav.id}
-            className=" cursor-pointer text-[22px] mr-6"
-          >
-            {nav.title}
-          </li>
-        ))}
-      </ul>
-      <div className="sm:hidden flex flex-1 justify-end items-center">
-        <img
-          src={
-            toggle
-              ? "./public/icons/close_icon.png"
-              : "./public/icons/menu_icon.png"
-          }
-          alt="menu"
-          className="w-[40px] mr-6 cursor-pointer"
-          onClick={toggleMenu}
-        />
-        <div
-          className={`${toggle ? "flex" : "hidden"} absolute mt-[270px] py-6  bg-primaryColor px-6 border-2 `}
-        >
-          <ul className=" list-none flex flex-col sm:even:hidden justify-end items-center flex-1">
-            {navLinks.map((nav) => (
-              <li
-                key={nav.id}
-                className=" cursor-pointer text-[22px] mr-6"
-              >
-                <a href={`${nav.id}`}></a>
-                {nav.title}
-              </li>
-            ))}
-          </ul>
+    <div className="container hidden lg:block">
+      <div className="flex justify-between items-center pt-8">
+        <h1 className="text-4xl font-medium">
+          <img
+            className="w-[250px] h-[90px] ml-10"
+            src="/public/logos/Logo Files/For Web/png/logo black.png"
+            alt="serveasy logo"
+          />
+        </h1>
+        <div className="relative w-full max-w-[500px]">
+          <input
+            className="bg-[#F5F5F5] border-none outline-none px-6 py-3 rounded-[30px] w-full"
+            type="text"
+            placeholder="Search Product"
+          />
+          <MdSearch
+            className="absolute right-0 top-0 mt-4 mr-5 text-gray-500"
+            size={20}
+          />
+        </div>
+        <div className="flex gap-4">
+          <button className="icon__wrapper">
+            <AiOutlineUser /> {/* No hover class here */}
+          </button>
+          <button className="icon__wrapper">
+            <AiOutlineShoppingCart /> {/* No hover class here */}
+            <CardCountBadge size="w-[25px] h-[25px] hover:text-warning" />
+          </button>
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 
