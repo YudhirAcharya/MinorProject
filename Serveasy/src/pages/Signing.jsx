@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css";
 import SignInForm from "./SignIn2";
-import SignUpForm from "./SignUP2";
+import SignUpForm from "./SignUp2";
 
 export default function Signing() {
   const [type, setType] = useState("signIn");
@@ -12,11 +12,10 @@ export default function Signing() {
     }
   };
   const containerClass =
-    "container " +
-    (type === "signUp" ? "right-panel-active" : "");
+    "container " + (type === "signUp" ? "right-panel-active" : "");
   return (
     <div className="App">
-      <h2>Sign in/up Form</h2>
+      <h2 style={{ fontSize: "30px" }}>Sign in/up Form</h2>
       <div className={containerClass} id="container">
         <SignUpForm />
         <SignInForm />
@@ -25,8 +24,7 @@ export default function Signing() {
             <div className="overlay-panel overlay-left">
               <h1>Welcome Back!</h1>
               <p>
-                To keep connected with us please login with
-                your personal info
+                To keep connected with us please login with your personal info
               </p>
               <button
                 className="ghost"
@@ -38,10 +36,7 @@ export default function Signing() {
             </div>
             <div className="overlay-panel overlay-right">
               <h1>Hello, Friend!</h1>
-              <p>
-                Enter your personal details and start
-                journey with us
-              </p>
+              <p>Enter your personal details and start journey with us</p>
               <button
                 className="ghost "
                 id="signUp"

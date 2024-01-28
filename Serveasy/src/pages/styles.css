@@ -1,10 +1,30 @@
 .App {
   font-family: sans-serif;
   text-align: center;
+  /* justify-content: center; */
 }
-
+@media (max-width: 1200px) {
+  .container {
+    width: 90%; /* Adjust width for smaller screens */
+    margin: 0 5%; /* Maintain gaps on smaller screens */
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    width: 90%; /* Adjust width for smaller screens */
+    margin: 0 5%; /* Maintain gaps on smaller screens */
+  }
+}
+@media (max-width: 280px) {
+  .container {
+    width: 90%; /* Adjust width for smaller screens */
+    margin: 0 5%; /* Maintain gaps on smaller screens */
+  }
+}
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -16,6 +36,7 @@ body {
   font-family: "Montserrat", sans-serif;
   height: 100vh;
   margin: -20px 0 50px;
+  max-width: 100%;
 }
 
 h1 {
@@ -25,6 +46,7 @@ h1 {
 
 h2 {
   text-align: center;
+  font-size: 60px;
 }
 
 p {
@@ -53,7 +75,7 @@ button {
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
-  padding: 12px 45px;
+  /* padding: 12px 45px; */
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
@@ -70,6 +92,13 @@ button:focus {
 button.ghost {
   background-color: transparent;
   border-color: #ffffff;
+  margin-top: 10px;
+  padding: 6px 30px;
+}
+button.ghost:hover {
+  background-color: #fff;
+  color: #820000;
+  transition: transform 100000ms ease-in-out;
 }
 
 form {
@@ -86,9 +115,12 @@ form {
 input {
   background-color: #eee;
   border: none;
-  padding: 12px 15px;
+  padding: 40px 15px;
   margin: 8px 0;
   width: 100%;
+  border-radius: 10px;
+  text-indent: 15px;
+  height: 40px;
 }
 
 .container {
@@ -99,8 +131,11 @@ input {
     0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  width: 768px;
-  max-width: 100%;
+  display: flexbox;
+  justify-content: space-around;
+  width: 1000px;
+  margin: 0 auto;
+  /* max-width: 80%; */
   min-height: 480px;
 }
 
@@ -166,12 +201,8 @@ input {
 
 .overlay {
   background: #ff416c;
-  background: -webkit-linear-gradient(
-    to right,
-    #ff4b2b,
-    #ff416c
-  );
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  background: -webkit-linear-gradient(to right, #820000, #ff416c);
+  background: linear-gradient(to right, #e80013, #820000);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -233,6 +264,31 @@ input {
   margin: 0 5px;
   height: 40px;
   width: 40px;
+}
+
+.input-box2 {
+  width: 100%;
+  border-radius: 5px;
+  display: grid;
+  grid-template-rows: 45% 45%;
+  padding: 5px;
+  row-gap: 10px;
+}
+.input-box3 {
+  width: 100%;
+  border-radius: 5px;
+  display: grid;
+  padding: 15px 5px;
+  grid-template-rows: 30% 30% 30%;
+  row-gap: 10px;
+}
+.main-button {
+  padding: 6px 30px;
+}
+button.main-button:hover {
+  background-color: #ff4b2b;
+  color: #fff;
+  transition: transform 100000ms ease-in-out;
 }
 
 footer {
