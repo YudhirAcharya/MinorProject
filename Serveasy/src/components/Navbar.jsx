@@ -1,4 +1,6 @@
-// import React from "react";
+
+import React from "react";
+
 import { useState } from "react";
 import { navLinks } from "../constants";
 import { Link, NavLink } from "react-router-dom";
@@ -56,17 +58,23 @@ const Navbar = () => {
         >
           <ul className=" list-none flex flex-col sm:even:hidden justify-end items-center flex-1">
             {navLinks.map((nav) => (
+
               <div key={nav.id}>
                 <li
                   key={nav.id}
                   className="cursor-pointer text-[22px] mr-6"
                 ></li>
 
-                <li key={nav.id} className="cursor-pointer text-[22px] mr-6">
-                  <a href={`${nav.id}`}></a>
+
+              <li
+                key={nav.id}
+                className=" cursor-pointer text-[22px] mr-6"
+              >
+                <NavLink to={`${nav.id}`}>
                   {nav.title}
-                </li>
-              </div>
+                </NavLink>
+              </li>
+
             ))}
           </ul>
         </div>
