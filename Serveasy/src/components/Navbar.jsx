@@ -1,14 +1,18 @@
+
 import React from "react";
 import { useState } from "react";
 import { navLinks } from "../constants";
 import { Link, NavLink } from "react-router-dom";
 import Signing from "../pages/Signing";
+
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const toggleMenu = () => {
     setToggle(!toggle);
   };
   return (
+
+
     <nav className=" bg-primary  navbar w-full py-3 flex justify-between items-center">
       <Link to="/">
         <img
@@ -37,6 +41,7 @@ const Navbar = () => {
       >
         Join us
       </NavLink>
+
       <div className="sm:hidden flex flex-1 justify-end items-center">
         <img
           src={
@@ -54,10 +59,14 @@ const Navbar = () => {
         >
           <ul className=" list-none flex flex-col sm:even:hidden justify-end items-center flex-1">
             {navLinks.map((nav) => (
+
+              <li key={nav.id} className=" cursor-pointer text-[22px] mr-6">
+
               <li
                 key={nav.id}
                 className=" cursor-pointer text-[22px] mr-6"
               >
+
                 <a href={`${nav.id}`}></a>
                 {nav.title}
               </li>
