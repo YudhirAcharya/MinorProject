@@ -1,0 +1,12 @@
+input {
+  border-radius: 7px;
+}
+span {
+  background-color: rgba(230, 227, 227, 0.678);
+  color: red;
+  font-size: small;
+  border-radius: 7px;
+}
+input:invalid ~ span {
+  color: rgb(34, 230, 20);
+}

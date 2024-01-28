@@ -36,11 +36,10 @@ const Signup = () => {
               {...item}
               value={values[item.name]}
               onChange={onChange}
-              isValid={item.pattern}
             />
           );
         })}
-
+        {console.log(typeof SignUpinputs[0].pattern)}
         <button className=" border-2 rounded-md m-2 p-2 bg-primaryColor">
           Submit
         </button>
