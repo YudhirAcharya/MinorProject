@@ -1,8 +1,10 @@
+
 import React from "react";
+
 import { useState } from "react";
 import { navLinks } from "../constants";
 import { Link, NavLink } from "react-router-dom";
-import Signing from "../pages/Signing";
+// import Signing from "../pages/Signing";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
@@ -56,6 +58,14 @@ const Navbar = () => {
         >
           <ul className=" list-none flex flex-col sm:even:hidden justify-end items-center flex-1">
             {navLinks.map((nav) => (
+
+              <div key={nav.id}>
+                <li
+                  key={nav.id}
+                  className="cursor-pointer text-[22px] mr-6"
+                ></li>
+
+
               <li
                 key={nav.id}
                 className=" cursor-pointer text-[22px] mr-6"
@@ -64,6 +74,7 @@ const Navbar = () => {
                   {nav.title}
                 </NavLink>
               </li>
+
             ))}
           </ul>
         </div>

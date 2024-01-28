@@ -3,17 +3,17 @@ function SignUpForm() {
   const [state, setState] = React.useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
   });
-  const handleChange = evt => {
+  const handleChange = (evt) => {
     const value = evt.target.value;
     setState({
       ...state,
-      [evt.target.name]: value
+      [evt.target.name]: value,
     });
   };
 
-  const handleOnSubmit = evt => {
+  const handleOnSubmit = (evt) => {
     evt.preventDefault();
 
     const { name, email, password } = state;
@@ -24,7 +24,7 @@ function SignUpForm() {
     for (const key in state) {
       setState({
         ...state,
-        [key]: ""
+        [key]: "",
       });
     }
   };
@@ -45,28 +45,32 @@ function SignUpForm() {
           </a>
         </div>
         <span>or use your email for registration</span>
-        <input
-          type="text"
-          name="name"
-          value={state.name}
-          onChange={handleChange}
-          placeholder="Name"
-        />
-        <input
-          type="email"
-          name="email"
-          value={state.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          name="password"
-          value={state.password}
-          onChange={handleChange}
-          placeholder="Password"
-        />
-        <button>Sign Up</button>
+        <div className="input-box3">
+          <input
+            type="text"
+            name="name"
+            value={state.name}
+            onChange={handleChange}
+            placeholder="Name"
+          />
+          <input
+            type="email"
+            name="email"
+            value={state.email}
+            onChange={handleChange}
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            name="password"
+            value={state.password}
+            onChange={handleChange}
+            placeholder="Password"
+          />
+        </div>
+        <button className="main-button" style={{ marginTop: "15px" }}>
+          Sign Up
+        </button>
       </form>
     </div>
   );
