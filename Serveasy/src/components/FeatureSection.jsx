@@ -55,7 +55,7 @@
 
 // export default FeatureSection;
 
-import React from "react";
+// import React from "react";
 import ProductCard from "./ProductCard";
 import { data } from "../constants";
 const FeatureSection = () => {
@@ -69,15 +69,19 @@ const FeatureSection = () => {
           </p>
         </div>
         <div className="space-x-4 mt-8 lg:mt-0">
-          <button className="feature_btn">Breakfast</button>
-          <button className="text-gray-600 hover:text-secondary">Lunch</button>
-          <button className="text-gray-600 hover:text-secondary">Dinner</button>
+          <button className="feature_btn p-2">Breakfast</button>
+          <button className="text-gray-600 hover:text-secondary p-2">
+            Lunch
+          </button>
+          <button className="text-gray-600 hover:text-secondary p-2">
+            Dinner
+          </button>
         </div>
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 pt-8 gap-2">
         <div>
           <img
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.fabbox.in%2Fcollections%2Fchef-recommendations&psig=AOvVaw1I5ulyGti7kEtP_pEw2tTT&ust=1706719464042000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCOjT-s7HhYQDFQAAAAAdAAAAABAE"
+            src="https://www.fabbox.in/cdn/shop/files/chef_reco.jpg?v=1653455410"
             alt="banner"
             className="w-full h-full object-cover"
           />

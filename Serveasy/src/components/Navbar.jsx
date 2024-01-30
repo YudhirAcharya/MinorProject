@@ -13,7 +13,7 @@ const Navbar = () => {
     <nav className="bg-primary navbar w-full py-3 flex justify-between items-center">
       <Link to="/">
         <img
-          src="./public/logos/logo_name.png"
+          src="./public/logos/Logo Files/For Web/png/Color logo with background.png"
           alt="Serveasy logo"
           className="w-[120px] mx-8 h-auto"
         />
