@@ -17,7 +17,7 @@ function SignInForm() {
 
     const { email, password } = state;
     alert(`You are login with email: ${email} and password: ${password}`);
-
+    console.log(state);
     for (const key in state) {
       setState({
         ...state,
