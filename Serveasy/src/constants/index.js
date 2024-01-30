@@ -1,5 +1,6 @@
 //has constant datas like footers and description
 // let values = "";
+// import { axios } from "axios";
 export const navLinks = [
   {
     id: "home",

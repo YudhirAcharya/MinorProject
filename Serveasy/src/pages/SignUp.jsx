@@ -1,6 +1,5 @@
-import React from "react";
 import FormInput from "../components/FormInput";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { SignUpinputs } from "../constants";
 
 const Signup = () => {
