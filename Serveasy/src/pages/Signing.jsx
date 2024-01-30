@@ -24,18 +24,19 @@ export default function Signing() {
     }
   };
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (event) => {
     if (type === "signIn") {
       setSignInFormData({
         ...signInFormData,
-        [field]: value,
+        [event.target.name]: event.target.value,
       });
     } else if (type === "signUp") {
       setSignUpFormData({
         ...signUpFormData,
-        [field]: value,
+        [event.target.name]: event.target.value,
       });
     }
+    console.log(setSignInFormData, setSignUpFormData);
   };
 
   const handleSubmit = (event) => {
@@ -44,9 +45,10 @@ export default function Signing() {
       console.log("Sign In Form data submitted:", signInFormData);
       // Handle sign-in form submission logic here
     } else if (type === "signUp") {
-      console.log("Sign Up Form data submitted:", signUpFormData);
       // Handle sign-up form submission logic here
+      console.log("Sign Up Form data submitted:", signUpFormData);
     }
+    console.log("Form submitted", setSignInFormData, setSignUpFormData);
   };
 
   const containerClass =
