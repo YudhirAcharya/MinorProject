@@ -16,7 +16,9 @@ function SignInForm() {
     evt.preventDefault();
 
     const { email, password } = state;
-    alert(`You are login with email: ${email} and password: ${password}`);
+    console.log(
+      `You are login with email: ${email} and password: ${password}`
+    );
     console.log(state);
     for (const key in state) {
       setState({
@@ -30,18 +32,7 @@ function SignInForm() {
     <div className="form-container sign-in-container">
       <form onSubmit={handleOnSubmit}>
         <h1>Sign in</h1>
-        <div className="social-container">
-          <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
-          </a>
-        </div>
-        <span>or use your account</span>
+
         <div className="input-box2">
           <input
             type="email"
