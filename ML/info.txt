@@ -1,0 +1,2 @@
+MinorContent:
+Test 1:using local vectorizer and local cosine similarity: time 7 mins, memory 3 GB
