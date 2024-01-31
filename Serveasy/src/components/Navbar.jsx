@@ -24,7 +24,7 @@ const Navbar = () => {
             <NavLink
               to={nav.path}
               className={({ isActive }) =>
-                `text-[22px] ${isActive ? "text-black" : "text-primary"}`
+                `text-[22px] ${isActive ? "text-black" : "text-warning"}`
               }
             >
               {nav.title}
@@ -58,8 +58,13 @@ const Navbar = () => {
         >
           <ul className="list-none flex flex-col sm:even:hidden justify-end items-center flex-1">
             {navLinks.map((nav) => (
-              <li key={nav.id} className="cursor-pointer text-[22px] mr-6">
-                <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
+              <li
+                key={nav.id}
+                className="cursor-pointer text-[22px] mr-6"
+              >
+                <NavLink to={`${nav.id}`}>
+                  {nav.title}
+                </NavLink>
               </li>
             ))}
           </ul>

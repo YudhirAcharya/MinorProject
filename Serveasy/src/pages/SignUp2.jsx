@@ -20,6 +20,7 @@ function SignUpForm() {
     console.log(
       `You are sign up with name: ${name} email: ${email} and password: ${password}`
     );
+    console.log(state);
 
     for (const key in state) {
       setState({
