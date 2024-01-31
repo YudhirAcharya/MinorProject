@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./styles.css";
 import SignInForm from "./SignIn2";
-import SignUpForm from "./SignUp2";
+import SignUpForm from "./SignUP2";
 
 export default function Signing() {
   const [type, setType] = useState("signIn");
