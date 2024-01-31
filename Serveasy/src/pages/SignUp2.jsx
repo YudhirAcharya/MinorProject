@@ -35,6 +35,18 @@ function SignUpForm() {
       <form onSubmit={handleOnSubmit}>
         <h1>Create Account</h1>
 
+        {/* <div className="social-container">
+          <a href="#" className="social">
+            <i className="fab fa-facebook-f" />
+          </a>
+          <a href="#" className="social">
+            <i className="fab fa-google-plus-g" />
+          </a>
+          <a href="#" className="social">
+            <i className="fab fa-linkedin-in" />
+          </a>
+        </div> */}
+        <span>or use your email for registration</span>
         <div className="input-box3">
           <input
             type="text"
@@ -58,10 +70,7 @@ function SignUpForm() {
             placeholder="Password"
           />
         </div>
-        <button
-          className="main-button"
-          style={{ marginTop: "15px" }}
-        >
+        <button className="main-button" style={{ marginTop: "15px" }}>
           Sign Up
         </button>
       </form>
