@@ -17,7 +17,7 @@ function SignUpForm() {
     evt.preventDefault();
 
     const { name, email, password } = state;
-    alert(
+    console.log(
       `You are sign up with name: ${name} email: ${email} and password: ${password}`
     );
 
@@ -33,6 +33,7 @@ function SignUpForm() {
     <div className="form-container sign-up-container">
       <form onSubmit={handleOnSubmit}>
         <h1>Create Account</h1>
+
         {/* <div className="social-container">
           <a href="#" className="social">
             <i className="fab fa-facebook-f" />

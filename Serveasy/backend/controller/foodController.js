@@ -16,6 +16,13 @@ exports.getAllFoods = (req, res) => {
             rows,
           },
         });
+        res.status(200).json({
+          status: "success",
+          results: rows.length,
+          data: {
+            rows,
+          },
+        });
       } else {
         console.log(err);
       }
