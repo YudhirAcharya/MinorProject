@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 const pool = require("./../app");
 exports.getAllFoods = (req, res) => {
   const pool = req.pool;
@@ -9,13 +11,6 @@ exports.getAllFoods = (req, res) => {
       connection.release();
 
       if (!err) {
-        res.status(200).json({
-          status: "success",
-          results: rows.length,
-          data: {
-            rows,
-          },
-        });
         res.status(200).json({
           status: "success",
           results: rows.length,
