@@ -13,9 +13,9 @@ const Navbar = () => {
     <nav className="bg-primary navbar w-full py-3 flex justify-between items-center">
       <Link to="/">
         <img
-          src="./public/logos/Logo Files/For Web/png/Color logo with background.png"
+          src="./public/logos/Logo Files/For Web/svg/Color logo - no background.svg"
           alt="Serveasy logo"
-          className="w-[120px] mx-8 h-auto"
+          className="w-[100px] mx-8 h-auto"
         />
       </Link>
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
@@ -34,7 +34,7 @@ const Navbar = () => {
       </ul>
       <NavLink
         to="/signing"
-        className="border-2 text-[30px] mr-5 px-5 border-red-500 rounded-xl"
+        className="border-2 text-[30px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer"
       >
         Join us
       </NavLink>
@@ -58,7 +58,10 @@ const Navbar = () => {
         >
           <ul className="list-none flex flex-col sm:even:hidden justify-end items-center flex-1">
             {navLinks.map((nav) => (
-              <li key={nav.id} className="cursor-pointer text-[22px] mr-6">
+              <li
+                key={nav.id}
+                className="cursor-pointer text-[22px] mr-6 hover:text-warning"
+              >
                 <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
               </li>
             ))}

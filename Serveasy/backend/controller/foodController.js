@@ -9,7 +9,13 @@ exports.getAllFoods = (req, res) => {
       connection.release();
 
       if (!err) {
-        res.send(rows);
+        res.status(200).json({
+          status: "success",
+          results: rows.length,
+          data: {
+            rows,
+          },
+        });
       } else {
         console.log(err);
       }

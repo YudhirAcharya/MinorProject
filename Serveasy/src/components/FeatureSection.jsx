@@ -4,15 +4,22 @@
 // import axios from "axios";
 // import React, { useState, useEffect } from "react";
 // const FeatureSection = () => {
-//   const [productData, setProductData] = useState([]);
+//   const [productData, setProductData] = useState({ data: [] });
 //   // const [isLoading, setIsLoading] = useState(true);
 //   // const [error, setError] = useState(null);
 
 //   useEffect(() => {
 //     const fetchData = async () => {
-//       const data = await axios.get("127.0.0.1/foods");
-//       setProductData(data);
-//       console.log("product >>>>", data);
+//       // const data = await axios.get("127.0.0.1/foods");
+//       // setProductData({ data });
+//       // console.log("product >>>>", data);
+//       try {
+//         const response = await axios.get("127.0.0.1:3001/foods");
+//         setProductData(response.data.rows);
+//         console.log("product >>>>", response.data.rows);
+//       } catch (error) {
+//         console.error("Error fetching data:", error);
+//       }
 //     };
 //     fetchData();
 //   }, []);
@@ -39,7 +46,7 @@
 //             className="w-full h-full object-cover"
 //           />
 //         </div>
-//         {productData &&
+//         {productData?.data &&
 //           productData?.data.map((product) => (
 //             <ProductCard
 //               key={product.FOODID}
