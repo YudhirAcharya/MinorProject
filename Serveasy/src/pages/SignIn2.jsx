@@ -16,9 +16,7 @@ function SignInForm() {
     evt.preventDefault();
 
     const { email, password } = state;
-    console.log(
-      `You are login with email: ${email} and password: ${password}`
-    );
+    console.log(`You are login with email: ${email} and password: ${password}`);
     console.log(state);
     for (const key in state) {
       setState({
