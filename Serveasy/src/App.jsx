@@ -14,18 +14,28 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import Signup from "./pages/Signup";
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 4000);
+    const fetchData = async () => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 4000));
+        setLoading(false);
+      } catch (error) {
+        console.error("Loading error:", error);
+      }
+    };
+    // setLoading(true);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 4000);
+    fetchData();
   }, []);
   return (
     <>
       {loading ? (
         <div className="flex justify-center items-center h-screen max-w-100 max-h-100">
           <Lottie animationData={donuts} loop={true} />
+          <div className="text-4xl text-center mt-4">Loading...</div>
         </div>
       ) : (
         <BrowserRouter>
