@@ -10,12 +10,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-primary navbar w-full py-3 flex justify-between items-center">
+    <nav className="bg-primary navbar w-full flex justify-between items-center">
       <Link to="/">
         <img
-          src="./public/logos/Logo Files/For Web/svg/Color logo - no background.svg"
+          src="./public/logos/logo_linear.png"
           alt="Serveasy logo"
-          className="w-[100px] mx-8 h-auto"
+          className="w-[250px] mx-5 h-auto"
         />
       </Link>
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
@@ -60,12 +60,11 @@ const Navbar = () => {
             {navLinks.map((nav) => (
               <li
                 key={nav.id}
-
                 className="cursor-pointer text-[22px] mr-6 hover:text-warning"
               >
-                <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
-
-
+                <NavLink to={`${nav.id}`}>
+                  {nav.title}
+                </NavLink>
               </li>
             ))}
           </ul>
