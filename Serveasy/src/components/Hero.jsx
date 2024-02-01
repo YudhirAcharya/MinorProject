@@ -6,22 +6,22 @@ const Hero = () => {
       <div className="grid xl:grid-cols-3 xl:grid-rows-2 gap-8">
         <div className="relative xl:col-span-2 xl:row-start-1 xl:row-end-[-1]">
           <img
-            className="w-full h-[100%] object-cover rounded-lg opacity-65"
-            src="https://popmenucloud.com/cdn-cgi/image/width%3D1200%2Cheight%3D1200%2Cfit%3Dscale-down%2Cformat%3Dauto%2Cquality%3D60/hcwypnzo/380a1733-0bcf-476c-a7b9-5823a608b951.jpg"
+            className="w-full h-[100%] object-cover rounded-lg "
+            src="\public\images\pexels-pixabay-326281.jpg"
             alt="hero image"
           />
-          <div className="absolute max-w-[470px] sm:ml-16 ml-8 top-[30%] sm:space-y-2">
-            <h2 className="text-5xl hidden sm:block text-gray-800">
-              The best food delivery service
+          <div className="absolute w-auto sm:ml-16 ml-8 top-[10%] left-[30%] sm:space-y-2">
+            <h2 className="text-5xl text-white  hidden sm:block  ">
+              The best food delivery service in the city
             </h2>
-            <p className="text-10xl sm:text-8xl md-text-12xl font-bold text-gray-800">
-              Best Food Delivery
+
+            <p className="text-4xl ml-16 text-white pt-10 hidden sm:block  ">
+              Starting At:
             </p>
-            <p className="text-gray-800 text-2xl pt-4 sm:pt-8">Starting At</p>
-            <div className="font-medium text-red-800 text-xl sm:text-xl sm:pb-8 pb-4">
-              Rs499
+            <div className="text-6xl ml-24 text-primary  font-bold  pt-2 hidden sm:block">
+              Rs 399
             </div>
-            <div className="bg-warning hover:bg-secondary text-white rounded-full w-fit flex items-center gap-4 px-4 py-2 text-[14px] sm:px-6 sm:py-3 cursor-pointer">
+            <div className=" ml-24 bg-warning hover:bg-primary hover:text-black text-white rounded-full w-fit flex items-center gap-4 px-4 py-2 text-[25px] cursor-pointer">
               Order Now <BsArrowRight />
             </div>
           </div>
@@ -39,7 +39,9 @@ const Hero = () => {
             <p className="text-2xl sm:text-3xl md-text-8xl pt-2 text-gray-800">
               Best Sushi
             </p>
-            <p className="text-secondary text-xl pt-2 sm:pt-8">Starting At</p>
+            <p className="text-secondary text-xl pt-2 sm:pt-8">
+              Starting At
+            </p>
             <div className="font-medium text-red-800 text-xl sm:text-2xl sm:pb-8 pb-4">
               Rs199
             </div>
@@ -61,7 +63,9 @@ const Hero = () => {
             <p className="text-2xl sm:text-3xl md-text-8xl pt-2text-gray-800">
               Best Sushi
             </p>
-            <p className="text-secondary text-xl pt-2 sm:pt-8">Starting At</p>
+            <p className="text-secondary text-xl pt-2 sm:pt-8">
+              Starting At
+            </p>
             <div className="font-medium text-red-800 text-xl sm:text-2xl sm:pb-8 pb-4">
               Rs199
             </div>

@@ -6,7 +6,6 @@ const Account = () => {
   return (
     <>
       <Navbar />
-      <Signing />
     </>
   );
 };
