@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const cors = require("cors");
 const app = express();
 
 const port = process.env.PORT || 3001;
@@ -10,6 +12,8 @@ const port = process.env.PORT || 3001;
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
+
+app.use(cors);
 
 //MYSQL
 const pool = mysql.createPool({
