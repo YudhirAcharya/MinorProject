@@ -1,2 +1,5 @@
 MinorContent:
 Test 1:using local vectorizer and local cosine similarity: time 7 mins, memory 3 GB
+
+
+20 % matra , relation aayena vane, model karsari sys ma use garne, backend intregation, eauta user le muliple order garxa teslai intregrate garne. report ma ksari garyo explain garne
