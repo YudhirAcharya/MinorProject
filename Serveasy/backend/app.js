@@ -13,7 +13,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
-app.use(cors());
+
+var corsOptions = {
+  origin: "http://localhost:5173",
+  methods: "GET, POST", // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 //MYSQL
 const pool = mysql.createPool({

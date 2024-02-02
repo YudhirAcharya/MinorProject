@@ -17,6 +17,7 @@ exports.getAllFoods = (req, res) => {
           data: {
             rows,
           },
+          // data,
         });
       } else {
         console.log(err);
