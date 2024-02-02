@@ -13,13 +13,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
+
 var corsOptions = {
   origin: "http://localhost:5173",
   methods: "GET, POST", // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true,
 };
 app.use(cors(corsOptions));
-// app.use(cors());
+
 //MYSQL
 const pool = mysql.createPool({
   connectionLimit: 10,

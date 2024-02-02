@@ -41,6 +41,7 @@ body {
 
 h1 {
   font-weight: bold;
+
   margin: 0;
 }
 
@@ -50,7 +51,7 @@ h2 {
 }
 
 p {
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 100;
   line-height: 20px;
   letter-spacing: 0.5px;
@@ -58,12 +59,12 @@ p {
 }
 
 span {
-  font-size: 12px;
+  font-size: 16px;
 }
 
 a {
   color: #333;
-  font-size: 14px;
+  font-size: 16px;
   text-decoration: none;
   margin: 15px 0;
 }
@@ -73,7 +74,7 @@ button {
   border: 1px solid #ff4b2b;
   background-color: #ff4b2b;
   color: #ffffff;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: bold;
   /* padding: 12px 45px; */
   letter-spacing: 1px;
@@ -201,7 +202,11 @@ input {
 
 .overlay {
   background: #ff416c;
-  background: -webkit-linear-gradient(to right, #820000, #ff416c);
+  background: -webkit-linear-gradient(
+    to right,
+    #820000,
+    #ff416c
+  );
   background: linear-gradient(to right, #e80013, #820000);
   background-repeat: no-repeat;
   background-size: cover;

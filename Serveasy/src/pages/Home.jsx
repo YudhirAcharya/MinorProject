@@ -4,6 +4,7 @@ import Category from "../components/Category";
 import FeatureSection from "../components/FeatureSection";
 import NewsLetter from "../components/NewsLetter";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 const Home = () => {
   return (
     <div>
@@ -13,6 +14,7 @@ const Home = () => {
 
       <FeatureSection />
       <NewsLetter />
+      <Footer />
     </div>
   );
 };

@@ -11,7 +11,9 @@ const Footer = () => {
             alt=""
             className=" w-32  "
           />
-          <p className=" pt-4 ">Order meal bla bla</p>
+          <p className=" pt-4 ">
+            For various meal options{" "}
+          </p>
         </div>
         <div className=" border-2 flex flex-[3]  flex-row w-full justify-between ">
           footer notes
