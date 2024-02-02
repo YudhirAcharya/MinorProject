@@ -49,15 +49,15 @@ const FeatureSection = () => {
             className="w-full h-full object-cover"
           />
         </div>
-        {productData?.data &&
-          productData?.data
-            .filter((_, index) => index < 7)
+        {productData &&
+          productData
+            .filter((_, index) => index < 15)
             .map((product) => (
               <ProductCard
                 key={product.FoodID}
                 img={product.imageurl}
                 name={product.TranslatedRecipeName}
-                price={product.price}
+                price={Math.round(product.price * 1.59)}
               />
             ))}
       </div>
