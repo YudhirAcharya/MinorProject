@@ -18,12 +18,18 @@ const ProductCard = ({ img, name, price }) => {
           <AiFillStar />
           <AiOutlineStar />
         </div>
+      </div>
+      <div className="grid grid-cols-1 gap-2 px-3 py-1">
         <h3 className="font-medium">{name}</h3>
-        <h3 className="text-2xl font-medium text-warning ">{`Rs.` + price}</h3>
-        <button className="absolute top-0.5 right-2 bg-secondary text-white text-[28px] w-[100px] h-[50px] rounded-full flex justify-content-center items-center cursor-pointer pl-4 gap-1 hover:bg-warning">
-          <AiOutlineShopping />
-          <span className=" text-[14px]">Add</span>
-        </button>
+        <div className="grid grid-cols-2 gap-1 align-items-center">
+          <h3 className="text-2xl font-medium text-warning ">
+            {`Rs.` + price}
+          </h3>
+          <button className="absolute border-none bottom-2.5 right-2 bg-warning text-white text-[28px] w-[100px] h-[50px] rounded-full flex justify-content-center items-center cursor-pointer pl-4 gap-1 hover:bg-primary hover:text-black">
+            <AiOutlineShopping />
+            <span className=" text-[14px]">Add</span>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,8 @@ export default {
     extend: {
       container: {
         center: true,
-        padding: "15px",
+        padding: 0,
+        rounded: 0,
       },
       width: {
         150: "150px",
