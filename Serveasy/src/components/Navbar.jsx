@@ -18,7 +18,7 @@ const Navbar = () => {
           className="w-[250px] mx-5 h-auto"
         />
       </Link>
-      <ul className="list-none sm:flex hidden justify-end items-center flex-1">
+      <ul className="list-none sm:flex hidden justify-center items-center flex-1">
         {navLinks.map((nav) => (
           <li key={nav.id} className="cursor-pointer mr-6">
             <NavLink
@@ -62,9 +62,7 @@ const Navbar = () => {
                 key={nav.id}
                 className="cursor-pointer text-[22px] mr-6 hover:text-warning"
               >
-                <NavLink to={`${nav.id}`}>
-                  {nav.title}
-                </NavLink>
+                <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
               </li>
             ))}
           </ul>
