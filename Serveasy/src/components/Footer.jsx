@@ -1,10 +1,10 @@
-import React from "react";
+// import React from "react";
 import { FaTwitter, FaLinkedinIn, FaGithub, FaInstagram } from "react-icons/fa";
 const Footer = () => {
   const Year = new Date().getFullYear();
   return (
-    <footer className="container mx-auto w-full">
-      <div className=" fixed-bottom mt-100 h-[500px]  w-full bg-primary  overflow-hidden">
+    <footer className="container min-w-full shadow-none rounded-none">
+      <div className=" fixed-bottom mt-200 min-h-[500px] bg-primary  overflow-hidden z-[1]">
         <svg
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@ const Footer = () => {
             className="relative block fill-white w-100"
           ></path>
         </svg>
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-15 text-[18px]">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-15 text-[18px] px-4">
           <div className="flex flex-col">
             <h2 className="text-3xl text-grey-500 my-4 font-semibold text-black py-2 uppercase">
               Footer
@@ -100,7 +100,7 @@ const Footer = () => {
             </div>
           </div> */}
         </div>
-        <h6 className="text-center w-50 h-50">
+        <h6 className="text-center w-50 h-50 mb-2">
           &copy; Copy rights reserved {Year}
         </h6>
       </div>

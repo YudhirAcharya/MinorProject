@@ -15,7 +15,7 @@ const Navbar = () => {
         <img
           src="./public/logos/logo_linear.png"
           alt="Serveasy logo"
-          className="w-[250px] mx-5 h-auto"
+          className="w-[200px] mx-5 h-auto"
         />
       </Link>
       <ul className="list-none sm:flex hidden justify-center items-center flex-1">
