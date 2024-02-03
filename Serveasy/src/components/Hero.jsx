@@ -2,7 +2,7 @@
 import { BsArrowRight } from "react-icons/bs";
 const Hero = () => {
   return (
-    <div className="container py-10 px-4 shadow-none">
+    <div className="container min-w-full py-10 px-6 shadow-none">
       <div className="grid xl:grid-cols-3 xl:grid-rows-2 gap-8">
         <div className="relative xl:col-span-2 xl:row-start-1 xl:row-end-[-1]">
           <img

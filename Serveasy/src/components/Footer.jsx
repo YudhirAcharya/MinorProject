@@ -3,8 +3,8 @@ import { FaTwitter, FaLinkedinIn, FaGithub, FaInstagram } from "react-icons/fa";
 const Footer = () => {
   const Year = new Date().getFullYear();
   return (
-    <footer className="container w-full shadow-none">
-      <div className=" fixed-bottom mt-100 min-h-[500px]  w-full bg-primary  overflow-hidden">
+    <footer className="container min-w-full shadow-none rounded-none">
+      <div className=" fixed-bottom mt-200 min-h-[500px] bg-primary  overflow-hidden z-[1]">
         <svg
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"

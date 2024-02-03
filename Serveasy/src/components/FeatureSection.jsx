@@ -27,7 +27,7 @@ const FeatureSection = () => {
     fetchData();
   }, []);
   return (
-    <div className="container shadow-none py-10 px-4">
+    <div className="container shadow-none py-10  px-6 rounded-none min-w-full">
       <div className="lg:flex justify-between items-center">
         <div>
           <h3 className="font-medium text-2xl">Most Selling Foods:</h3>
@@ -44,7 +44,7 @@ const FeatureSection = () => {
       <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 pt-8 gap-2">
         <div>
           <img
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.fabbox.in%2Fcollections%2Fchef-recommendations&psig=AOvVaw1I5ulyGti7kEtP_pEw2tTT&ust=1706719464042000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCOjT-s7HhYQDFQAAAAAdAAAAABAE"
+            src="public\images\chefs-kiss-french-chef.gif"
             alt="banner"
             className="w-full h-full object-cover"
           />
@@ -58,6 +58,8 @@ const FeatureSection = () => {
                 img={product.imageurl}
                 name={product.TranslatedRecipeName}
                 price={Math.round(product.price * 1.59)}
+                cusising={product.Cuisine}
+                ingredients={product.CleanedIngredients}
               />
             ))}
       </div>
