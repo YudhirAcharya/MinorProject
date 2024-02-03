@@ -1,11 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-const pool = require("./../app");
+
+// const pool = require("./../app");
+
 exports.getAllFoods = (req, res) => {
   const pool = req.pool;
   pool.getConnection((err, connection) => {
     if (err) throw err;
-    console.log(`connected as id ${connection.threadId}`);
+    // console.log(`connected as id ${connection.threadId}`);
 
     connection.query("Select * from food", (err, rows) => {
       connection.release();
@@ -31,7 +33,7 @@ exports.getaFood = (req, res) => {
   const pool = req.pool;
   pool.getConnection((err, connection) => {
     if (err) throw err;
-    console.log(`connected as id ${connection.threadId}`);
+    // console.log(`connected as id ${connection.threadId}`);
 
     connection.query(
       "Select * from food where FoodID=?",
