@@ -5,6 +5,7 @@ import { AiOutlineStar, AiFillStar, AiOutlineShopping } from "react-icons/ai";
 // import Product from "../pages/Product";
 import { NavLink, useNavigate } from "react-router-dom";
 const ProductCard = ({ img, name, price, cuisine, ingredients }) => {
+  console.log(img, name, price, cuisine, ingredients);
   // const [enter, setEnter] = useState(false);
   const navigate = useNavigate();
   // const handleEnter = () => {
