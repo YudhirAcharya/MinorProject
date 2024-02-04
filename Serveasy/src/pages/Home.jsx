@@ -5,7 +5,7 @@ import FeatureSection from "../components/FeatureSection";
 import NewsLetter from "../components/NewsLetter";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Product from "./Product";
+
 const Home = () => {
   return (
     <div>

@@ -10,6 +10,7 @@ import donuts from "./animations/donuts.json";
 import Lottie from "lottie-react";
 // import Footer from "./components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Product from "./pages/Product";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
 
@@ -44,6 +45,7 @@ function App() {
             <Route path="/account" element={<Account />}></Route>
             <Route path="/signing" element={<Signing />}></Route>
             <Route path="*" element={<Error />}></Route>
+            <Route path="/product" element={<Product />}></Route>
           </Routes>
         </BrowserRouter>
       )}
