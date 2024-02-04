@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import propTypes from "prop-types";
 import { GiShoppingCart } from "react-icons/gi";
-import { IoCartOutline, IoCloseOutline } from "react-icons/io5";
-import { GrFormPrevious } from "react-icons/gr";
-import { GrFormNext } from "react-icons/gr";
+// import { IoCartOutline, IoCloseOutline } from "react-icons/io5";
+// import { GrFormPrevious } from "react-icons/gr";
+// import { GrFormNext } from "react-icons/gr";
 
-const Product = ({ image, price, name, cuisine, ingredients }) => {
+const Product = () => {
   const [qty, setQty] = useState(0);
+  const { state } = useLocation();
+  const { image, name, price, cuisine, ingredients } = state;
+  console.log(image, name, price, cuisine, ingredients);
   return (
     <section className="flex flex-col justify-between lg:flex-row p-5 gap-16">
       <div className="flex flex-col gap-6 lg:w-3/4">
