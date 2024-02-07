@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+
 const bcrypt = require("bcrypt");
+
 // Insert a user
 exports.registerUser = (req, res) => {
   const pool = req.pool;

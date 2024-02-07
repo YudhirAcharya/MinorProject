@@ -1,7 +1,7 @@
 // import React from "react";
 // import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function SignUpForm() {
   const [state, setState] = useState({
@@ -29,7 +29,7 @@ function SignUpForm() {
       return `u_${uuidv4()}`;
     }
     const uniqueUserId = generateUniqueUserId();
-
+    // axios.defaults.withCredentials = true;
     console.log(state);
 
     for (const key in state) {
@@ -40,7 +40,7 @@ function SignUpForm() {
       });
     }
     // axios
-    //   .post("http://127.0.0.1/users/register", state)
+    //   .post("http://127.0.0.1:3001/users/register", state)
     //   .then((res) => {
     //     if (res.data.Status === "Success") {
     //       navigate("/SignIn2");
@@ -49,28 +49,84 @@ function SignUpForm() {
     //     }
     //   })
     //   .then((err) => console.log(err));
-  };
-  useEffect(() => {
-    // Assuming `state` contains the registration data
-    fetch("http://127.0.0.1/users/register", {
+    fetch("http://127.0.0.1:3001/users/register", {
       method: "POST",
-      credentials: "include",
       body: JSON.stringify(state),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
-      .then((res) => {
-        if (res.success) {
-          navigate("/success");
-        } else {
-          res.message || "Registration failed, please check your details.";
-        }
+      .then(() => {
+        navigate("/SignIn2");
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [state]);
+  };
+  // useEffect(() => {
+  //   // Assuming `state` contains the registration data
+  //   fetch("http://127.0.0.1/users/register", {
+  //     method: "POST",
+  //     body: JSON.stringify(state),
+  //     headers: { "Content-Type": "application/json" },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((res) => {
+  //       if (res.success) {
+  //         navigate("/success");
+  //       } else {
+  //         res.message || "Registration failed, please check your details.";
+  //       }
+  //     });
+  // }, [state]);
 
+  // function SignUpForm() {
+  //   const [state, setState] = useState({
+  //     user_id: "",
+  //     user_name: "",
+  //     full_name: "",
+  //     email: "",
+  //     password: "",
+  //     phone_number: "",
+  //     role: "user",
+  //   });
+
+  //   const [error, setError] = useState(null);
+  //   const navigate = useNavigate();
+
+  //   useEffect(() => {
+  //     const registerUser = async () => {
+  //       try {
+  //         const response = await fetch("127.0.0.1:3001/users/register", {
+  //           method: "POST",
+  //           headers: { "Content-Type": "application/json" },
+  //           body: JSON.stringify(state),
+  //         });
+
+  //         if (!response.ok) {
+  //           throw new Error("Failed to register user");
+  //         }
+
+  //         navigate("/login");
+  //       } catch (error) {
+  //         setError(error.message);
+  //       }
+  //     };
+
+  //     registerUser();
+  //   }, [state, navigate]);
+
+  //   const handleChange = (e) => {
+  //     setState({
+  //       ...state,
+  //       user_id: `u_${uuidv4()}`,
+  //       [e.target.name]: e.target.value,
+  //     });
+  //     console.log(state);
+  //   };
+
+  //   const handleOnSubmit = (e) => {
+  //     e.preventDefault();
+  //   };
   return (
     <div className="form-container sign-up-container">
       <form onSubmit={handleOnSubmit}>
