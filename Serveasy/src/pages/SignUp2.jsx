@@ -1,7 +1,7 @@
-import React from "react";
-import axios from "axios";
+// import React from "react";
+// import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function SignUpForm() {
   const [state, setState] = useState({
@@ -39,17 +39,37 @@ function SignUpForm() {
         [key]: "",
       });
     }
-    axios
-      .post("http://127.0.0.1/users/register", state)
+    // axios
+    //   .post("http://127.0.0.1/users/register", state)
+    //   .then((res) => {
+    //     if (res.data.Status === "Success") {
+    //       navigate("/SignIn2");
+    //     } else {
+    //       alert("error!");
+    //     }
+    //   })
+    //   .then((err) => console.log(err));
+  };
+  useEffect(() => {
+    // Assuming `state` contains the registration data
+    fetch("http://127.0.0.1/users/register", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(state),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
       .then((res) => {
-        if (res.data.Status === "Success") {
-          navigate("/SignIn2");
+        if (res.success) {
+          navigate("/success");
         } else {
-          alert("error!");
+          res.message || "Registration failed, please check your details.";
         }
       })
-      .then((err) => console.log(err));
-  };
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [state]);
 
   return (
     <div className="form-container sign-up-container">
@@ -114,7 +134,7 @@ function SignUpForm() {
             <option value="user" className="options">
               User
             </option>
-            <option value="chef" className="options">
+            <option value="chef" className="option">
               Chef
             </option>
           </select>

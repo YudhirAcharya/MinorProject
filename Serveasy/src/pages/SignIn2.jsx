@@ -33,16 +33,31 @@ function SignInForm() {
         [key]: "",
       });
     }
-    axios
-      .post("http://127.0.0.1/users/register", state)
-      .then((res) => {
-        if (res.data.Status === "Success") {
-          navigate("/");
-        } else {
-          alert(res.data.Error);
-        }
+    // axios
+    //   .post("http://127.0.0.1/users/register", state)
+    //   .then((res) => {
+    //     if (res.data.Status === "Success") {
+    //       navigate("/");
+    //     } else {
+    //       alert(res.data.Error);
+    //     }
+    //   })
+    //   .then((err) => console.log(err));
+    fetch("http://127.0.0.1/users/register", {
+      method: "POST",
+      body: JSON.stringify(state),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => response.json())
+      .then(() => {
+        // Handle successful response
+        // e.g., navigate to a different page
+        navigate("/success"); // Assuming a success page exists
       })
-      .then((err) => console.log(err));
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle errors appropriately
+      });
   };
 
   return (
