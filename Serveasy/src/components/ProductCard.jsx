@@ -1,32 +1,49 @@
 import { useState } from "react";
+
 import propTypes from "prop-types";
 import { AiOutlineStar, AiFillStar, AiOutlineShopping } from "react-icons/ai";
-import Product from "../pages/Product";
-import { NavLink } from "react-router-dom";
+// import Product from "../pages/Product";
+import { NavLink, useNavigate } from "react-router-dom";
 const ProductCard = ({ img, name, price, cuisine, ingredients }) => {
-  const [enter, setEnter] = useState(false);
-
-  const handleEnter = () => {
-    setEnter(!enter);
-    console.log("enter:" + enter);
-    enter ? (
-      <NavLink to="/Product">
-        <Product
-          image={img}
-          price={price}
-          name={name}
-          cuisine={cuisine}
-          ingredients={ingredients}
-        />
-      </NavLink>
-    ) : null;
+  console.log(img, name, price, cuisine, ingredients);
+  // const [enter, setEnter] = useState(false);
+  const navigate = useNavigate();
+  // const handleEnter = () => {
+  //   setEnter(!enter);
+  //   console.log("enter:" + enter);
+  // };
+  const handleClick = () => {
+    navigate("/product", {
+      state: {
+        img,
+        name,
+        price,
+        cuisine,
+        ingredients,
+      },
+    });
   };
   return (
     <div
       className="border border-gray-200 hover:border-gray-400 transition-transform rounded-lg relative"
-      onClick={handleEnter}
-      value={enter}
+      onClick={handleClick}
+      // value={enter}
     >
+      {/* {enter && (
+        <NavLink
+          to="/product"
+          state={{
+            image: img,
+            price: price,
+            name: name,
+            cuisine: cuisine,
+            ingredients: ingredients,
+          }}
+        >
+          <Product />
+        </NavLink>
+      )} */}
+
       <img
         className="w-full h-[200px] object-cover rounded-lg rounded-b-none"
         src={img}
