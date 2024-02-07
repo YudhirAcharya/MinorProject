@@ -9,14 +9,19 @@ export default function Signing() {
 
   // Separate formData states for sign-in and sign-up
   const [signInFormData, setSignInFormData] = useState({
-    username: "",
+    email: "",
     password: "",
+    role: "",
   });
 
   const [signUpFormData, setSignUpFormData] = useState({
-    username: "",
-    password: "",
+    user_id: "",
+    user_name: "",
+    full_name: "",
     email: "",
+    password: "",
+    phone_number: "",
+    role: "",
   });
 
   const handleOnClick = (text) => {
