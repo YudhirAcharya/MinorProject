@@ -34,7 +34,7 @@ function SignUpForm() {
       });
     }
     axios
-      .post("http://127.0.0.1:3001/", state)
+      .post("http://127.0.0.1/users/register", state)
       .then((res) => {
         if (res.data.Status === "Success") {
           navigate("/SignIn2");
