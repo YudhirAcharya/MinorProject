@@ -59,7 +59,7 @@ export default function Signing() {
     <div>
       <Navbar />
 
-      <div className={`${containerClass} mx-auto my-auto `} id="container">
+      <div className={`${containerClass} mx-auto my-5 `} id="container">
         <SignUpForm
           formData={signUpFormData}
           onInputChange={handleInputChange}

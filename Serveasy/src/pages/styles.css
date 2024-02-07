@@ -6,19 +6,19 @@
 @media (max-width: 1200px) {
   .container {
     width: 90%; /* Adjust width for smaller screens */
-    margin: 0 5%; /* Maintain gaps on smaller screens */
+    margin: 0 2.5%; /* Maintain gaps on smaller screens */
   }
 }
 @media (max-width: 768px) {
   .container {
     width: 90%; /* Adjust width for smaller screens */
-    margin: 0 5%; /* Maintain gaps on smaller screens */
+    margin: 0 2.5%; /* Maintain gaps on smaller screens */
   }
 }
 @media (max-width: 280px) {
   .container {
     width: 90%; /* Adjust width for smaller screens */
-    margin: 0 5%; /* Maintain gaps on smaller screens */
+    margin: 0 2.5%; /* Maintain gaps on smaller screens */
   }
 }
 * {
@@ -28,21 +28,26 @@
 }
 
 body {
-  background: #f6f5f7;
+  background: #fff;
   display: flex;
   justify-content: center;
-
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 100vh;
+  height: 100%;
   margin: -20px 0 50px;
   max-width: 100%;
 }
-
+.form-login-title {
+  font-size: 30px;
+  padding: 30px 0;
+}
+.form-title {
+  font-size: 30px;
+  padding: 15px 0;
+}
 h1 {
   font-weight: bold;
-
-  margin: 0;
+  margin-bottom: 10px;
 }
 
 h2 {
@@ -63,7 +68,7 @@ span {
 }
 
 a {
-  color: #333;
+  color: #282a2c;
   font-size: 16px;
   text-decoration: none;
   margin: 15px 0;
@@ -71,8 +76,8 @@ a {
 
 button {
   border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background-color: #ff4b2b;
+  border: 1px solid #ffc93c;
+  background-color: #ffc93c;
   color: #ffffff;
   font-size: 16px;
   font-weight: bold;
@@ -98,7 +103,7 @@ button.ghost {
 }
 button.ghost:hover {
   background-color: #fff;
-  color: #820000;
+  color: #ffc93c;
   transition: transform 100000ms ease-in-out;
 }
 
@@ -108,20 +113,20 @@ form {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 50px;
-  height: 100%;
+  padding: 0 20px;
   text-align: center;
+  height: 100%;
 }
 
 input {
   background-color: #eee;
   border: none;
-  padding: 40px 15px;
+  padding: 50px 15px;
   margin: 8px 0;
   width: 100%;
   border-radius: 10px;
   text-indent: 15px;
-  height: 40px;
+  height: 60px;
 }
 
 .container {
@@ -132,18 +137,19 @@ input {
     0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  display: flexbox;
+  display: flex;
   justify-content: space-around;
-  width: 1000px;
-  margin: 0 auto;
+  width: 800px;
+  margin: 0px 100px;
   /* max-width: 80%; */
-  min-height: 480px;
+
+  min-height: 580px;
 }
 
 .form-container {
   position: absolute;
   top: 0;
-  height: 100%;
+  min-height: 100%;
   transition: all 0.6s ease-in-out;
 }
 
@@ -201,17 +207,13 @@ input {
 }
 
 .overlay {
-  background: #ff416c;
-  background: -webkit-linear-gradient(
-    to right,
-    #820000,
-    #ff416c
-  );
-  background: linear-gradient(to right, #e80013, #820000);
+  background: #ffc93c;
+  background: -webkit-linear-gradient(to right, #ffc93c, #b19765);
+  background: linear-gradient(to right, #ffe49e, #ffc93c);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
-  color: #ffffff;
+  color: #222;
   position: relative;
   left: -100%;
   height: 100%;
@@ -270,28 +272,52 @@ input {
   height: 40px;
   width: 40px;
 }
+.selects {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 4px;
+  width: 200px;
+  border-radius: 10px;
+}
+.selects .options {
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  font-weight: normal;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
+.selects .options:checked {
+  background-color: #ffe49e;
+}
+.selects .options:hover {
+  background-color: #ffc93c;
+  color: #222;
+}
 .input-box2 {
   width: 100%;
   border-radius: 5px;
   display: grid;
-  grid-template-rows: 45% 45%;
-  padding: 5px;
-  row-gap: 10px;
+  grid-template-rows: 30% 30% 30%;
+  padding: 20px;
+  row-gap: 20%;
+  margin-bottom: 20px;
 }
 .input-box3 {
   width: 100%;
   border-radius: 5px;
   display: grid;
-  padding: 15px 5px;
-  grid-template-rows: 30% 30% 30%;
+  padding: 5px 5px;
+  grid-template-rows: 15% 15% 15% 15% 15% 15%;
   row-gap: 10px;
+  margin-bottom: 20px;
 }
 .main-button {
   padding: 6px 30px;
 }
 button.main-button:hover {
-  background-color: #ff4b2b;
+  background-color: #ffc93c;
   color: #fff;
   transition: transform 100000ms ease-in-out;
 }
@@ -313,10 +339,10 @@ footer p {
 }
 
 footer i {
-  color: red;
+  color: #ffc93c;
 }
 
 footer a {
-  color: #3c97bf;
+  color: #4e6c50;
   text-decoration: none;
 }
