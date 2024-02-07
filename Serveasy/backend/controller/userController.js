@@ -62,3 +62,43 @@ exports.registerUser = (req, res) => {
     }
   });
 };
+exports.loginUser = (req, res) => {
+  const { email, checkPassword: password } = req.body;
+  const pool = req.pool;
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    connection.query(
+      "SELECT email,password FROM user WHERE email=?",
+      [email],
+      (err, result) => {
+        connection.release();
+        if (err) {
+          // Handle the error
+          console.log("Error retrieving user:", err);
+          return res
+            .status(500)
+            .json({ status: "error", error: "Internal Server Error" });
+        }
+        if (result.length === 0) {
+          // If user not found, send appropriate response
+          return res
+            .status(404)
+            .json({ status: "error", error: "User not found" });
+        }
+        const storedPassword = result[0].password;
+        const storedEmail = result[0].email;
+
+        if (result.length > 1)
+          // Check if email already exists
+          return res.json({
+            status: "success",
+            success: "Exisiting User",
+            data: {
+              email: email,
+              hashedPassword: storedPassword,
+            },
+          });
+      },
+    );
+  });
+};
