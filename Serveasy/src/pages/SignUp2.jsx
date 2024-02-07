@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function SignUpForm() {
   const [state, setState] = React.useState({
     name: "",
@@ -13,9 +15,12 @@ function SignUpForm() {
     });
   };
 
+  const navigate = useNavigate();
+
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
 
+    // log garna lai object
     const { name, email, password } = state;
     console.log(
       `You are sign up with name: ${name} email: ${email} and password: ${password}`
@@ -28,6 +33,16 @@ function SignUpForm() {
         [key]: "",
       });
     }
+    axios
+      .post("http://127.0.0.1:3001/", state)
+      .then((res) => {
+        if (res.data.Status === "Success") {
+          navigate("/SignIn2");
+        } else {
+          alert("error!");
+        }
+      })
+      .then((err) => console.log(err));
   };
 
   return (
@@ -70,10 +85,7 @@ function SignUpForm() {
             placeholder="Password"
           />
         </div>
-        <button
-          className="main-button"
-          style={{ marginTop: "15px" }}
-        >
+        <button className="main-button" style={{ marginTop: "15px" }}>
           Sign Up
         </button>
       </form>
