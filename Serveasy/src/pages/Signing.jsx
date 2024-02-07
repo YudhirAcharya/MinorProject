@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./styles.css";
 import SignInForm from "./SignIn2";
-import SignUpForm from "./SignUP2";
+import SignUpForm from "./SignUp2";
 import Navbar from "../components/Navbar";
 
 export default function Signing() {
@@ -43,37 +43,23 @@ export default function Signing() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (type === "signIn") {
-      console.log(
-        "Sign In Form data submitted:",
-        signInFormData
-      );
+      console.log("Sign In Form data submitted:", signInFormData);
       // Handle sign-in form submission logic here
     } else if (type === "signUp") {
       // Handle sign-up form submission logic here
-      console.log(
-        "Sign Up Form data submitted:",
-        signUpFormData
-      );
+      console.log("Sign Up Form data submitted:", signUpFormData);
     }
-    console.log(
-      "Form submitted",
-      setSignInFormData,
-      setSignUpFormData
-    );
+    console.log("Form submitted", setSignInFormData, setSignUpFormData);
   };
 
   const containerClass =
-    "container " +
-    (type === "signUp" ? "right-panel-active" : "");
+    "container " + (type === "signUp" ? "right-panel-active" : "");
 
   return (
     <div>
       <Navbar />
 
-      <div
-        className={`${containerClass} mx-auto my-auto `}
-        id="container"
-      >
+      <div className={`${containerClass} mx-auto my-auto `} id="container">
         <SignUpForm
           formData={signUpFormData}
           onInputChange={handleInputChange}
@@ -89,8 +75,7 @@ export default function Signing() {
             <div className="overlay-panel overlay-left">
               <h1>Welcome Back!</h1>
               <p>
-                To keep connected with us please login with
-                your personal info
+                To keep connected with us please login with your personal info
               </p>
               <button
                 className="ghost"
@@ -102,10 +87,7 @@ export default function Signing() {
             </div>
             <div className="overlay-panel overlay-right">
               <h1>Hello, Friend!</h1>
-              <p>
-                Enter your personal details and start
-                journey with us
-              </p>
+              <p>Enter your personal details and start journey with us</p>
               <button
                 className="ghost "
                 id="signUp"

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import propTypes from "prop-types";
 import { GiShoppingCart } from "react-icons/gi";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { BiSolidPurchaseTag } from "react-icons/bi";
 // import { IoCartOutline, IoCloseOutline } from "react-icons/io5";
 // import { GrFormPrevious } from "react-icons/gr";
 // import { GrFormNext } from "react-icons/gr";
@@ -12,8 +13,23 @@ const Product = () => {
   const [qty, setQty] = useState(0);
   const { state } = useLocation();
   const { img, name, price, cuisine, ingredients } = state;
-  console.log(state);
-  console.log(img, name, price, cuisine, ingredients);
+  const [buy, setBuy] = React.useState({});
+
+  const handlePurchase = (evt) => {
+    evt.preventDefault();
+    setBuy((prevState) => ({
+      ...prevState,
+      orderId: Math.floor(Math.random() * 100000) + 1,
+      userId: Math.floor(Math.random() * 1000) + 1,
+      foodName: name,
+      quantity: qty,
+      totalprice: price * qty,
+    }));
+    setQty(0);
+  };
+  useEffect(() => {
+    console.log(buy);
+  }, [buy]);
   return (
     <>
       <Navbar />
@@ -63,6 +79,16 @@ const Product = () => {
               <GiShoppingCart className="text-[38px] " />
               <span className="font-semibold py-3 px-2 rounded-xl h-full">
                 Add to Cart
+              </span>
+            </button>
+            <button
+              className="flex items-center gap-4 justify-center bg-warning py-2 w-full text-lightColor rounded-lg shadow mt-5 hover:bg-primary hover:text-textColor border-none"
+              onClick={handlePurchase}
+              value={buy}
+            >
+              <BiSolidPurchaseTag className="text-[38px] " />
+              <span className="font-semibold py-3 px-2 rounded-xl h-full">
+                Buy Now
               </span>
             </button>
           </div>
