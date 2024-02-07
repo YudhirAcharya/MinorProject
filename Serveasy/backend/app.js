@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
@@ -7,12 +8,13 @@ const usersRoutes = require("./routes/usersRoutes");
 const cors = require("cors");
 const app = express();
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
 
+app.use(express.json());
 const corsOptions = {
   origin: "http://localhost:5173",
   methods: "GET,POST,PUT,PATCH,DELETE", // some legacy browsers (IE11, various SmartTVs) choke on 204
