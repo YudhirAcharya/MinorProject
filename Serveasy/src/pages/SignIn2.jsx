@@ -5,6 +5,7 @@ function SignInForm() {
   const [state, setState] = React.useState({
     email: "",
     password: "",
+    role: "",
   });
   const handleChange = (evt) => {
     evt.preventDefault();
@@ -20,8 +21,10 @@ function SignInForm() {
     evt.preventDefault();
 
     // log garna lai object
-    const { email, password } = state;
-    console.log(`You are login with email: ${email} and password: ${password}`);
+    const { email, password, role } = state;
+    console.log(
+      `You are a ${role} and logged in with email: ${email} and password: ${password}`
+    );
     console.log(state);
 
     for (const key in state) {
@@ -45,7 +48,7 @@ function SignInForm() {
   return (
     <div className="form-container sign-in-container">
       <form onSubmit={handleOnSubmit}>
-        <h1>Sign in</h1>
+        <h1 className="form-login-title">Sign in</h1>
 
         <div className="input-box2">
           <input
@@ -62,6 +65,19 @@ function SignInForm() {
             value={state.password}
             onChange={handleChange}
           />
+          <select
+            name="role"
+            value={state.role}
+            onChange={handleChange}
+            className="selects"
+          >
+            <option value="chef" className="options">
+              Chef
+            </option>
+            <option value="user" className="options">
+              User
+            </option>
+          </select>
         </div>
         <a href="#">Forgot your password?</a>
         <button className="main-button">Sign In</button>

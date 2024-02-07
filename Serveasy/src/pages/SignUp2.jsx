@@ -1,11 +1,17 @@
 import React from "react";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function SignUpForm() {
-  const [state, setState] = React.useState({
-    name: "",
+  const [state, setState] = useState({
+    user_id: "",
+    user_name: "",
+    full_name: "",
     email: "",
     password: "",
+    phone_number: "",
+    role: "user",
   });
   const handleChange = (evt) => {
     const value = evt.target.value;
@@ -19,17 +25,17 @@ function SignUpForm() {
 
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
+    function generateUniqueUserId() {
+      return `u_${uuidv4()}`;
+    }
+    const uniqueUserId = generateUniqueUserId();
 
-    // log garna lai object
-    const { name, email, password } = state;
-    console.log(
-      `You are sign up with name: ${name} email: ${email} and password: ${password}`
-    );
     console.log(state);
 
     for (const key in state) {
       setState({
         ...state,
+        user_id: uniqueUserId,
         [key]: "",
       });
     }
@@ -48,7 +54,7 @@ function SignUpForm() {
   return (
     <div className="form-container sign-up-container">
       <form onSubmit={handleOnSubmit}>
-        <h1>Create Account</h1>
+        <h1 className="form-title">Create Account</h1>
 
         {/* <div className="social-container">
           <a href="#" className="social">
@@ -61,14 +67,21 @@ function SignUpForm() {
             <i className="fab fa-linkedin-in" />
           </a>
         </div> */}
-        <span>Use your email for registration</span>
+
         <div className="input-box3">
           <input
             type="text"
-            name="name"
-            value={state.name}
+            name="full_name"
+            value={state.full_name}
             onChange={handleChange}
-            placeholder="Name"
+            placeholder="Full Name"
+          />
+          <input
+            type="text"
+            name="user_name"
+            value={state.user_name}
+            onChange={handleChange}
+            placeholder="User Name"
           />
           <input
             type="email"
@@ -84,10 +97,29 @@ function SignUpForm() {
             onChange={handleChange}
             placeholder="Password"
           />
+
+          <input
+            type="tel"
+            name="phone_number"
+            value={state.phone_number}
+            onChange={handleChange}
+            placeholder="Phone Number"
+          />
+          <select
+            name="role"
+            value={state.role}
+            onChange={handleChange}
+            className="selects"
+          >
+            <option value="user" className="options">
+              User
+            </option>
+            <option value="chef" className="options">
+              Chef
+            </option>
+          </select>
         </div>
-        <button className="main-button" style={{ marginTop: "15px" }}>
-          Sign Up
-        </button>
+        <button className="main-button">Sign Up</button>
       </form>
     </div>
   );
