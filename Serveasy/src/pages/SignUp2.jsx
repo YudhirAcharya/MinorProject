@@ -15,8 +15,13 @@ function SignUpForm() {
   });
   const handleChange = (evt) => {
     const value = evt.target.value;
+    function generateUniqueUserId() {
+      return `u_${uuidv4()}`;
+    }
+    const uniqueUserId = generateUniqueUserId();
     setState({
       ...state,
+      user_id: uniqueUserId,
       [evt.target.name]: value,
     });
   };
@@ -25,17 +30,16 @@ function SignUpForm() {
 
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
-    function generateUniqueUserId() {
-      return `u_${uuidv4()}`;
-    }
-    const uniqueUserId = generateUniqueUserId();
+
+    setState((prevState) => ({
+      ...prevState,
+    }));
     // axios.defaults.withCredentials = true;
     console.log(state);
 
     for (const key in state) {
       setState({
         ...state,
-        user_id: uniqueUserId,
         [key]: "",
       });
     }
@@ -77,7 +81,7 @@ function SignUpForm() {
           res.message || "Registration failed, please check your details.";
         }
       });
-  }, [state]);
+  }, [state, navigate]);
 
   // function SignUpForm() {
   //   const [state, setState] = useState({
