@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 require("dotenv").config();
+
 const bcrypt = require("bcrypt");
-const comparePassword = require("./../utils/comparePassword");
-const jwt = require("jsonwebtoken");
 // Insert a user
 const signToken = (id, email) => {
   return jwt.sign({ id: id, email: email }, process.env.ACCESS_TOKEN_SECRET);
