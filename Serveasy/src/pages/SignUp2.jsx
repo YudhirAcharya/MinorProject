@@ -1,7 +1,7 @@
 // import React from "react";
 // import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function SignUpForm() {
   const [state, setState] = useState({
@@ -49,35 +49,35 @@ function SignUpForm() {
     //     }
     //   })
     //   .then((err) => console.log(err));
+    // fetch("http://127.0.0.1:3001/users/register", {
+    //   method: "POST",
+    //   body: JSON.stringify(state),
+    //   headers: { "Content-Type": "application/json" },
+    // })
+    //   .then((response) => response.json())
+    //   .then(() => {
+    //     navigate("/SignIn2");
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
+  };
+  useEffect(() => {
+    // Assuming `state` contains the registration data
     fetch("http://127.0.0.1:3001/users/register", {
       method: "POST",
       body: JSON.stringify(state),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
-      .then(() => {
-        navigate("/SignIn2");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+      .then((res) => {
+        if (res.success) {
+          navigate("/success");
+        } else {
+          res.message || "Registration failed, please check your details.";
+        }
       });
-  };
-  // useEffect(() => {
-  //   // Assuming `state` contains the registration data
-  //   fetch("http://127.0.0.1/users/register", {
-  //     method: "POST",
-  //     body: JSON.stringify(state),
-  //     headers: { "Content-Type": "application/json" },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       if (res.success) {
-  //         navigate("/success");
-  //       } else {
-  //         res.message || "Registration failed, please check your details.";
-  //       }
-  //     });
-  // }, [state]);
+  }, [state]);
 
   // function SignUpForm() {
   //   const [state, setState] = useState({
