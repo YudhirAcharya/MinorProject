@@ -8,6 +8,11 @@ export default {
         padding: 0,
         rounded: 0,
       },
+      fontFamily: {
+        Q: ["Quicksand", "sans-serif"],
+        G: ["Garamond", "serif"],
+        K: ["Kaushan Script"], // add this line
+      },
       width: {
         150: "150px",
         190: "190px",
@@ -43,6 +48,8 @@ export default {
         620: "620px",
       },
       screens: {
+        vvsm: "300px",
+        vsm: "420px",
         sm: "640px",
         md: "768px",
         lg: "1024px",
@@ -67,5 +74,13 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".scale-175x": {
+          transform: "scale(1.75)",
+        },
+      });
+    },
+  ],
 };

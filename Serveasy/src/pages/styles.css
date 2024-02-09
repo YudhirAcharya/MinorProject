@@ -3,6 +3,24 @@
   text-align: center;
   /* justify-content: center; */
 }
+@media (max-width: 2100px) {
+  .container {
+    width: 90%; /* Adjust width for smaller screens */
+    margin: 0 2.5%; /* Maintain gaps on smaller screens */
+  }
+}
+@media (max-width: 1800px) {
+  .container {
+    width: 90%; /* Adjust width for smaller screens */
+    margin: 0 2.5%; /* Maintain gaps on smaller screens */
+  }
+}
+@media (max-width: 1500px) {
+  .container {
+    width: 90%; /* Adjust width for smaller screens */
+    margin: 0 2.5%; /* Maintain gaps on smaller screens */
+  }
+}
 @media (max-width: 1200px) {
   .container {
     width: 90%; /* Adjust width for smaller screens */
