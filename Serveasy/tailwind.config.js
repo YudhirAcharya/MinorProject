@@ -82,5 +82,19 @@ export default {
         },
       });
     },
+    function ({ addUtilities }) {
+      addUtilities({
+        ".hide-lg-down": {
+          "@media (max-width: 1200px)": {
+            display: "none",
+          },
+        },
+        ".hide-vsm-down": {
+          "@media (max-width:550px)": {
+            display: "none",
+          },
+        },
+      });
+    },
   ],
 };
