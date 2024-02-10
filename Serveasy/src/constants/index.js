@@ -98,6 +98,28 @@ export const chefs = [
     title: "Executive Chef",
   },
 ];
+export const workInfoData = [
+  {
+    logo: "MdOutlineRecommend", // Assuming you want this icon
+    title: "Recommendations",
+    text: "Discover meals designed for you: personalized recommendations based on your preferences.",
+  },
+  {
+    logo: "AiFillSchedule", // Assuming you want this icon
+    title: "Schedule Your Meal",
+    text: "Pick your perfect plate, lock in your delivery date, and savor the ease.",
+  },
+  {
+    logo: "MdOutlineRateReview", // Assuming you want this icon
+    title: "Rate & Review",
+    text: "Share your love, rate & review meals to shape your future bites.",
+  },
+  {
+    logo: "TbTruckDelivery", // Assuming you want this icon
+    title: "Fast Deliveries",
+    text: "Fast food, slowed down: savor fresh, delicious meals delivered straight to your door.",
+  },
+];
 export const banner = [
   {
     id: 1,

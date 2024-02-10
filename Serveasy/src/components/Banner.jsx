@@ -5,23 +5,23 @@ import { FaInstagram } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
-const banners = [
-  {
-    id: 1,
-    title: "GREAT LOCATION",
-    desc: "Rorem ipsum dolor sit amet, etur advoluptatem voluptatem",
-  },
-  {
-    id: 2,
-    title: "NATURE FIRST",
-    desc: "Rorem ipsum dolor sit amet, etur advoluptatem voluptatem",
-  },
-  {
-    id: 3,
-    title: "HEALTHY FOOD",
-    desc: "Rorem ipsum dolor sit amet, etur advoluptatem voluptatem",
-  },
-];
+// const banners = [
+//   {
+//     id: 1,
+//     title: "GREAT LOCATION",
+//     desc: "Rorem ipsum dolor sit amet, etur advoluptatem voluptatem",
+//   },
+//   {
+//     id: 2,
+//     title: "NATURE FIRST",
+//     desc: "Rorem ipsum dolor sit amet, etur advoluptatem voluptatem",
+//   },
+//   {
+//     id: 3,
+//     title: "HEALTHY FOOD",
+//     desc: "Rorem ipsum dolor sit amet, etur advoluptatem voluptatem",
+//   },
+// ];
 
 const Banner = () => {
   return (
@@ -63,7 +63,7 @@ const Banner = () => {
                 />
               </div>
               <div className="flex lg:flex-col justify-start">
-                {banners.map((val) => {
+                {/* {banners.map((val) => {
                   <div
                     className="mb-[30px] flex justify-between align-items-center flex-row-reverse text-right"
                     key={val.id}
@@ -84,7 +84,7 @@ const Banner = () => {
                       <p>{val.desc}</p>
                     </div>
                   </div>;
-                })}
+                })} */}
               </div>
             </div>
           </div>
