@@ -1,6 +1,5 @@
 // import React from "react";
 
-import { BiFontFamily } from "react-icons/bi";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";

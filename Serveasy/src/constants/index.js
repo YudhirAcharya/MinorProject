@@ -68,7 +68,36 @@ export const SignUpinputs = [
     pattern: /^[A-Za-z0-9]{8,20}$/,
   },
 ];
-
+export const chefs = [
+  {
+    id: 1,
+    image:
+      "https://images.pexels.com/photos/3814446/pexels-photo-3814446.jpeg?cs=srgb&dl=pexels-miquel-ferran-gomez-figueroa-3814446.jpg&fm=jpg",
+    name: "Miquel Ferran Gomez",
+    title: "Sous-Chef",
+  },
+  {
+    id: 2,
+    image:
+      "https://images.pexels.com/photos/6578899/pexels-photo-6578899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    name: "Andres Ayrton",
+    title: "Pastry Chef",
+  },
+  {
+    id: 3,
+    image:
+      "https://images.pexels.com/photos/8629122/pexels-photo-8629122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    name: "Eurico Luiz",
+    title: "Head Chef",
+  },
+  {
+    id: 4,
+    image:
+      "https://images.pexels.com/photos/10241463/pexels-photo-10241463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    name: "Abdul Ali Khan",
+    title: "Executive Chef",
+  },
+];
 export const banner = [
   {
     id: 1,

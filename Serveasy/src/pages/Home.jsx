@@ -2,11 +2,11 @@
 import Hero from "../components/Hero";
 import Category from "../components/Category";
 import FeatureSection from "../components/FeatureSection";
-import NewsLetter from "../components/NewsLetter";
+
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 // import axios from "axios";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import Landing from "./Landing";
 const Home = () => {
   // const [auth, setAuth] = useState(false);
@@ -31,7 +31,7 @@ const Home = () => {
       <Hero />
       <Category />
       <FeatureSection />
-      <NewsLetter />
+
       <Footer />
     </div>
   );
