@@ -163,3 +163,39 @@ export const data = [
     price: 650,
   },
 ];
+export const customer = [
+  {
+    id: 1,
+    cover:
+      "https://images.pexels.com/photos/41008/cowboy-ronald-reagan-cowboy-hat-hat-41008.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+
+    desc: "Great food! Fresh, quick, friendly, delicious, affordable! Very flexible with orders. Great service! Great portions! If you want great seafood, this place will not disappoint you. Definitely.",
+    name: "Ronalnd D. Morgan",
+    post: "Founder & co",
+    ratenum: 4,
+  },
+  {
+    id: 2,
+    cover:
+      "https://images.pexels.com/photos/20089859/pexels-photo-20089859/free-photo-of-woman-in-tight-black-evening-dress-walking-behind-curtain.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+
+    desc: "Great food! Fresh, quick, friendly, delicious, affordable! Very flexible with orders. Great service! Great portions! If you want great seafood, this place will not disappoint you. Definitely.",
+    name: "Rasalina Decruz",
+    post: "Developer",
+    ratenum: 5,
+  },
+];
+export const cdata = [
+  {
+    num: "2K+",
+    name: "HAPPY CUSTOMER",
+  },
+  {
+    num: "4K+",
+    name: "AWARD WINNING",
+  },
+  {
+    num: "6K+",
+    name: "FOOD ITEMS MENU",
+  },
+];
