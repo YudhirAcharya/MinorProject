@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
-require("dotenv").config();
+
 const express = require("express");
+const { default: axios } = require("axios");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
@@ -8,8 +9,8 @@ const usersRoutes = require("./routes/usersRoutes");
 const cors = require("cors");
 const app = express();
 
-const port = process.env.PORT;
-
+const port = process.env.PORT || 3001;
+require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
@@ -50,6 +51,40 @@ app.use(
   },
   usersRoutes,
 );
+
+//Khalti Route
+app.post("/khalti-api", async (req, res) => {
+  const payload = req.body;
+  const khaltiResponse = await axios.post(
+    "https://a.khalti.com/api/v2/epayment/initiate/",
+    payload,
+    {
+      headers: {
+        Authorization: `Key ${process.env.KHALTI_SECRET_KEY}`,
+      },
+    },
+  );
+  if (khaltiResponse) {
+    res.json({
+      success: true,
+      data: khaltiResponse?.data,
+    });
+  } else {
+    res.json({
+      success: false,
+      message: "something went wrong",
+    });
+  }
+});
+
+// // TO TEST IF BACKEND HAS CONNECTION WITH MYSQL
+// pool.query("SELECT * FROM dummy", function (error, results, fields) {
+//   if (error) throw error;
+
+//   results.forEach((element) => {
+//     console.log(element);
+//   });
+// });
 
 //Listen on environment on port
 app.listen(port, () => console.log(`Listen on port ${port}`));
