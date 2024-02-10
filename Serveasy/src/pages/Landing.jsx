@@ -5,6 +5,7 @@ import Banner from "../components/Banner";
 import Promotion from "../components/Promotion";
 import HowItWorksSection from "../components/HowItWorksSection";
 import ChefTeam from "../components/ChefTeam";
+import SelectionForm from "./SelectionForm";
 const Landing = () => {
   return (
     <>
@@ -13,6 +14,7 @@ const Landing = () => {
       <Promotion />
       <HowItWorksSection />
       <ChefTeam />
+      <SelectionForm />
       <Footer />
     </>
   );
