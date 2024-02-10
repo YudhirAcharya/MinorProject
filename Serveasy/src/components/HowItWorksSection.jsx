@@ -14,7 +14,7 @@ const Work = () => {
         <h1 className="md:text-center md:max-w-[90%] text-4xl text-textColor max-w-[38rem]">
           How It Works?
         </h1>
-        <p className="md:text-center md:max-w-[80%] text-2xl max-w-[31rem] text-gray-500 mt-6">
+        <p className="md:text-center md:max-w-[80%] text-2xl max-w-[31rem] text-gray-500 mt-6 vvsm:px-3">
           Discover delicious meals tailored to your preferences, schedule
           hassle-free deliveries, and rate your experience in our convenient
           meal recommendation app.

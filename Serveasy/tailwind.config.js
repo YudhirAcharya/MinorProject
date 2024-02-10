@@ -95,6 +95,11 @@ export default {
             display: "none",
           },
         },
+        ".hide-vvsm-down": {
+          "@media (max-width:430px)": {
+            display: "none",
+          },
+        },
       });
     },
   ],
