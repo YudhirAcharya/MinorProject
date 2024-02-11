@@ -68,6 +68,75 @@ export const SignUpinputs = [
     pattern: /^[A-Za-z0-9]{8,20}$/,
   },
 ];
+export const chefs = [
+  {
+    id: 1,
+    image:
+      "https://images.pexels.com/photos/3814446/pexels-photo-3814446.jpeg?cs=srgb&dl=pexels-miquel-ferran-gomez-figueroa-3814446.jpg&fm=jpg",
+    name: "Miquel Ferran Gomez",
+    title: "Sous-Chef",
+  },
+  {
+    id: 2,
+    image:
+      "https://images.pexels.com/photos/6578899/pexels-photo-6578899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    name: "Andres Ayrton",
+    title: "Pastry Chef",
+  },
+  {
+    id: 3,
+    image:
+      "https://images.pexels.com/photos/8629122/pexels-photo-8629122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    name: "Eurico Luiz",
+    title: "Head Chef",
+  },
+  {
+    id: 4,
+    image:
+      "https://images.pexels.com/photos/10241463/pexels-photo-10241463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    name: "Abdul Ali Khan",
+    title: "Executive Chef",
+  },
+];
+export const workInfoData = [
+  {
+    logo: "MdOutlineRecommend", // Assuming you want this icon
+    title: "Recommendations",
+    text: "Discover meals designed for you: personalized recommendations based on your preferences.",
+  },
+  {
+    logo: "AiFillSchedule", // Assuming you want this icon
+    title: "Schedule Your Meal",
+    text: "Pick your perfect plate, lock in your delivery date, and savor the ease.",
+  },
+  {
+    logo: "MdOutlineRateReview", // Assuming you want this icon
+    title: "Rate & Review",
+    text: "Share your love, rate & review meals to shape your future bites.",
+  },
+  {
+    logo: "TbTruckDelivery", // Assuming you want this icon
+    title: "Fast Deliveries",
+    text: "Fast food, slowed down: savor fresh, delicious meals delivered straight to your door.",
+  },
+];
+export const banner = [
+  {
+    id: 1,
+    title: "GREAT LOCATION",
+    desc: "Rorem ipsum dolor sit amet, etur advoluptatem voluptatem",
+  },
+  {
+    id: 2,
+    title: "NATURE FIRST",
+    desc: "Rorem ipsum dolor sit amet, etur advoluptatem voluptatem",
+  },
+  {
+    id: 3,
+    title: "HEALTHY FOOD",
+    desc: "Rorem ipsum dolor sit amet, etur advoluptatem voluptatem",
+  },
+];
 export const data = [
   {
     id: 0,
@@ -92,5 +161,41 @@ export const data = [
     meal_name: "Pizza",
     meal_quantity: "10 Products",
     price: 650,
+  },
+];
+export const customer = [
+  {
+    id: 1,
+    cover:
+      "https://images.pexels.com/photos/41008/cowboy-ronald-reagan-cowboy-hat-hat-41008.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+
+    desc: "Great food! Fresh, quick, friendly, delicious, affordable! Very flexible with orders. Great service! Great portions! If you want great seafood, this place will not disappoint you. Definitely.",
+    name: "Ronalnd D. Morgan",
+    post: "Founder & co",
+    ratenum: 4,
+  },
+  {
+    id: 2,
+    cover:
+      "https://images.pexels.com/photos/20089859/pexels-photo-20089859/free-photo-of-woman-in-tight-black-evening-dress-walking-behind-curtain.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+
+    desc: "Great food! Fresh, quick, friendly, delicious, affordable! Very flexible with orders. Great service! Great portions! If you want great seafood, this place will not disappoint you. Definitely.",
+    name: "Rasalina Decruz",
+    post: "Developer",
+    ratenum: 5,
+  },
+];
+export const cdata = [
+  {
+    num: "2K+",
+    name: "HAPPY CUSTOMER",
+  },
+  {
+    num: "4K+",
+    name: "AWARD WINNING",
+  },
+  {
+    num: "6K+",
+    name: "FOOD ITEMS MENU",
   },
 ];

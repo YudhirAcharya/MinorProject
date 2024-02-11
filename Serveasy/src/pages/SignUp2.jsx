@@ -73,34 +73,54 @@ function SignUpForm() {
       body: JSON.stringify(state),
       headers: { "Content-Type": "application/json" },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          switch (response.status) {
+            case 400:
+              break;
+            case 401:
+              break;
+            case 404:
+              break;
+            case 500:
+              break;
+          }
+        }
+        return response.json();
+      })
       .then((res) => {
         if (res.success) {
           navigate("/success");
         } else {
           res.message || "Registration failed, please check your details.";
         }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }, [state, navigate]);
+
+  // import { useState, useEffect } from "react";
+  // import { useNavigate } from "react-router-dom";
+  // import { v4 as uuidv4 } from "uuid";
 
   // function SignUpForm() {
   //   const [state, setState] = useState({
   //     user_id: "",
-  //     user_name: "",
   //     full_name: "",
+  //     user_name: "",
   //     email: "",
   //     password: "",
   //     phone_number: "",
   //     role: "user",
   //   });
-
   //   const [error, setError] = useState(null);
   //   const navigate = useNavigate();
 
   //   useEffect(() => {
   //     const registerUser = async () => {
   //       try {
-  //         const response = await fetch("127.0.0.1:3001/users/register", {
+  //         const response = await fetch("http://127.0.0.1:3001/users/register", {
   //           method: "POST",
   //           headers: { "Content-Type": "application/json" },
   //           body: JSON.stringify(state),
@@ -110,7 +130,14 @@ function SignUpForm() {
   //           throw new Error("Failed to register user");
   //         }
 
-  //         navigate("/login");
+  //         const data = await response.json();
+  //         if (data.success) {
+  //           navigate("/success");
+  //         } else {
+  //           setError(
+  //             data.message || "Registration failed, please check your details."
+  //           );
+  //         }
   //       } catch (error) {
   //         setError(error.message);
   //       }
@@ -119,18 +146,17 @@ function SignUpForm() {
   //     registerUser();
   //   }, [state, navigate]);
 
-  //   const handleChange = (e) => {
-  //     setState({
-  //       ...state,
-  //       user_id: `u_${uuidv4()}`,
-  //       [e.target.name]: e.target.value,
-  //     });
+  //   const handleChange = (event) => {
+  //     const value = event.target.value;
+  //     const uniqueUserId = uuidv4();
+  //     setState({ ...state, user_id: uniqueUserId, [event.target.name]: value });
+  //   };
+
+  //   const handleOnSubmit = (event) => {
+  //     event.preventDefault();
   //     console.log(state);
   //   };
 
-  //   const handleOnSubmit = (e) => {
-  //     e.preventDefault();
-  //   };
   return (
     <div className="form-container sign-up-container">
       <form onSubmit={handleOnSubmit}>

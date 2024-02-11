@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
 function SignInForm() {
@@ -20,11 +21,6 @@ function SignInForm() {
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
 
-    // log garna lai object
-    const { email, password, role } = state;
-    console.log(
-      `You are a ${role} and logged in with email: ${email} and password: ${password}`
-    );
     console.log(state);
 
     for (const key in state) {
@@ -43,22 +39,55 @@ function SignInForm() {
     //     }
     //   })
     //   .then((err) => console.log(err));
-    fetch("http://127.0.0.1/users/register", {
+    // fetch("http://127.0.0.1/users/register", {
+    //   method: "POST",
+    //   body: JSON.stringify(state),
+    //   headers: { "Content-Type": "application/json" },
+    // })
+    //   .then((response) => response.json())
+    //   .then(() => {
+    //     // Handle successful response
+    //     // e.g., navigate to a different page
+    //     navigate("/success"); // Assuming a success page exists
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //     // Handle errors appropriately
+    //   });
+  };
+  useEffect(() => {
+    // Assuming `state` contains the registration data
+    fetch("http://127.0.0.1:3001/users/register", {
       method: "POST",
       body: JSON.stringify(state),
       headers: { "Content-Type": "application/json" },
     })
-      .then((response) => response.json())
-      .then(() => {
-        // Handle successful response
-        // e.g., navigate to a different page
-        navigate("/success"); // Assuming a success page exists
+      .then((response) => {
+        if (!response.ok) {
+          switch (response.status) {
+            case 400:
+              break;
+            case 401:
+              break;
+            case 404:
+              break;
+            case 500:
+              break;
+          }
+        }
+        return response.json();
+      })
+      .then((res) => {
+        if (res.success) {
+          navigate("/success");
+        } else {
+          res.message || "Registration failed, please check your details.";
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
-        // Handle errors appropriately
       });
-  };
+  }, [state, navigate]);
 
   return (
     <div className="form-container sign-in-container">

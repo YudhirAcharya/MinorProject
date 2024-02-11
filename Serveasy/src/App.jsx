@@ -11,6 +11,7 @@ import Lottie from "lottie-react";
 // import Footer from "./components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Product from "./pages/Product";
+import Landing from "./pages/Landing";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
 
@@ -46,6 +47,7 @@ function App() {
             <Route path="/signing" element={<Signing />}></Route>
             <Route path="*" element={<Error />}></Route>
             <Route path="/product" element={<Product />}></Route>
+            <Route path="/Landing" element={<Landing />}></Route>
           </Routes>
         </BrowserRouter>
       )}

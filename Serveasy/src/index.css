@@ -7,15 +7,23 @@
 
 /* Import Google Fonts or other @import statements */
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Kaushan+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&display=swap");
 
 /* Other styles */
 * {
-  font-family: "Quicksand", sans-serif;
+  font-family:
+    "Quicksand",
+    "Garamond",
+    "Kaushan" sans-serif;
   margin: 0;
   padding: 0;
 }
 body {
   display: block;
+}
+button {
+  border: none;
 }
 @layer components {
   .icon__wrapper {
