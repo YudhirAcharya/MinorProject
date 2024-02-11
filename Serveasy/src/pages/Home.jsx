@@ -6,10 +6,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
+
 import CartContainer from "../components/cartContainer";
 import { useEffect } from "react";
 
 import { useStateValue } from "../context/StateProvider";
+
+import Landing from "./Landing";
+import Recommend from "../components/Recommend";
 
 const Home = () => {
   const [{ cartShow }, dispatch] = useStateValue();
@@ -34,9 +38,13 @@ const Home = () => {
   return (
     <div>
       <Navbar />
+
       <Hero />
       <Category />
       <FeatureSection />
+
+      <Recommend />
+
       <Footer />
       {cartShow && <CartContainer />}
     </div>
