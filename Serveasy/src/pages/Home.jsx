@@ -6,7 +6,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
-
+import AccountSelection from "../components/AccountSelection";
+import HomeChef from "./HomeChef";
+import HomeDelivery from "./HomeDelivery";
 import CartContainer from "../components/cartContainer";
 import { useEffect } from "react";
 
@@ -38,8 +40,6 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-
-      <Recommend />
 
       <div className="flex justify-center items-center mx-0 my-0 mt-3">
         <div className=" w-4/5 ">
