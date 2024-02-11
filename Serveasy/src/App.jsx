@@ -16,6 +16,8 @@ import {
 } from "react-router-dom";
 import Product from "./pages/Product";
 import Landing from "./pages/Landing";
+import HomeChef from "./pages/HomeChef";
+import HomeDelivery from "./pages/HomeDelivery";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
 
@@ -69,6 +71,14 @@ function App() {
               path="/Landing"
               element={<Landing />}
             ></Route>
+            <Route
+              path="/home-chef"
+              element={<HomeChef />}
+            />
+            <Route
+              path="/home-delivery"
+              element={<HomeDelivery />}
+            />
           </Routes>
         </BrowserRouter>
       )}

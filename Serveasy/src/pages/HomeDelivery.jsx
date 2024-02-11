@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link, NavLink } from "react-router-dom";
-const HomeChef = () => {
+const HomeDelivery = () => {
   const [toggleOrder, setToggleOrder] = useState(false);
 
   const handleToggle = () => {
@@ -10,7 +10,7 @@ const HomeChef = () => {
   };
   return (
     <div>
-      Home Chef
+      Home Delivery
       <div className="m-6 ">
         <table className=" border ">
           <thead>
@@ -31,7 +31,7 @@ const HomeChef = () => {
                       : "bg-green-300"
                   }`}
                 >
-                  {toggleOrder ? "Pending" : "Done"}
+                  {toggleOrder ? "Waiting" : "Done"}
                 </button>
               </td>
             </tr>
@@ -42,4 +42,4 @@ const HomeChef = () => {
   );
 };
 
-export default HomeChef;
+export default HomeDelivery;

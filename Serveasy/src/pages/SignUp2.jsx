@@ -3,6 +3,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 function SignUpForm() {
   const [state, setState] = useState({
     user_id: "",
@@ -92,7 +93,8 @@ function SignUpForm() {
         if (res.success) {
           navigate("/success");
         } else {
-          res.message || "Registration failed, please check your details.";
+          res.message ||
+            "Registration failed, please check your details.";
         }
       })
       .catch((error) => {
@@ -220,12 +222,17 @@ function SignUpForm() {
             <option value="user" className="options">
               User
             </option>
-            <option value="chef" className="option">
+            <option value="chef" className="options">
               Chef
+            </option>
+            <option value="user" className="options">
+              Delivery
             </option>
           </select>
         </div>
-        <button className="main-button">Sign Up</button>
+        <Link to="/home">
+          <button className="main-button">Sign Up</button>
+        </Link>
       </form>
     </div>
   );
