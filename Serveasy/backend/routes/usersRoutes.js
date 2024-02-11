@@ -6,5 +6,5 @@ const router = express.Router();
 
 router.route("/register").post(userController.registerUser);
 // router.route("/:id").get(foodController.getaFood);
-router.route("/login").get(userController.loginUser);
+router.route("/login").post(userController.loginUser);
 module.exports = router;

@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
 
@@ -14,6 +15,8 @@ require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
+
+app.use(cookieParser());
 
 app.use(express.json());
 const corsOptions = {

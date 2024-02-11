@@ -1,12 +1,18 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 require("dotenv").config();
-
+const comparePassword = require("./../utils/comparePassword");
 const bcrypt = require("bcrypt");
-// Insert a user
-const signToken = (id, email) => {
-  return jwt.sign({ id: id, email: email }, process.env.ACCESS_TOKEN_SECRET);
+const jwt = require("jsonwebtoken");
+const maxAge = 3 * 24 * 60 * 60;
+
+const createToken = (id, email) => {
+  return jwt.sign({ id: id, email: email }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: maxAge,
+  });
 };
+
+// Insert a user
 exports.registerUser = (req, res) => {
   const pool = req.pool;
   pool.getConnection((err, connection) => {
@@ -47,10 +53,13 @@ exports.registerUser = (req, res) => {
                 [user_id, user_name, full_name, email, password, phone_number],
                 (err, rows) => {
                   connection.release();
+                  const token = createToken(user_id, email);
                   if (!err) {
-                    res.send(
-                      `User with the record id: ${user_id} has been added.`,
-                    );
+                    res.cookie("jwt", token, {
+                      httpOnly: true,
+                      maxAge: maxAge * 1000,
+                    });
+                    res.status(201).json({ user: user_id, email });
                   } else {
                     console.log(err);
                     res.json({
@@ -68,12 +77,12 @@ exports.registerUser = (req, res) => {
   });
 };
 exports.loginUser = (req, res) => {
-  const { user_id, email, password: checkPassword } = req.body;
+  const { email, password: checkPassword } = req.body;
   const pool = req.pool;
   pool.getConnection((err, connection) => {
     if (err) throw err;
     connection.query(
-      "SELECT email,password FROM user WHERE email=?",
+      "SELECT user_id,email,password FROM user WHERE email=?",
       [email],
       async (err, result) => {
         connection.release();
@@ -93,28 +102,22 @@ exports.loginUser = (req, res) => {
         if (result.length === 1) {
           const storedPassword = result[0].password;
           const storedEmail = result[0].email;
-
-          // Check if email already exists
-          // if (await comparePassword(checkPassword, storedPassword)) {
-          //   return res.json({
-          //     status: "success",
-          //     success: "Exisiting User",
-          //     data: {
-          //       email: email,
-          //       hashedPassword: storedPassword,
-          //     },
-          //   });
-          // }
+          const stored_user_id = result[0].user_id;
+          // console.log(user_id);
           try {
             const passwordsMatch = await comparePassword(
               checkPassword,
               storedPassword,
             );
             if (passwordsMatch) {
-              const token = signToken(user_id, email);
-              return res
-                .status(200)
-                .json({ status: "success", accessToken: token });
+              const token = createToken(stored_user_id, email);
+              res.cookie("jwt", token, {
+                httpOnly: true,
+                maxAge: maxAge * 1000,
+              });
+              res
+                .status(201)
+                .json({ user_id: stored_user_id, email: storedEmail });
             } else {
               return res
                 .status(401)
