@@ -22,8 +22,6 @@ const Landing = () => {
 
       <Testimonial />
 
-      <SelectionForm />
-      <Recommend />
       <Footer />
     </>
   );

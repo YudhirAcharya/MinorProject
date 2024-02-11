@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
 import Landing from "./Landing";
+import Recommend from "../components/Recommend";
 const Home = () => {
   // const [auth, setAuth] = useState(false);
   // const [message, setMessage] = useState("");
@@ -26,12 +27,8 @@ const Home = () => {
   // }, []);
   return (
     <div>
-      <Landing />
       <Navbar />
-      <Hero />
-      <Category />
-      <FeatureSection />
-
+      <Recommend />
       <Footer />
     </div>
   );
