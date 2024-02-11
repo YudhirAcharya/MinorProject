@@ -77,6 +77,48 @@ app.post("/khalti-api", async (req, res) => {
   }
 });
 
+//PAGINATION
+app.get("/api/foods", (req, res) => {
+  // Pagination parameters
+  const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+  const limit = parseInt(req.query.limit) || 10; // Default limit to 10 if not provided
+  const offset = (page - 1) * limit; // Calculate offset
+
+  // Acquire a connection from the pool
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error("Error getting MySQL connection: ", err);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+
+    // Use the acquired connection to execute the query with pagination
+    connection.query(
+      "SELECT * FROM food LIMIT ?, ?",
+      [offset, limit],
+      (err, rows) => {
+        // Release the connection back to the pool
+        connection.release();
+
+        if (err) {
+          console.error("Error executing MySQL query: ", err);
+          return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        // Send the response with fetched data
+        res.status(200).json({
+          status: "success",
+          results: rows.length,
+          currentPage: page,
+          totalPages: Math.ceil(rows.length / limit),
+          data: {
+            rows,
+          },
+        });
+      },
+    );
+  });
+});
+
 // // TO TEST IF BACKEND HAS CONNECTION WITH MYSQL
 // pool.query("SELECT * FROM dummy", function (error, results, fields) {
 //   if (error) throw error;
