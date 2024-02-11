@@ -22,12 +22,12 @@ const FeatureSection = () => {
       });
       const data = await response.json();
       setProductData(data.data.rows);
-      console.log("product >>>>", data.data.rows);
+      // console.log("product >>>>", data.data.rows);
     };
     fetchData();
   }, []);
   return (
-    <div className="container shadow-none py-10  px-6 rounded-none min-w-full">
+    <div className="container flex-col shadow-none py-10  px-6 rounded-none min-w-full">
       <div className="lg:flex justify-between items-center">
         <div>
           <h3 className="font-medium text-2xl">Most Selling Foods:</h3>

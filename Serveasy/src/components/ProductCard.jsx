@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import propTypes from "prop-types";
 import { AiOutlineStar, AiFillStar, AiOutlineShopping } from "react-icons/ai";
 // import Product from "../pages/Product";
-import { NavLink, useNavigate } from "react-router-dom";
-const ProductCard = ({ img, name, price, cuisine, ingredients }) => {
-  console.log(img, name, price, cuisine, ingredients);
+import { useNavigate } from "react-router-dom";
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
+const ProductCard = (item) => {
+  // console.log(item);
+  // console.log(img, name, price, cuisine, ingredients);
+  const [{ cartItems }, dispatch] = useStateValue();
+  const [items, setItems] = useState([]);
+  const addToCart = () => {
+    dispatch({
+      type: actionType.SET_CARTITEMS,
+      cartItems: items,
+    });
+    localStorage.setItem("cartItems", JSON.stringify(items));
+  };
+  useEffect(() => {
+    addToCart();
+  }, [items]);
   // const [enter, setEnter] = useState(false);
   const navigate = useNavigate();
   // const handleEnter = () => {
@@ -13,6 +28,7 @@ const ProductCard = ({ img, name, price, cuisine, ingredients }) => {
   //   console.log("enter:" + enter);
   // };
   const handleClick = () => {
+    const { img, name, price, cuisine, ingredients } = item;
     navigate("/product", {
       state: {
         img,
@@ -26,7 +42,7 @@ const ProductCard = ({ img, name, price, cuisine, ingredients }) => {
   return (
     <div
       className="border border-gray-200 hover:border-gray-400 transition-transform rounded-lg relative"
-      onClick={handleClick}
+
       // value={enter}
     >
       {/* {enter && (
@@ -46,8 +62,9 @@ const ProductCard = ({ img, name, price, cuisine, ingredients }) => {
 
       <img
         className="w-full h-[200px] object-cover rounded-lg rounded-b-none"
-        src={img}
-        alt={name}
+        src={item.img}
+        alt={item.name}
+        onClick={handleClick}
       />
       <div className="space-y-2 relative p-4">
         <div className="text-yellow-400 flex gap-[5px] text-[20px]">
@@ -59,12 +76,15 @@ const ProductCard = ({ img, name, price, cuisine, ingredients }) => {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-2 px-3 py-1">
-        <h3 className="font-medium">{name}</h3>
+        <h3 className="font-medium">{item.name}</h3>
         <div className="grid grid-cols-2 gap-1 align-items-center">
           <h3 className="text-2xl font-medium text-warning ">
-            {`Rs.` + price}
+            {`Rs.` + item.price}
           </h3>
-          <button className="absolute border-none bottom-2.5 right-2 bg-warning text-lightColor text-[28px] w-[100px] h-[50px] rounded-full flex justify-content-center items-center cursor-pointer pl-4 gap-1 hover:bg-primary hover:text-textColor">
+          <button
+            className="absolute border-none bottom-2.5 right-2 bg-warning text-lightColor text-[28px] w-[100px] h-[50px] rounded-full flex justify-content-center items-center cursor-pointer pl-4 gap-1 hover:bg-primary hover:text-textColor"
+            onClick={() => setItems([...cartItems, item])}
+          >
             <AiOutlineShopping />
             <span className=" text-[14px]">Add</span>
           </button>

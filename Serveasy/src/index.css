@@ -25,6 +25,15 @@ body {
 button {
   border: none;
 }
+
+.example::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar in WebKit-based browsers (Chrome, Safari) */
+}
+
+.example {
+  -ms-overflow-style: none; /* Hide the scrollbar for Internet Explorer, Edge */
+  scrollbar-width: none; /* Hide the scrollbar for Firefox */
+}
 @layer components {
   .icon__wrapper {
     @apply border border-gray-400 rounded-full w-[50px] h-[50px] grid place-items-center text-[22px] hover:bg-warning hover:text-primary;
