@@ -22,7 +22,7 @@ const FeatureSection = () => {
       });
       const data = await response.json();
       setProductData(data.data.rows);
-      console.log("product >>>>", data.data.rows);
+      // console.log("product >>>>", data.data.rows);
     };
     fetchData();
   }, []);

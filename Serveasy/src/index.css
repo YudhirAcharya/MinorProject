@@ -25,19 +25,14 @@ body {
 button {
   border: none;
 }
-fieldset label span {
-  min-width: 125px;
+
+.example::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar in WebKit-based browsers (Chrome, Safari) */
 }
-fieldset .select::after {
-  content: "";
-  position: absolute;
-  width: 9px;
-  height: 5px;
-  right: 20px;
-  top: 50%;
-  margin-top: -2px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='5' viewBox='0 0 9 5'><title>Arrow</title><path d='M.552 0H8.45c.58 0 .723.359.324.795L5.228 4.672a.97.97 0 0 1-1.454 0L.228.795C-.174.355-.031 0 .552 0z' fill='%23CFD7DF' fill-rule='evenodd'/></svg>");
-  pointer-events: none;
+
+.example {
+  -ms-overflow-style: none; /* Hide the scrollbar for Internet Explorer, Edge */
+  scrollbar-width: none; /* Hide the scrollbar for Firefox */
 }
 @layer components {
   .icon__wrapper {

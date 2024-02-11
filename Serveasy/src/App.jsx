@@ -1,8 +1,8 @@
 import "./App.css";
-import About from "./pages/About";
+// import About from "./pages/About";
 import Account from "./pages/Account";
 import Error from "./pages/Error";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 // import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Signing from "./pages/Signing";

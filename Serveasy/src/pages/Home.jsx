@@ -2,13 +2,20 @@
 import Hero from "../components/Hero";
 import Category from "../components/Category";
 import FeatureSection from "../components/FeatureSection";
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
-import Landing from "./Landing";
+import CartContainer from "../components/cartContainer";
+import { useEffect } from "react";
+
+import { useStateValue } from "../context/StateProvider";
+
 const Home = () => {
+  const [{ cartShow }, dispatch] = useStateValue();
+  // const [scrollValue, setScrollValue] = useState(0);
+
+  useEffect(() => {}, [cartShow]);
   // const [auth, setAuth] = useState(false);
   // const [message, setMessage] = useState("");
   // const [name, setName] = useState("");
@@ -26,13 +33,12 @@ const Home = () => {
   // }, []);
   return (
     <div>
-      <Landing />
       <Navbar />
       <Hero />
       <Category />
       <FeatureSection />
-
       <Footer />
+      {cartShow && <CartContainer />}
     </div>
   );
 };
