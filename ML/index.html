@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Food Recommendation</title>
+    <script
+      type="text/javascript"
+      src="https://brython.info/src/brython.js"
+    ></script>
+    <script type="text/python" src="./Main.py"></script>
+  </head>
+  <body onload="brython()">
+    <h1>Food Recommendation</h1>
+
+    <label for="foodInput">Enter a food item:</label>
+    <input
+      type="text"
+      id="foodInput"
+      placeholder="Enter food name"
+    />
+    <button onclick="recommend()">Recommend</button>
+
+    <h2>Recommended Foods:</h2>
+    <ul id="recommendations"></ul>
+
+    <script type="text/python">
+      from browser import document, alert
+      from Main import recommend
+
+      def display_recommendations(recommendations):
+          recommendations_list = document.getElementById('recommendations')
+          recommendations_list.innerHTML = ''  # Clear previous recommendations
+
+          for i, recommendation in recommendations:
+              list_item = document.createElement('li')
+              list_item.textContent = f"{i}: {recommendation}"
+              recommendations_list.appendChild(list_item)
+
+      def recommend():
+          input_element = document.getElementById('foodInput')
+          food_name = input_element.value.strip()
+
+          if not food_name:
+              alert('Please enter a food item.')
+              return
+
+          try:
+              recommendations = recommend(food_name)
+          except IndexError:
+              alert(f'Food "{food_name}" not found in the dataset.')
+              return
+
+          display_recommendations(recommendations)
+    </script>
+  </body>
+</html>

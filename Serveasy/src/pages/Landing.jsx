@@ -9,6 +9,7 @@ import ChefTeam from "../components/ChefTeam";
 import Testimonial from "../components/Testimonial";
 
 import SelectionForm from "./SelectionForm";
+import Recommend from "../components/Recommend";
 
 const Landing = () => {
   return (
@@ -22,7 +23,7 @@ const Landing = () => {
       <Testimonial />
 
       <SelectionForm />
-
+      <Recommend />
       <Footer />
     </>
   );
