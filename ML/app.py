@@ -110,7 +110,7 @@ except FileNotFoundError:
 def recommend_recipe(food):
     food_index = data_frame[data_frame['TranslatedRecipeName'] == food].index[0]
     distances = cosine_sim_matrix[food_index]
-    food_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:21]
+    food_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:5]
 
     recommendations = [{'index': i[0], 'name': data_frame.iloc[i[0]].TranslatedRecipeName} for i in food_list]
     return recommendations
