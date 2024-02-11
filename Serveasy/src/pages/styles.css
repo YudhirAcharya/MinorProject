@@ -115,7 +115,7 @@ button:focus {
 
 button.ghost {
   background-color: transparent;
-  border-color: #ffffff;
+  border: 2px solid #ffffff;
   margin-top: 10px;
   padding: 6px 30px;
 }
@@ -333,10 +333,12 @@ input {
 }
 .main-button {
   padding: 6px 30px;
+  border: 2px solid #ffc93c;
 }
 button.main-button:hover {
   background-color: #ffc93c;
   color: #fff;
+  border: 1px solid #ffc93c;
   transition: transform 100000ms ease-in-out;
 }
 

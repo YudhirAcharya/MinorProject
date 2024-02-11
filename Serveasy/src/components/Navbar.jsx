@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { navLinks } from "../constants";
 import { Link, NavLink } from "react-router-dom";
-
+import { IoCart } from "react-icons/io5";
+import { FaCircleUser } from "react-icons/fa6";
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
@@ -38,7 +39,18 @@ const Navbar = () => {
       >
         Join us
       </NavLink>
-
+      <NavLink
+        to="/Cart"
+        className="text-[2rem] hover:bg-warning hover:text-lightColor mx-5 border-2 p-2 rounded-full border-warning"
+      >
+        <IoCart />
+      </NavLink>
+      <NavLink
+        to="/Account"
+        className="text-[2rem] hover:bg-warning hover:text-lightColor mx-5 border-2 p-2 rounded-full border-warning"
+      >
+        <FaCircleUser />
+      </NavLink>
       <div className="sm:hidden flex flex-1 justify-end items-center">
         <img
           src={
