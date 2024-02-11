@@ -77,7 +77,7 @@ app.post("/khalti-api", async (req, res) => {
   }
 });
 
-//pagination
+//PAGINATION
 app.get("/api/foods", (req, res) => {
   // Pagination parameters
   const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
