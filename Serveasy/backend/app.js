@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 const pageRoutes = require("./routes/pagesRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -63,6 +64,15 @@ app.use(
     next();
   },
   usersRoutes,
+);
+app.use(
+  "/orders",
+  (req, res, next) => {
+    // Middleware to attach the database pool to the request object
+    req.pool = pool;
+    next();
+  },
+  orderRoutes,
 );
 
 //Khalti Route
