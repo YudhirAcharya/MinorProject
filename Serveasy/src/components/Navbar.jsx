@@ -3,11 +3,21 @@ import { navLinks } from "../constants";
 import { Link, NavLink } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
+<<<<<<< HEAD
 // import { useStateValue } from "../context/StateProvider";
 // import { actionType } from "../context/reducer";
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   // const [{ cartShow, cartItems }, dispatch] = useStateValue();
+=======
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
+import SearchBar from "./SearchBar";
+const Navbar = () => {
+  const [toggle, setToggle] = useState(false);
+  const [{ cartShow, cartItems }, dispatch] =
+    useStateValue();
+>>>>>>> 78dd7d24dff3c35140cd93c4947b8f74dd7a8105
   const toggleMenu = () => {
     setToggle(!toggle);
   };
@@ -26,15 +36,15 @@ const Navbar = () => {
           className="w-[200px] mx-5 h-auto"
         />
       </Link>
-      <ul className="list-none sm:flex hidden justify-center items-center flex-1">
-        {navLinks.map((nav) => (
-          <li key={nav.id} className="cursor-pointer mr-6">
-            <NavLink
-              to={nav.path}
-              className={({ isActive }) =>
-                `text-[22px] ${isActive ? "text-black" : "text-warning"}`
-              }
+      <div className="flex flex-row gap-5 mx-0 my-0">
+        <SearchBar />
+        <ul className="list-none sm:flex hidden justify-center items-center flex-1">
+          {navLinks.map((nav) => (
+            <li
+              key={nav.id}
+              className="cursor-pointer mr-6"
             >
+<<<<<<< HEAD
               {nav.title}
             </NavLink>
           </li>
@@ -59,13 +69,46 @@ const Navbar = () => {
             </p>
           </div>
         )} */}
+=======
+              <NavLink
+                to={nav.path}
+                className={({ isActive }) =>
+                  `border-2 text-[30px]  px-5 py-2 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer ${isActive ? "text-black" : "text-warning"} `
+                }
+              >
+                {nav.title}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+        <NavLink
+          to="/signing"
+          className="border-2 text-[30px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer"
+        >
+          JoinUS
+        </NavLink>
+        <div
+          // to="/Cart"
+          onClick={showCart}
+          className="text-[2rem] hover:bg-warning hover:text-lightColor mx-1 my-3 border-2 p-2 rounded-full border-warning relative"
+        >
+          <IoCart />
+          {cartItems && cartItems.length > 0 && (
+            <div className="absolute -top-2 right-0 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+              <p className="text-xs text-white font-semibold ">
+                {cartItems.length}
+              </p>
+            </div>
+          )}
+        </div>
+        <NavLink
+          to="/Account"
+          className="text-[2rem] hover:bg-warning hover:text-lightColor mx-5 border-2 p-2 rounded-full border-warning"
+        >
+          <FaCircleUser />
+        </NavLink>
+>>>>>>> 78dd7d24dff3c35140cd93c4947b8f74dd7a8105
       </div>
-      <NavLink
-        to="/Account"
-        className="text-[2rem] hover:bg-warning hover:text-lightColor mx-5 border-2 p-2 rounded-full border-warning"
-      >
-        <FaCircleUser />
-      </NavLink>
       <div className="sm:hidden flex flex-1 justify-end items-center">
         <img
           src={
@@ -89,7 +132,9 @@ const Navbar = () => {
                 key={nav.id}
                 className="cursor-pointer text-[22px] mr-6 hover:text-warning"
               >
-                <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
+                <NavLink to={`${nav.id}`}>
+                  {nav.title}
+                </NavLink>
               </li>
             ))}
           </ul>

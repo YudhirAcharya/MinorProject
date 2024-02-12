@@ -12,6 +12,8 @@ import Lottie from "lottie-react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Product from "./pages/Product";
 import Landing from "./pages/Landing";
+// import HomeChef from "./pages/HomeChef";
+// import HomeDelivery from "./pages/HomeDelivery";
 import CartContainer from "./pages/CartContainer";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";

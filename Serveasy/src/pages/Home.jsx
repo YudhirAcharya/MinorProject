@@ -6,6 +6,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
+// import AccountSelection from "../components/AccountSelection";
+import HomeChef from "./HomeChef";
+import HomeDelivery from "./HomeDelivery";
 
 // import CartContainer from "./CartContainer";
 // import { useEffect } from "react";
@@ -14,6 +17,9 @@ import Footer from "../components/Footer";
 
 // import Landing from "./Landing";
 import Recommend from "../components/Recommend";
+// import SearchBar from "../components/SearchBar";
+// import ProductCard from "../components/ProductCard";
+// import Product from "./Product";
 
 const Home = () => {
   // const [{ cartShow }, dispatch] = useStateValue();
@@ -38,13 +44,17 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-
       <Hero />
       <Category />
       <FeatureSection />
-
-      <Recommend />
-
+      <div className="flex justify-center items-center mx-0 my-0 mt-3">
+        <div className=" w-4/5 ">
+          <Recommend />
+        </div>
+      </div>
+      <HomeChef></HomeChef>
+      <HomeDelivery />
+      <FeatureSection />
       <Footer />
       {/* {cartShow && <CartContainer />} */}
     </div>

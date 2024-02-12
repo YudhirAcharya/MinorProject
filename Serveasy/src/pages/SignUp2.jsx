@@ -3,6 +3,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 function SignUpForm() {
   const [state, setState] = useState({
     user_id: "",
@@ -41,15 +42,21 @@ function SignUpForm() {
         [key]: "",
       });
     }
+
     try {
-      const response = await fetch("http://127.0.0.1:3001/users/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(state),
-      });
+      const response = await fetch(
+        "http://127.0.0.1:3001/users/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(state),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
+        throw new Error(
+          `Network response was not ok: ${response.status}`
+        );
       }
 
       const data = await response.json();
@@ -58,7 +65,8 @@ function SignUpForm() {
         navigate("/success");
       } else {
         setError(
-          data.message || "Registration failed, please check your details."
+          data.message ||
+            "Registration failed, please check your details."
         );
       }
     } catch (error) {
@@ -207,12 +215,17 @@ function SignUpForm() {
             <option value="user" className="options">
               User
             </option>
-            <option value="chef" className="option">
+            <option value="chef" className="options">
               Chef
+            </option>
+            <option value="user" className="options">
+              Delivery
             </option>
           </select>
         </div>
-        <button className="main-button">Sign Up</button>
+        <Link to="/home">
+          <button className="main-button">Sign Up</button>
+        </Link>
       </form>
     </div>
   );

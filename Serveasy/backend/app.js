@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const chefRoutes = require("./routes/chefRoutes");
+const delivererRoutes = require("./routes/delivererRoutes");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
 
@@ -14,6 +17,8 @@ require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
+
+app.use(cookieParser());
 
 app.use(express.json());
 const corsOptions = {
@@ -51,7 +56,24 @@ app.use(
   },
   usersRoutes,
 );
-
+app.use(
+  "/chef",
+  (req, res, next) => {
+    // Middleware to attach the database pool to the request object
+    req.pool = pool;
+    next();
+  },
+  chefRoutes,
+);
+app.use(
+  "/deliverer",
+  (req, res, next) => {
+    // Middleware to attach the database pool to the request object
+    req.pool = pool;
+    next();
+  },
+  delivererRoutes,
+);
 //Khalti Route
 app.post("/khalti-api", async (req, res) => {
   const payload = req.body;
