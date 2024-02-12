@@ -7,12 +7,12 @@ import Footer from "../components/Footer";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
 
-import CartContainer from "./CartContainer";
-import { useEffect } from "react";
+// import CartContainer from "./CartContainer";
+// import { useEffect } from "react";
 
-import { useStateValue } from "../context/StateProvider";
+// import { useStateValue } from "../context/StateProvider";
 
-import Landing from "./Landing";
+// import Landing from "./Landing";
 import Recommend from "../components/Recommend";
 
 const Home = () => {
