@@ -6,44 +6,47 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
-import AccountSelection from "../components/AccountSelection";
+// import AccountSelection from "../components/AccountSelection";
 import HomeChef from "./HomeChef";
 import HomeDelivery from "./HomeDelivery";
-import CartContainer from "../components/CartContainer";
-import { useEffect } from "react";
 
-import { useStateValue } from "../context/StateProvider";
+// import CartContainer from "./CartContainer";
+// import { useEffect } from "react";
 
-import Landing from "./Landing";
+// import { useStateValue } from "../context/StateProvider";
+
+// import Landing from "./Landing";
 import Recommend from "../components/Recommend";
-import SearchBar from "../components/SearchBar";
-import ProductCard from "../components/ProductCard";
-import Product from "./Product";
+// import SearchBar from "../components/SearchBar";
+// import ProductCard from "../components/ProductCard";
+// import Product from "./Product";
 
 const Home = () => {
-  const [{ cartShow }, dispatch] = useStateValue();
-  // const [scrollValue, setScrollValue] = useState(0);
+  // const [{ cartShow }, dispatch] = useStateValue();
+  // // const [scrollValue, setScrollValue] = useState(0);
 
-  useEffect(() => {}, [cartShow]);
-  // const [auth, setAuth] = useState(false);
-  // const [message, setMessage] = useState("");
-  // const [name, setName] = useState("");
-  // useEffect(() => {
-  //   axios.get("/").then((res) => {
-  //     if (res.data.Status === "Success") {
-  //       setAuth(true);
-  //       setName(res.data.name);
-  //       navigate("/login");
-  //     } else {
-  //       setAuth(false);
-  //       setMessage(res.data.Error);
-  //     }
-  //   });
-  // }, []);
+  // useEffect(() => {}, [cartShow]);
+  // // const [auth, setAuth] = useState(false);
+  // // const [message, setMessage] = useState("");
+  // // const [name, setName] = useState("");
+  // // useEffect(() => {
+  // //   axios.get("/").then((res) => {
+  // //     if (res.data.Status === "Success") {
+  // //       setAuth(true);
+  // //       setName(res.data.name);
+  // //       navigate("/login");
+  // //     } else {
+  // //       setAuth(false);
+  // //       setMessage(res.data.Error);
+  // //     }
+  // //   });
+  // // }, []);
   return (
     <div>
       <Navbar />
-
+      <Hero />
+      <Category />
+      <FeatureSection />
       <div className="flex justify-center items-center mx-0 my-0 mt-3">
         <div className=" w-4/5 ">
           <Recommend />
@@ -53,7 +56,7 @@ const Home = () => {
       <HomeDelivery />
       <FeatureSection />
       <Footer />
-      {cartShow && <CartContainer />}
+      {/* {cartShow && <CartContainer />} */}
     </div>
   );
 };

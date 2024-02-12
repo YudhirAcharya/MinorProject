@@ -3,6 +3,13 @@ import { navLinks } from "../constants";
 import { Link, NavLink } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
+<<<<<<< HEAD
+// import { useStateValue } from "../context/StateProvider";
+// import { actionType } from "../context/reducer";
+const Navbar = () => {
+  const [toggle, setToggle] = useState(false);
+  // const [{ cartShow, cartItems }, dispatch] = useStateValue();
+=======
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import SearchBar from "./SearchBar";
@@ -10,15 +17,16 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const [{ cartShow, cartItems }, dispatch] =
     useStateValue();
+>>>>>>> 78dd7d24dff3c35140cd93c4947b8f74dd7a8105
   const toggleMenu = () => {
     setToggle(!toggle);
   };
-  const showCart = () => {
-    dispatch({
-      type: actionType.SET_CART_SHOW,
-      cartShow: !cartShow,
-    });
-  };
+  // const showCart = () => {
+  //   dispatch({
+  //     type: actionType.SET_CART_SHOW,
+  //     cartShow: !cartShow,
+  //   });
+  // };
   return (
     <nav className="bg-primary navbar w-full flex justify-between items-center">
       <Link to="/">
@@ -36,6 +44,32 @@ const Navbar = () => {
               key={nav.id}
               className="cursor-pointer mr-6"
             >
+<<<<<<< HEAD
+              {nav.title}
+            </NavLink>
+          </li>
+        ))}
+      </ul>
+      <NavLink
+        to="/signing"
+        className="border-2 text-[30px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer"
+      >
+        Join us
+      </NavLink>
+      <div
+        // to="/Cart"
+        // onClick={showCart}
+        className="text-[2rem] hover:bg-warning hover:text-lightColor mx-5 border-2 p-2 rounded-full border-warning relative"
+      >
+        <IoCart />
+        {/* {cartItems && cartItems.length > 0 && (
+          <div className="absolute -top-2 right-0 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+            <p className="text-xs text-white font-semibold ">
+              {cartItems.length}
+            </p>
+          </div>
+        )} */}
+=======
               <NavLink
                 to={nav.path}
                 className={({ isActive }) =>
@@ -73,6 +107,7 @@ const Navbar = () => {
         >
           <FaCircleUser />
         </NavLink>
+>>>>>>> 78dd7d24dff3c35140cd93c4947b8f74dd7a8105
       </div>
       <div className="sm:hidden flex flex-1 justify-end items-center">
         <img

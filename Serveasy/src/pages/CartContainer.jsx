@@ -4,12 +4,13 @@ import { RiRefreshFill } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
-import CartItem from "./CartItem";
+import CartItem from "../components/CartItem";
 
 const CartContainer = () => {
   const [{ cartShow, cartItems }, dispatch] = useStateValue();
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
+
   const showCart = () => {
     dispatch({
       type: actionType.SET_CART_SHOW,
@@ -18,13 +19,14 @@ const CartContainer = () => {
   };
 
   useEffect(() => {
+    console.log(cartItems);
     let totalPrice = cartItems.reduce(function (accumulator, item) {
       const price = Number(item.price);
-      const qty = Number(item?.qty) || 1;
+      const qty = Number(item?.qty);
       return accumulator + price * qty;
     }, 0);
     setTot(totalPrice);
-    console.log(tot);
+    // console.log(tot);
   }, [tot, flag, cartItems]);
 
   const clearCart = () => {

@@ -1,7 +1,7 @@
 // import React from "react";
 // import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 function SignUpForm() {
@@ -168,6 +168,7 @@ function SignUpForm() {
             name="full_name"
             value={state.full_name}
             onChange={handleChange}
+            required
             placeholder="Full Name"
           />
           <input
@@ -175,6 +176,7 @@ function SignUpForm() {
             name="user_name"
             value={state.user_name}
             onChange={handleChange}
+            required
             placeholder="User Name"
           />
           <input
@@ -182,12 +184,15 @@ function SignUpForm() {
             name="email"
             value={state.email}
             onChange={handleChange}
+            required
             placeholder="Email"
           />
           <input
             type="password"
             name="password"
             value={state.password}
+            required
+            autoComplete="off"
             onChange={handleChange}
             placeholder="Password"
           />
@@ -196,12 +201,14 @@ function SignUpForm() {
             type="tel"
             name="phone_number"
             value={state.phone_number}
+            required
             onChange={handleChange}
             placeholder="Phone Number"
           />
           <select
             name="role"
             value={state.role}
+            required
             onChange={handleChange}
             className="selects"
           >

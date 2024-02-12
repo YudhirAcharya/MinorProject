@@ -112,6 +112,7 @@ function SignInForm() {
             type="email"
             placeholder="Email"
             name="email"
+            required
             value={state.email}
             onChange={handleChange}
           />
@@ -119,9 +120,27 @@ function SignInForm() {
             type="password"
             name="password"
             placeholder="Password"
+            required
+            autoComplete="off"
             value={state.password}
             onChange={handleChange}
           />
+<<<<<<< HEAD
+          <select
+            name="role"
+            value={state.role}
+            required
+            onChange={handleChange}
+            className="selects"
+          >
+            <option value="chef" className="options">
+              Chef
+            </option>
+            <option value="user" className="options">
+              User
+            </option>
+          </select>
+=======
           <div className="">
             <h2>You will sign in as:</h2>
             <select
@@ -198,6 +217,7 @@ function SignInForm() {
         <div className=" flex flex-col mt-16">
           <a href="#">Forgot your password?</a>
           <button className="main-button">Sign In</button>
+>>>>>>> 78dd7d24dff3c35140cd93c4947b8f74dd7a8105
         </div>
       </form>
     </div>
