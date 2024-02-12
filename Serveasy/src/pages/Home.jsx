@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import AccountSelection from "../components/AccountSelection";
 import HomeChef from "./HomeChef";
 import HomeDelivery from "./HomeDelivery";
-import CartContainer from "../components/cartContainer";
+import CartContainer from "../components/CartContainer";
 import { useEffect } from "react";
 
 import { useStateValue } from "../context/StateProvider";
