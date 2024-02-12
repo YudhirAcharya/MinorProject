@@ -5,9 +5,11 @@ import { IoCart } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+import SearchBar from "./SearchBar";
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
-  const [{ cartShow, cartItems }, dispatch] = useStateValue();
+  const [{ cartShow, cartItems }, dispatch] =
+    useStateValue();
   const toggleMenu = () => {
     setToggle(!toggle);
   };
@@ -26,6 +28,7 @@ const Navbar = () => {
           className="w-[200px] mx-5 h-auto"
         />
       </Link>
+      <SearchBar />
       <ul className="list-none sm:flex hidden justify-center items-center flex-1">
         {navLinks.map((nav) => (
           <li key={nav.id} className="cursor-pointer mr-6">
@@ -89,7 +92,9 @@ const Navbar = () => {
                 key={nav.id}
                 className="cursor-pointer text-[22px] mr-6 hover:text-warning"
               >
-                <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
+                <NavLink to={`${nav.id}`}>
+                  {nav.title}
+                </NavLink>
               </li>
             ))}
           </ul>

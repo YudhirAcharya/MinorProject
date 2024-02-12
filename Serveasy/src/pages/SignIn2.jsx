@@ -2,11 +2,12 @@ import React from "react";
 import { useEffect } from "react";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 function SignInForm() {
   const [state, setState] = React.useState({
     email: "",
     password: "",
-    role: "",
+    role: "user",
   });
   const handleChange = (evt) => {
     evt.preventDefault();
@@ -32,12 +33,29 @@ function SignInForm() {
         method: "POST",
         body: JSON.stringify(state),
         headers: { "Content-Type": "application/json" },
-      });
+
+     
+       
+ 
 
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.status}`);
       }
-
+ if (response.success) {
+          switch (state.role) {
+            case "user":
+              navigate("/home");
+              break;
+            case "chef":
+              navigate("/home-chef");
+              break;
+            case "delivery":
+              navigate("/home-delivery");
+              break;
+            default:
+              navigate("/home");
+          }
+        } 
       const data = await response.json();
 
       if (data.success) {
@@ -109,16 +127,21 @@ function SignInForm() {
             onChange={handleChange}
             className="selects"
           >
+            <option value="user" className="options">
+              User
+            </option>
             <option value="chef" className="options">
               Chef
             </option>
             <option value="user" className="options">
-              User
+              Delivery
             </option>
           </select>
         </div>
         <a href="#">Forgot your password?</a>
-        <button className="main-button">Sign In</button>
+        <Link to="/home">
+          <button className="main-button">Sign In</button>
+        </Link>
       </form>
     </div>
   );
