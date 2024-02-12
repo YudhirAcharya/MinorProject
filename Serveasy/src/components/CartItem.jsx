@@ -9,8 +9,8 @@ import { actionType } from "../context/reducer";
 
 let items = [];
 const CartItem = ({ item, setFlag, flag }) => {
-  const [qty, setQty] = useState(1);
-
+  const [qty, setQty] = useState(item.qty || 1);
+  console.log(qty);
   const [{ cartItems }, dispatch] = useStateValue();
 
   const cartDispatch = () => {
@@ -20,11 +20,14 @@ const CartItem = ({ item, setFlag, flag }) => {
       cartItems: items,
     });
   };
+
   const updateQty = (action, id) => {
     if (action === "add") {
       setQty(qty + 1);
       cartItems.map((item) => {
-        if (item.id === id) item.qty += 1;
+        if (item.id === id) {
+          item.qty += 1;
+        }
         setFlag(flag + 1);
       });
       cartDispatch();

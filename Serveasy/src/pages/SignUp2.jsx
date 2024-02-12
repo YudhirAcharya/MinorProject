@@ -1,7 +1,7 @@
 // import React from "react";
 // import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function SignUpForm() {
   const [state, setState] = useState({
