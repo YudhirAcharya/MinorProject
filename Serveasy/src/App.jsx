@@ -57,7 +57,10 @@ function App() {
               path="/account"
               element={<Account />}
             ></Route>
-            <Route path="/home" element={<Home />}></Route>
+            <Route
+              path="/user-home"
+              element={<Home />}
+            ></Route>
             <Route
               path="/signing"
               element={<Signing />}
@@ -72,11 +75,11 @@ function App() {
               element={<Landing />}
             ></Route>
             <Route
-              path="/home-chef"
+              path="/chef-home"
               element={<HomeChef />}
             />
             <Route
-              path="/home-delivery"
+              path="/delivery-home"
               element={<HomeDelivery />}
             />
           </Routes>
