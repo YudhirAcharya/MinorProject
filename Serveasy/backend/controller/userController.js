@@ -7,9 +7,13 @@ const jwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
 
 const createToken = (id, email) => {
-  return jwt.sign({ id: id, email: email }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: maxAge,
-  });
+  return jwt.sign(
+    { id: id, email: email },
+    process.env.ACCESS_TOKEN_SECRET_USER,
+    {
+      expiresIn: maxAge,
+    },
+  );
 };
 
 // Insert a user
@@ -139,4 +143,8 @@ exports.logoutUser = (req, res) => {
   res.cookie("jwt", "", { maxAge: 0 });
   // res.redirect("/");
   res.status(200).json({ success: "Redirecting to Landing Page" });
+};
+exports.redirectUserHome = (req, res) => {
+  //res.redirect("http://localhost:5173/home"); // Redirect to the home page
+  res.status(200).json({ success: "Redirecting to User Home Page" });
 };
