@@ -1,6 +1,8 @@
 import React from "react";
 // import { useEffect } from "react";
 // import axios from "axios";
+import { NavLink } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 function SignInForm() {
   const [state, setState] = React.useState({
@@ -46,12 +48,24 @@ function SignInForm() {
       const data = await response.json();
 
       if (data.success) {
-        navigate("/"); // Assuming a success page exists
+        navigate(getRedirectPath(state.role));
       } else {
         alert(data.Error); // Or handle errors more gracefully
       }
     } catch (error) {
       console.error("Error:", error);
+    }
+  };
+  const getRedirectPath = (role) => {
+    switch (role) {
+      case "chef":
+        return "/chef-home";
+      case "user":
+        return "/user-home";
+      case "delivery":
+        return "/delivery-home";
+      default:
+        return "/";
     }
   };
   // useEffect(() => {
@@ -108,22 +122,83 @@ function SignInForm() {
             value={state.password}
             onChange={handleChange}
           />
-          <select
-            name="role"
-            value={state.role}
-            onChange={handleChange}
-            className="selects"
-          >
-            <option value="chef" className="options">
-              Chef
-            </option>
-            <option value="user" className="options">
-              User
-            </option>
-          </select>
+          <div className="">
+            <h2>You will sign in as:</h2>
+            <select
+              name="role"
+              value={state.role}
+              onChange={handleChange}
+              className="selects"
+            >
+              <option value="chef" className="options">
+                Chef
+              </option>
+              <option value="user" className="options">
+                User
+              </option>
+              <option value="delivery" className="options">
+                Delivery
+              </option>
+            </select>
+            <div className="m-1">
+              <button
+                type="button"
+                className={`main-button ${state.role === "chef" ? "active" : ""}`}
+                onClick={() =>
+                  setState({ ...state, role: "chef" })
+                }
+              >
+                <NavLink
+                  to="/chef-home"
+                  className={`main-button ${state.role === "chef" ? "active" : ""}`}
+                  onClick={() =>
+                    setState({ ...state, role: "chef" })
+                  }
+                >
+                  Chef
+                </NavLink>
+              </button>
+              <button
+                type="button"
+                className={`main-button ${state.role === "user" ? "active" : ""}`}
+                onClick={() =>
+                  setState({ ...state, role: "user" })
+                }
+              >
+                <NavLink
+                  to="/user-home"
+                  className={`main-button ${state.role === "user" ? "active" : ""}`}
+                  onClick={() =>
+                    setState({ ...state, role: "user" })
+                  }
+                >
+                  User
+                </NavLink>
+              </button>
+              <button
+                type="button"
+                className={`main-button ${state.role === "chef" ? "active" : ""}`}
+                onClick={() =>
+                  setState({ ...state, role: "delivery" })
+                }
+              >
+                <NavLink
+                  to="/delivery-home"
+                  className={`main-button ${state.role === "delivery" ? "active" : ""}`}
+                  onClick={() =>
+                    setState({ ...state, role: "delivery" })
+                  }
+                >
+                  Delivery
+                </NavLink>
+              </button>
+            </div>
+          </div>
         </div>
-        <a href="#">Forgot your password?</a>
-        <button className="main-button">Sign In</button>
+        <div className=" flex flex-col mt-16">
+          <a href="#">Forgot your password?</a>
+          <button className="main-button">Sign In</button>
+        </div>
       </form>
     </div>
   );
