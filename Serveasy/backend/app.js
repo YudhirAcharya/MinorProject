@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const pageRoutes = require("./routes/pagesRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
@@ -36,6 +37,15 @@ const pool = mysql.createPool({
 });
 
 // ROUTES
+app.use(
+  "/home",
+  (req, res, next) => {
+    req.pool = pool;
+    next();
+  },
+  pageRoutes,
+);
+
 app.use(
   "/foods",
   (req, res, next) => {

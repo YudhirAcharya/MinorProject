@@ -134,3 +134,9 @@ exports.loginUser = (req, res) => {
     );
   });
 };
+
+exports.logoutUser = (req, res) => {
+  res.cookie("jwt", "", { maxAge: 0 });
+  // res.redirect("/");
+  res.status(200).json({ success: "Redirecting to Landing Page" });
+};
