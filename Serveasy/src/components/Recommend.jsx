@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Recipe } from "../constants/indianFoodDataset";
+import RecommendationList from "./RecommendationList";
 const Recommend = () => {
   const [recipeInput, setRecipeInput] = useState("");
   const [recommendations, setRecommendations] = useState(
     []
   );
+  const item = Recipe[0].TranslatedIngredients;
 
   const recommendRecipe = () => {
     // Make a POST request to the server (replace the URL with your server endpoint)
@@ -37,6 +39,7 @@ const Recommend = () => {
         >
           Enter a recipe:
         </label>
+
         <input
           className="w-1/2"
           type="text"
@@ -52,14 +55,10 @@ const Recommend = () => {
           Search
         </button>
       </div>
-      <div id="recommendations" className="mt-8">
-        <h2 className="text-[20px] bg-gray-300 rounded-md p-2">
-          We also recommend you
-        </h2>
-        {recommendations.map((recipe, index) => (
-          <p key={index}>{recipe.name}</p>
-        ))}
-      </div>
+      <RecommendationList
+        recommendations={recommendations}
+      />
+      {console.log(recommendations)}
     </div>
   );
 };

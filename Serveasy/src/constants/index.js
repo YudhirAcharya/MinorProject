@@ -7,16 +7,6 @@ export const navLinks = [
     title: "Home",
     path: "/home",
   },
-  {
-    id: "order",
-    title: "Order",
-    path: "/order",
-  },
-  {
-    id: "settings",
-    title: "Settings",
-    path: "/settings",
-  },
 ];
 
 export const SignUpinputs = [

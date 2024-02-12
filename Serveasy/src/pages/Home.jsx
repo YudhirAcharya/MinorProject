@@ -17,6 +17,8 @@ import { useStateValue } from "../context/StateProvider";
 import Landing from "./Landing";
 import Recommend from "../components/Recommend";
 import SearchBar from "../components/SearchBar";
+import ProductCard from "../components/ProductCard";
+import Product from "./Product";
 
 const Home = () => {
   const [{ cartShow }, dispatch] = useStateValue();
@@ -41,7 +43,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <SearchBar />
+
       <div className="flex justify-center items-center mx-0 my-0 mt-3">
         <div className=" w-4/5 ">
           <Recommend />
@@ -49,7 +51,7 @@ const Home = () => {
       </div>
       <HomeChef></HomeChef>
       <HomeDelivery />
-
+      <FeatureSection />
       <Footer />
       {cartShow && <CartContainer />}
     </div>

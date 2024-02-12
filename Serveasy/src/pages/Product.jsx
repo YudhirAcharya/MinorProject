@@ -49,11 +49,15 @@ const Product = () => {
             <span className="text-primary font-semibold text-1xl">
               {cuisine}
             </span>
-            <h1 className="text-5xl font-bold uppercase">{name}</h1>
+            <h1 className="text-5xl font-bold uppercase">
+              {name}
+            </h1>
           </div>
           <p className="text-textColor">{`The ingredients used are:`}</p>
           <p className="text-textColor">{`${ingredients}.`}</p>
-          <h6 className="text-4xl font-semibold mt-5">{`Rs. ` + price}</h6>
+          <h6 className="text-4xl font-semibold mt-5">
+            {`Rs. ` + price}
+          </h6>
           <div className="mt-5">
             <div className="flex flex-row items-center py-2 rounded ">
               <button

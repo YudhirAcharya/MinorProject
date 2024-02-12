@@ -44,31 +44,32 @@ const SearchBar = () => {
       className="relative mx-0 my-0"
       ref={searchContainerRef}
     >
-      <input
-        type="text"
-        id="searchBar"
-        placeholder="Search food"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-[200px] p-2"
-      />
-      <button
-        className="w-[50px] p-2"
-        onClick={handleSearch}
-      >
-        <img
-          src="./public/icons/search.png"
-          alt=""
-          className="w-50px"
+      <div className="flex flex-row mx-0 my-0 mt-3">
+        <input
+          type="text"
+          id="searchBar"
+          placeholder="Search food"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-[200px] p-2"
         />
-      </button>
-
+        <button
+          className="w-[55px] p-2"
+          onClick={handleSearch}
+        >
+          <img
+            src="./public/icons/search.png"
+            alt=""
+            className="w-50px "
+          />
+        </button>
+      </div>
       {isResultsOpen && filteredRecipes.length > 0 && (
         <div className="absolute top-10 right-0 bg-white p-4 border rounded shadow-md">
           {filteredRecipes.map((recipe) => (
             <div key={recipe.FoodID} className="recipe-box">
               <h3>{recipe.TranslatedRecipeName}</h3>
-              {/* Add other details or components as needed */}
+
               {/* <img src={recipe.imageURL} alt={recipe.TranslatedRecipeName} /> */}
             </div>
           ))}
