@@ -7,6 +7,7 @@ const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
 const chefRoutes = require("./routes/chefRoutes");
+const delivererRoutes = require("./routes/delivererRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
@@ -63,6 +64,15 @@ app.use(
     next();
   },
   chefRoutes,
+);
+app.use(
+  "/deliverer",
+  (req, res, next) => {
+    // Middleware to attach the database pool to the request object
+    req.pool = pool;
+    next();
+  },
+  delivererRoutes,
 );
 //Khalti Route
 app.post("/khalti-api", async (req, res) => {
