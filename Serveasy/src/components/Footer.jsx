@@ -1,10 +1,15 @@
 // import React from "react";
-import { FaTwitter, FaLinkedinIn, FaGithub, FaInstagram } from "react-icons/fa";
+import {
+  FaTwitter,
+  FaLinkedinIn,
+  FaGithub,
+  FaInstagram,
+} from "react-icons/fa";
 const Footer = () => {
   const Year = new Date().getFullYear();
   return (
     <footer className="container min-w-full shadow-none rounded-none">
-      <div className=" fixed-bottom mt-200 min-h-[500px] bg-primary  overflow-hidden z-[1]">
+      <div className=" fixed-bottom mt-300 min-h-[500px] bg-primary  overflow-hidden z-[1]">
         <svg
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
@@ -22,10 +27,12 @@ const Footer = () => {
               Footer
             </h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-              enim asperiores quasi nesciunt vero, consequatur perspiciatis
-              reprehenderit ducimus quos unde sequi accusantium. At sapiente eum
-              assumenda mollitia libero natus placeat.
+              Lorem ipsum dolor sit amet, consectetur
+              adipisicing elit. Culpa enim asperiores quasi
+              nesciunt vero, consequatur perspiciatis
+              reprehenderit ducimus quos unde sequi
+              accusantium. At sapiente eum assumenda
+              mollitia libero natus placeat.
             </p>
           </div>
           <div className="flex flex-col ">
@@ -43,8 +50,12 @@ const Footer = () => {
               <li className="text-[22px] list-none font-semibold text-black py-2 uppercase">
                 Information
               </li>
-              <li className="my-4 list-none">Email: serveasy@gmail.com</li>
-              <li className="my-4 list-none">Phone: +977 9800000000</li>
+              <li className="my-4 list-none">
+                Email: serveasy@gmail.com
+              </li>
+              <li className="my-4 list-none">
+                Phone: +977 9800000000
+              </li>
             </ul>
             <div className="flex space-x-4 justify-center">
               <a
@@ -100,7 +111,7 @@ const Footer = () => {
             </div>
           </div> */}
         </div>
-        <h6 className="text-center w-50 h-50 mb-2">
+        <h6 className="text-center w-50 h-20 mb-1">
           &copy; Copy rights reserved {Year}
         </h6>
       </div>

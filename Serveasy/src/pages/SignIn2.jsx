@@ -2,11 +2,12 @@ import React from "react";
 import { useEffect } from "react";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 function SignInForm() {
   const [state, setState] = React.useState({
     email: "",
     password: "",
-    role: "",
+    role: "user",
   });
   const handleChange = (evt) => {
     evt.preventDefault();
@@ -79,9 +80,24 @@ function SignInForm() {
       })
       .then((res) => {
         if (res.success) {
-          navigate("/success");
+          switch (state.role) {
+            case "user":
+              navigate("/home");
+              break;
+            case "chef":
+              navigate("/home-chef");
+              break;
+            case "delivery":
+              navigate("/home-delivery");
+              break;
+            default:
+              navigate("/home");
+          }
         } else {
-          res.message || "Registration failed, please check your details.";
+          alert(
+            res.message ||
+              "Registration failed, please check your details."
+          );
         }
       })
       .catch((error) => {
@@ -115,16 +131,21 @@ function SignInForm() {
             onChange={handleChange}
             className="selects"
           >
+            <option value="user" className="options">
+              User
+            </option>
             <option value="chef" className="options">
               Chef
             </option>
             <option value="user" className="options">
-              User
+              Delivery
             </option>
           </select>
         </div>
         <a href="#">Forgot your password?</a>
-        <button className="main-button">Sign In</button>
+        <Link to="/home">
+          <button className="main-button">Sign In</button>
+        </Link>
       </form>
     </div>
   );

@@ -5,17 +5,12 @@ export const navLinks = [
   {
     id: "home",
     title: "Home",
-    path: "/",
+    path: "/home",
   },
   {
     id: "order",
     title: "Order",
     path: "/order",
-  },
-  {
-    id: "account",
-    title: "Account",
-    path: "/account",
   },
   {
     id: "settings",
