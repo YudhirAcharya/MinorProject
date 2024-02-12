@@ -93,6 +93,7 @@ function SignInForm() {
             type="email"
             placeholder="Email"
             name="email"
+            required
             value={state.email}
             onChange={handleChange}
           />
@@ -100,12 +101,15 @@ function SignInForm() {
             type="password"
             name="password"
             placeholder="Password"
+            required
+            autoComplete="off"
             value={state.password}
             onChange={handleChange}
           />
           <select
             name="role"
             value={state.role}
+            required
             onChange={handleChange}
             className="selects"
           >

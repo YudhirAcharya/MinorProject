@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
 
-import CartContainer from "../components/cartContainer";
+import CartContainer from "./CartContainer";
 import { useEffect } from "react";
 
 import { useStateValue } from "../context/StateProvider";
@@ -16,25 +16,25 @@ import Landing from "./Landing";
 import Recommend from "../components/Recommend";
 
 const Home = () => {
-  const [{ cartShow }, dispatch] = useStateValue();
-  // const [scrollValue, setScrollValue] = useState(0);
+  // const [{ cartShow }, dispatch] = useStateValue();
+  // // const [scrollValue, setScrollValue] = useState(0);
 
-  useEffect(() => {}, [cartShow]);
-  // const [auth, setAuth] = useState(false);
-  // const [message, setMessage] = useState("");
-  // const [name, setName] = useState("");
-  // useEffect(() => {
-  //   axios.get("/").then((res) => {
-  //     if (res.data.Status === "Success") {
-  //       setAuth(true);
-  //       setName(res.data.name);
-  //       navigate("/login");
-  //     } else {
-  //       setAuth(false);
-  //       setMessage(res.data.Error);
-  //     }
-  //   });
-  // }, []);
+  // useEffect(() => {}, [cartShow]);
+  // // const [auth, setAuth] = useState(false);
+  // // const [message, setMessage] = useState("");
+  // // const [name, setName] = useState("");
+  // // useEffect(() => {
+  // //   axios.get("/").then((res) => {
+  // //     if (res.data.Status === "Success") {
+  // //       setAuth(true);
+  // //       setName(res.data.name);
+  // //       navigate("/login");
+  // //     } else {
+  // //       setAuth(false);
+  // //       setMessage(res.data.Error);
+  // //     }
+  // //   });
+  // // }, []);
   return (
     <div>
       <Navbar />
@@ -46,7 +46,7 @@ const Home = () => {
       <Recommend />
 
       <Footer />
-      {cartShow && <CartContainer />}
+      {/* {cartShow && <CartContainer />} */}
     </div>
   );
 };

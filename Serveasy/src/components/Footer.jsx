@@ -1,10 +1,6 @@
 // import React from "react";
-import {
-  FaTwitter,
-  FaLinkedinIn,
-  FaGithub,
-  FaInstagram,
-} from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import { FaTwitter, FaLinkedinIn, FaGithub, FaInstagram } from "react-icons/fa";
 const Footer = () => {
   const Year = new Date().getFullYear();
   return (
@@ -27,22 +23,41 @@ const Footer = () => {
               Footer
             </h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Culpa enim asperiores quasi
-              nesciunt vero, consequatur perspiciatis
-              reprehenderit ducimus quos unde sequi
-              accusantium. At sapiente eum assumenda
-              mollitia libero natus placeat.
+              Serveasy is a multifaceted web app seamlessly blending meal
+              recommendations and e-commerce, offering users personalized dining
+              suggestions while incorporating a scheduling system, reviews, and
+              ratings for an enhanced culinary experience.
             </p>
           </div>
           <div className="flex flex-col ">
             <ul>
               <li className="text-[22px] list-none font-semibold text-black py-2 uppercase">
-                General
+                Links
               </li>
-              <li className="my-4 list-none">About Us</li>
-              <li className="my-4 list-none">Foods</li>
-              <li className="my-4 list-none">Contacts</li>
+              <li className="my-4 list-none ">
+                <NavLink
+                  to="/Order"
+                  className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"
+                >
+                  Order
+                </NavLink>
+              </li>
+              <li className="my-4 list-none">
+                <NavLink
+                  to="/Account"
+                  className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"
+                >
+                  Account
+                </NavLink>
+              </li>
+              <li className="my-4 list-none">
+                <NavLink
+                  to="/Setting"
+                  className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"
+                >
+                  Settings
+                </NavLink>
+              </li>
             </ul>
           </div>
           <div className="flex flex-col ">
@@ -50,11 +65,9 @@ const Footer = () => {
               <li className="text-[22px] list-none font-semibold text-black py-2 uppercase">
                 Information
               </li>
+              <li className="my-4 list-none">Email: serveasy@gmail.com</li>
               <li className="my-4 list-none">
-                Email: serveasy@gmail.com
-              </li>
-              <li className="my-4 list-none">
-                Phone: +977 9800000000
+                <a href="tel:9800000000">Phone: +977 9800000000</a>
               </li>
             </ul>
             <div className="flex space-x-4 justify-center">
@@ -113,6 +126,9 @@ const Footer = () => {
         </div>
         <h6 className="text-center w-50 h-20 mb-1">
           &copy; Copy rights reserved {Year}
+        </h6>
+        <h6 className="text-center w-50 h-20 mb-1">
+          &copy; Made by Binayak, Swornima, Sauharda & Yudhir
         </h6>
       </div>
     </footer>

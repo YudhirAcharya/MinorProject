@@ -160,6 +160,7 @@ function SignUpForm() {
             name="full_name"
             value={state.full_name}
             onChange={handleChange}
+            required
             placeholder="Full Name"
           />
           <input
@@ -167,6 +168,7 @@ function SignUpForm() {
             name="user_name"
             value={state.user_name}
             onChange={handleChange}
+            required
             placeholder="User Name"
           />
           <input
@@ -174,12 +176,15 @@ function SignUpForm() {
             name="email"
             value={state.email}
             onChange={handleChange}
+            required
             placeholder="Email"
           />
           <input
             type="password"
             name="password"
             value={state.password}
+            required
+            autoComplete="off"
             onChange={handleChange}
             placeholder="Password"
           />
@@ -188,12 +193,14 @@ function SignUpForm() {
             type="tel"
             name="phone_number"
             value={state.phone_number}
+            required
             onChange={handleChange}
             placeholder="Phone Number"
           />
           <select
             name="role"
             value={state.role}
+            required
             onChange={handleChange}
             className="selects"
           >
