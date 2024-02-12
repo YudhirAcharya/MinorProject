@@ -1,13 +1,12 @@
 import React from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { NavLink, Link } from "react-router-dom";
 function SignInForm() {
   const [state, setState] = React.useState({
     email: "",
     password: "",
-    role: "user",
+    role: "",
   });
   const handleChange = (evt) => {
     evt.preventDefault();
@@ -29,33 +28,21 @@ function SignInForm() {
       });
     }
     try {
-      const response = await fetch("http://127.0.0.1:3001/users/register", {
-        method: "POST",
-        body: JSON.stringify(state),
-        headers: { "Content-Type": "application/json" },
-
-     
-       
- 
+      const response = await fetch(
+        "http://127.0.0.1:3001/users/register",
+        {
+          method: "POST",
+          body: JSON.stringify(state),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
+        throw new Error(
+          `Network response was not ok: ${response.status}`
+        );
       }
- if (response.success) {
-          switch (state.role) {
-            case "user":
-              navigate("/home");
-              break;
-            case "chef":
-              navigate("/home-chef");
-              break;
-            case "delivery":
-              navigate("/home-delivery");
-              break;
-            default:
-              navigate("/home");
-          }
-        } 
+
       const data = await response.json();
 
       if (data.success) {
@@ -127,21 +114,16 @@ function SignInForm() {
             onChange={handleChange}
             className="selects"
           >
-            <option value="user" className="options">
-              User
-            </option>
             <option value="chef" className="options">
               Chef
             </option>
             <option value="user" className="options">
-              Delivery
+              User
             </option>
           </select>
         </div>
         <a href="#">Forgot your password?</a>
-        <Link to="/home">
-          <button className="main-button">Sign In</button>
-        </Link>
+        <button className="main-button">Sign In</button>
       </form>
     </div>
   );
