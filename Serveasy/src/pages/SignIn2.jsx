@@ -18,76 +18,70 @@ function SignInForm() {
   };
   const navigate = useNavigate();
   // axios.defaults.withCredentials = true;
-  const handleOnSubmit = (evt) => {
+
+  const handleOnSubmit = async (evt) => {
     evt.preventDefault();
-
-    console.log(state);
-
     for (const key in state) {
       setState({
         ...state,
         [key]: "",
       });
     }
-    // axios
-    //   .post("http://127.0.0.1/users/register", state)
-    //   .then((res) => {
-    //     if (res.data.Status === "Success") {
-    //       navigate("/");
-    //     } else {
-    //       alert(res.data.Error);
-    //     }
-    //   })
-    //   .then((err) => console.log(err));
-    // fetch("http://127.0.0.1/users/register", {
-    //   method: "POST",
-    //   body: JSON.stringify(state),
-    //   headers: { "Content-Type": "application/json" },
-    // })
-    //   .then((response) => response.json())
-    //   .then(() => {
-    //     // Handle successful response
-    //     // e.g., navigate to a different page
-    //     navigate("/success"); // Assuming a success page exists
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     // Handle errors appropriately
-    //   });
-  };
-  useEffect(() => {
-    // Assuming `state` contains the registration data
-    fetch("http://127.0.0.1:3001/users/register", {
-      method: "POST",
-      body: JSON.stringify(state),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          switch (response.status) {
-            case 400:
-              break;
-            case 401:
-              break;
-            case 404:
-              break;
-            case 500:
-              break;
-          }
-        }
-        return response.json();
-      })
-      .then((res) => {
-        if (res.success) {
-          navigate("/success");
-        } else {
-          res.message || "Registration failed, please check your details.";
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+    try {
+      const response = await fetch("http://127.0.0.1:3001/users/register", {
+        method: "POST",
+        body: JSON.stringify(state),
+        headers: { "Content-Type": "application/json" },
       });
-  }, [state, navigate]);
+
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        navigate("/"); // Assuming a success page exists
+      } else {
+        alert(data.Error); // Or handle errors more gracefully
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  // useEffect(() => {
+  //   // Assuming `state` contains the registration data
+  //   fetch("http://127.0.0.1:3001/users/register", {
+  //     method: "POST",
+  //     body: JSON.stringify(state),
+  //     headers: { "Content-Type": "application/json" },
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         switch (response.status) {
+  //           case 400:
+  //             break;
+  //           case 401:
+  //             break;
+  //           case 404:
+  //             break;
+  //           case 500:
+  //             break;
+  //         }
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((res) => {
+  //       if (res.success) {
+  //         navigate("/success");
+  //       } else {
+  //         res.message || "Registration failed, please check your details.";
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }, [state, navigate]);
 
   return (
     <div className="form-container sign-in-container">
