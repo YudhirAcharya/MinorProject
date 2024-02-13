@@ -51,8 +51,7 @@ const Home = () => {
           <Recommend />
         </div>
       </div>
-      <HomeChef></HomeChef>
-      <HomeDelivery />
+
       <FeatureSection />
       <Footer />
       {/* {cartShow && <CartContainer />} */}

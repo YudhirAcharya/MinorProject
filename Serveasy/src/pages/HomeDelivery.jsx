@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link, NavLink } from "react-router-dom";
+import Footer from "../components/Footer";
 const HomeDelivery = () => {
   const [toggleOrder, setToggleOrder] = useState(false);
 
@@ -10,6 +11,7 @@ const HomeDelivery = () => {
   };
   return (
     <div>
+      <Navbar />
       Home Delivery
       <div className="m-6 ">
         <table className=" border ">
@@ -38,6 +40,7 @@ const HomeDelivery = () => {
           </tbody>
         </table>
       </div>
+      <Footer />
     </div>
   );
 };

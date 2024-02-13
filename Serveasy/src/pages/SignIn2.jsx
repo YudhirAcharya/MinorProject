@@ -140,7 +140,7 @@ function SignInForm() {
             </select>
             <div className="m-1">
               <button
-                type="button"
+                type="submit"
                 className={`main-button ${state.role === "chef" ? "active" : ""}`}
                 onClick={() => setState({ ...state, role: "chef" })}
               >
@@ -153,7 +153,7 @@ function SignInForm() {
                 </NavLink>
               </button>
               <button
-                type="button"
+                type="submit"
                 className={`main-button ${state.role === "user" ? "active" : ""}`}
                 onClick={() => setState({ ...state, role: "user" })}
               >
@@ -166,7 +166,7 @@ function SignInForm() {
                 </NavLink>
               </button>
               <button
-                type="button"
+                type="submit"
                 className={`main-button ${state.role === "chef" ? "active" : ""}`}
                 onClick={() => setState({ ...state, role: "delivery" })}
               >
