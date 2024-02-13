@@ -21,6 +21,7 @@ import Landing from "./pages/Landing";
 import CartContainer from "./pages/CartContainer";
 import HomeChef from "./pages/HomeChef";
 import HomeDelivery from "./pages/HomeDelivery";
+import LoginUser from "./pages/LoginUser";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
 
@@ -67,6 +68,10 @@ function App() {
             <Route
               path="/chef-home"
               element={<HomeChef />}
+            ></Route>
+            <Route
+              path="/login-user"
+              element={<LoginUser />}
             ></Route>
             <Route
               path="/delivery-home"
