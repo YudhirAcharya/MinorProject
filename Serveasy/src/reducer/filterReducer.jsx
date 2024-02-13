@@ -3,10 +3,26 @@ const filterReducer = (state, action) => {
     case "LOAD_FILTER_PRODUCTS": {
       // const specificData = [...action.payload];
       // const newData = specificData.filter((_, i) => i < 100);
+      let priceArr = action.payload.map((curEl) => curEl.price);
+      // 1st
+      // console.log(Math.max.apply(null, priceArr));
+      // 2nd
+      // let maxprice = priceArr.reduce(
+      //   (initialVal, curVal) => Math.max(initialVal, curVal),
+      //   0
+      // );
+      // 3rd
+      let maxPrice = Math.max(...priceArr);
+      console.log(maxPrice);
       return {
         ...state,
         filterProducts: [...action.payload],
         allProducts: [...action.payload],
+        filters: {
+          ...state.filters,
+          maxPrice: maxPrice,
+          price: maxPrice,
+        },
       };
     }
     case "GET_SORT_VALUE": {
@@ -62,7 +78,7 @@ const filterReducer = (state, action) => {
     case "FILTER_PRODUCTS": {
       let { allProducts } = state;
       let tempFilterProduct = [...allProducts];
-      const { text } = state.filters;
+      const { text, price } = state.filters;
       console.log(text);
       if (text) {
         tempFilterProduct = tempFilterProduct
@@ -72,9 +88,30 @@ const filterReducer = (state, action) => {
           .filter((_, i) => i < 100);
         console.log(tempFilterProduct);
       }
+      if (price === 0) {
+        tempFilterProduct = tempFilterProduct.filter(
+          (curEl) => curEl.price === price
+        );
+      } else {
+        tempFilterProduct = tempFilterProduct.filter(
+          (curEl) => curEl.price <= price
+        );
+      }
       return {
         ...state,
         filterProducts: tempFilterProduct,
+      };
+    }
+    case "CLEAR_FILTERS": {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          text: "",
+          maxPrice: state.filters.maxPrice,
+          price: state.filters.maxPrice,
+          minPrice: 0,
+        },
       };
     }
     default:

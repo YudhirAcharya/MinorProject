@@ -4,7 +4,14 @@ import ProductCard from "./ProductCard";
 import FeatureSearch from "./FeatureSearch";
 const FeatureSection = () => {
   const { isLoading, products } = useProductContext();
-  const { filterProducts, sorting } = useFilterContext();
+  const {
+    filterProducts,
+    sorting,
+    filters: { price, minPrice, maxPrice },
+    updateFilterValues,
+    clearFilters,
+  } = useFilterContext();
+  // console.log(price, minPrice, maxPrice);
   // console.log(filterProducts);
   if (isLoading) {
     return <div>...Loading</div>;
@@ -57,12 +64,28 @@ const FeatureSection = () => {
         </div>
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 pt-8 gap-2">
-        <div>
-          <img
+        <div className="flex lg:flex-col items-center vsm:flex-row md:flex-col">
+          <h3 className="text-[1.3rem]">Price:</h3>
+          <p className="font-semibold text-[1rem]">Rs.{price}</p>
+          <input
+            type="range"
+            name="price"
+            min={minPrice}
+            max={maxPrice}
+            value={price}
+            onChange={updateFilterValues}
+          />
+          <button
+            className="bg-secondary text-lightColor mt-1 p-3"
+            onClick={clearFilters}
+          >
+            Clear Filters
+          </button>
+          {/* <img
             src="public\images\chefs-kiss-french-chef.gif"
             alt="banner"
             className="w-full h-full object-cover"
-          />
+          /> */}
         </div>
         {products &&
           filterProducts

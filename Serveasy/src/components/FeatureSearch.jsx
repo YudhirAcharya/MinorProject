@@ -16,7 +16,7 @@ const FeatureSearch = () => {
         name="text"
         value={text}
         onChange={updateFilterValues}
-        className="w-[10rem] p-2 md:w-[20rem] vsm:w-[30rem]"
+        className="w-[10rem] p-4 md:w-[30rem] vsm:w-[30rem]"
         placeholder="Search Food"
       />
       <button className="text-[2rem]" onClick={updateFilterValues}>

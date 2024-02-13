@@ -9,11 +9,7 @@ import Signing from "./pages/Signing";
 import donuts from "./animations/donuts.json";
 import Lottie from "lottie-react";
 // import Footer from "./components/Footer";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Product from "./pages/Product";
 import Landing from "./pages/Landing";
 // import HomeChef from "./pages/HomeChef";
@@ -30,9 +26,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await new Promise((resolve) =>
-          setTimeout(resolve, 1)
-        );
+        await new Promise((resolve) => setTimeout(resolve, 1));
         setLoading(false);
       } catch (error) {
         console.error("Loading error:", error);
@@ -49,14 +43,13 @@ function App() {
       {loading ? (
         <div className="flex justify-center items-center h-screen max-w-100 max-h-100">
           <Lottie animationData={donuts} loop={true} />
-          <div className="text-4xl text-center mt-4">
-            Loading...
-          </div>
+          <div className="text-4xl text-center mt-4">Loading...</div>
         </div>
       ) : (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />}></Route>
+
             <Route
               path="/account"
               element={<Account />}
@@ -81,19 +74,14 @@ function App() {
               path="/signing"
               element={<Signing />}
             ></Route>
+
             <Route path="*" element={<Error />}></Route>
-            <Route
-              path="/product/:FoodID"
-              element={<Product />}
-            ></Route>
+            <Route path="/product/:FoodID" element={<Product />}></Route>
             <Route
               path="components/CartContainer"
               element={<CartContainer />}
             ></Route>
-            <Route
-              path="/Landing"
-              element={<Landing />}
-            ></Route>
+            <Route path="/Landing" element={<Landing />}></Route>
           </Routes>
         </BrowserRouter>
       )}

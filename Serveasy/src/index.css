@@ -34,6 +34,13 @@ button {
   -ms-overflow-style: none; /* Hide the scrollbar for Internet Explorer, Edge */
   scrollbar-width: none; /* Hide the scrollbar for Firefox */
 }
+input[type="range"]::-webkit-slider-thumb {
+  pointer-events: all;
+  width: 24px;
+  height: 24px;
+  -webkit-appearance: none;
+  /* @apply w-6 h-6 appearance-none pointer-events-auto; */
+}
 @layer components {
   .icon__wrapper {
     @apply border border-gray-400 rounded-full w-[50px] h-[50px] grid place-items-center text-[22px] hover:bg-warning hover:text-primary;
