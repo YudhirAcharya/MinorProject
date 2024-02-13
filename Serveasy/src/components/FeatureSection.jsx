@@ -1,31 +1,11 @@
-// import React from 'react'
+import { useProductContext } from "../context/productContext";
 import ProductCard from "./ProductCard";
-// import { data } from "../constants";
-// import axios from "axios";
-import { useState, useEffect } from "react";
 const FeatureSection = () => {
-  const [productData, setProductData] = useState([]);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [error, setError] = useState(null);
+  const { isLoading, products } = useProductContext();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // const data = await axios.get("127.0.0.1/foods");
-      // setProductData({ data });
-      // console.log("product >>>>", data);
-
-      // const response = await axios.get("127.0.0.1:3001/foods");
-      // setProductData(response.data.rows);
-      // console.log("product >>>>", response.data.rows);
-      const response = await fetch("http://127.0.0.1:3001/foods", {
-        method: "GET",
-      });
-      const data = await response.json();
-      setProductData(data.data.rows);
-      // console.log("product >>>>", data.data.rows);
-    };
-    fetchData();
-  }, []);
+  if (isLoading) {
+    return <div>...Loading</div>;
+  }
   return (
     <div className="container flex-col shadow-none py-10  px-6 rounded-none min-w-full">
       <div className="lg:flex justify-between items-center">
@@ -49,19 +29,18 @@ const FeatureSection = () => {
             className="w-full h-full object-cover"
           />
         </div>
-        {productData &&
-          productData
-            .filter((_, index) => index < 15)
-            .map((product) => (
-              <ProductCard
-                key={product.FoodID}
-                img={product.imageurl}
-                name={product.TranslatedRecipeName}
-                price={Math.round(product.price * 1.59)}
-                cuisine={product.Cuisine}
-                ingredients={product.CleanedIngredients}
-              />
-            ))}
+        {products &&
+          products.map((product) => (
+            <ProductCard
+              key={product.FoodID}
+              id={product.FoodID}
+              img={product.imageurl}
+              name={product.TranslatedRecipeName}
+              price={product.price}
+              cuisine={product.Cuisine}
+              ingredients={product.CleanedIngredients}
+            />
+          ))}
       </div>
     </div>
   );

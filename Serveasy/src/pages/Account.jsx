@@ -1,9 +1,11 @@
-import React from "react";
 import Navbar from "../components/Navbar";
+<<<<<<< HEAD
+=======
 import Signing from "./Signing";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import AccountSelection from "../components/AccountSelection";
+>>>>>>> 78dd7d24dff3c35140cd93c4947b8f74dd7a8105
 
 const Account = () => {
   return (

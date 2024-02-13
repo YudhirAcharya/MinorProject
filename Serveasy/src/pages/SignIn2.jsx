@@ -1,13 +1,14 @@
 import React from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 // import axios from "axios";
+import { NavLink } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
-import { NavLink, Link } from "react-router-dom";
 function SignInForm() {
   const [state, setState] = React.useState({
     email: "",
     password: "",
-    role: "user",
+    role: "",
   });
   const handleChange = (evt) => {
     evt.preventDefault();
@@ -19,91 +20,87 @@ function SignInForm() {
   };
   const navigate = useNavigate();
   // axios.defaults.withCredentials = true;
-  const handleOnSubmit = (evt) => {
+
+  const handleOnSubmit = async (evt) => {
     evt.preventDefault();
-
-    console.log(state);
-
     for (const key in state) {
       setState({
         ...state,
         [key]: "",
       });
     }
-    // axios
-    //   .post("http://127.0.0.1/users/register", state)
-    //   .then((res) => {
-    //     if (res.data.Status === "Success") {
-    //       navigate("/");
-    //     } else {
-    //       alert(res.data.Error);
-    //     }
-    //   })
-    //   .then((err) => console.log(err));
-    // fetch("http://127.0.0.1/users/register", {
-    //   method: "POST",
-    //   body: JSON.stringify(state),
-    //   headers: { "Content-Type": "application/json" },
-    // })
-    //   .then((response) => response.json())
-    //   .then(() => {
-    //     // Handle successful response
-    //     // e.g., navigate to a different page
-    //     navigate("/success"); // Assuming a success page exists
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     // Handle errors appropriately
-    //   });
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:3001/users/register",
+        {
+          method: "POST",
+          body: JSON.stringify(state),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          `Network response was not ok: ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        navigate(getRedirectPath(state.role));
+      } else {
+        alert(data.Error); // Or handle errors more gracefully
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
-  useEffect(() => {
-    // Assuming `state` contains the registration data
-    fetch("http://127.0.0.1:3001/users/register", {
-      method: "POST",
-      body: JSON.stringify(state),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          switch (response.status) {
-            case 400:
-              break;
-            case 401:
-              break;
-            case 404:
-              break;
-            case 500:
-              break;
-          }
-        }
-        return response.json();
-      })
-      .then((res) => {
-        if (res.success) {
-          switch (state.role) {
-            case "user":
-              navigate("/home");
-              break;
-            case "chef":
-              navigate("/home-chef");
-              break;
-            case "delivery":
-              navigate("/home-delivery");
-              break;
-            default:
-              navigate("/home");
-          }
-        } else {
-          alert(
-            res.message ||
-              "Registration failed, please check your details."
-          );
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, [state, navigate]);
+  const getRedirectPath = (role) => {
+    switch (role) {
+      case "chef":
+        return "/chef-home";
+      case "user":
+        return "/user-home";
+      case "delivery":
+        return "/delivery-home";
+      default:
+        return "/";
+    }
+  };
+  // useEffect(() => {
+  //   // Assuming `state` contains the registration data
+  //   fetch("http://127.0.0.1:3001/users/register", {
+  //     method: "POST",
+  //     body: JSON.stringify(state),
+  //     headers: { "Content-Type": "application/json" },
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         switch (response.status) {
+  //           case 400:
+  //             break;
+  //           case 401:
+  //             break;
+  //           case 404:
+  //             break;
+  //           case 500:
+  //             break;
+  //         }
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((res) => {
+  //       if (res.success) {
+  //         navigate("/success");
+  //       } else {
+  //         res.message || "Registration failed, please check your details.";
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }, [state, navigate]);
 
   return (
     <div className="form-container sign-in-container">
@@ -115,6 +112,7 @@ function SignInForm() {
             type="email"
             placeholder="Email"
             name="email"
+            required
             value={state.email}
             onChange={handleChange}
           />
@@ -122,30 +120,105 @@ function SignInForm() {
             type="password"
             name="password"
             placeholder="Password"
+            required
+            autoComplete="off"
             value={state.password}
             onChange={handleChange}
           />
+<<<<<<< HEAD
           <select
             name="role"
             value={state.role}
+            required
             onChange={handleChange}
             className="selects"
           >
-            <option value="user" className="options">
-              User
-            </option>
             <option value="chef" className="options">
               Chef
             </option>
             <option value="user" className="options">
-              Delivery
+              User
             </option>
           </select>
+=======
+          <div className="">
+            <h2>You will sign in as:</h2>
+            <select
+              name="role"
+              value={state.role}
+              onChange={handleChange}
+              className="selects"
+            >
+              <option value="chef" className="options">
+                Chef
+              </option>
+              <option value="user" className="options">
+                User
+              </option>
+              <option value="delivery" className="options">
+                Delivery
+              </option>
+            </select>
+            <div className="m-1">
+              <button
+                type="button"
+                className={`main-button ${state.role === "chef" ? "active" : ""}`}
+                onClick={() =>
+                  setState({ ...state, role: "chef" })
+                }
+              >
+                <NavLink
+                  to="/chef-home"
+                  className={`main-button ${state.role === "chef" ? "active" : ""}`}
+                  onClick={() =>
+                    setState({ ...state, role: "chef" })
+                  }
+                >
+                  Chef
+                </NavLink>
+              </button>
+              <button
+                type="button"
+                className={`main-button ${state.role === "user" ? "active" : ""}`}
+                onClick={() =>
+                  setState({ ...state, role: "user" })
+                }
+              >
+                <NavLink
+                  to="/user-home"
+                  className={`main-button ${state.role === "user" ? "active" : ""}`}
+                  onClick={() =>
+                    setState({ ...state, role: "user" })
+                  }
+                >
+                  User
+                </NavLink>
+              </button>
+              <button
+                type="button"
+                className={`main-button ${state.role === "chef" ? "active" : ""}`}
+                onClick={() =>
+                  setState({ ...state, role: "delivery" })
+                }
+              >
+                <NavLink
+                  to="/delivery-home"
+                  className={`main-button ${state.role === "delivery" ? "active" : ""}`}
+                  onClick={() =>
+                    setState({ ...state, role: "delivery" })
+                  }
+                >
+                  Delivery
+                </NavLink>
+              </button>
+            </div>
+          </div>
         </div>
-        <a href="#">Forgot your password?</a>
-        <Link to="/home">
+        <div className=" flex flex-col mt-16">
+          <a href="#">Forgot your password?</a>
           <button className="main-button">Sign In</button>
-        </Link>
+>>>>>>> 78dd7d24dff3c35140cd93c4947b8f74dd7a8105
+        </div>
       </form>
     </div>
   );

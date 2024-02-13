@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
+// /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+// import { useDispatch } from "react-redux";
+
 let items = [];
 const CartItem = ({ item, setFlag, flag }) => {
   const [qty, setQty] = useState(item.qty || 1);
-
+  console.log(qty);
   const [{ cartItems }, dispatch] = useStateValue();
 
   const cartDispatch = () => {
@@ -17,11 +20,14 @@ const CartItem = ({ item, setFlag, flag }) => {
       cartItems: items,
     });
   };
+
   const updateQty = (action, id) => {
     if (action === "add") {
       setQty(qty + 1);
       cartItems.map((item) => {
-        if (item.id === id) item.qty += 1;
+        if (item.id === id) {
+          item.qty += 1;
+        }
         setFlag(flag + 1);
       });
       cartDispatch();
