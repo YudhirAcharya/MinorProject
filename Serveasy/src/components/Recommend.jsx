@@ -3,9 +3,7 @@ import { Recipe } from "../constants/indianFoodDataset";
 import RecommendationList from "./RecommendationList";
 const Recommend = () => {
   const [recipeInput, setRecipeInput] = useState("");
-  const [recommendations, setRecommendations] = useState(
-    []
-  );
+  const [recommendations, setRecommendations] = useState([]);
   const item = Recipe[0].TranslatedIngredients;
 
   const recommendRecipe = () => {
@@ -28,15 +26,10 @@ const Recommend = () => {
   };
 
   return (
-    <div className="container flex flex-col justify-center items-center h-screen mt-2 w-full ">
-      <h1 className=" text-[40px] text-center">
-        Search meals you like
-      </h1>
+    <div className=" flex flex-col justify-center items-center h-screen w-full ">
+      <h1 className=" text-[40px] text-center">Search meals you like</h1>
       <div className="flex flex-row gap-2 w-full justify-center items-center">
-        <label
-          htmlFor="recipeInput"
-          className="text-[20px]"
-        >
+        <label htmlFor="recipeInput" className="text-[20px]">
           Enter a recipe:
         </label>
 
@@ -48,16 +41,11 @@ const Recommend = () => {
           value={recipeInput}
           onChange={(e) => setRecipeInput(e.target.value)}
         />
-        <button
-          onClick={recommendRecipe}
-          className=" bg-red-500 p-2 "
-        >
+        <button onClick={recommendRecipe} className=" bg-red-500 p-2 ">
           Search
         </button>
       </div>
-      <RecommendationList
-        recommendations={recommendations}
-      />
+      <RecommendationList recommendations={recommendations} />
       {console.log(recommendations)}
     </div>
   );

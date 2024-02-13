@@ -11,6 +11,9 @@ const initialState = {
   sortingValue: "a-z",
   filters: {
     text: "",
+    maxPrice: 0,
+    price: 0,
+    minPrice: 0,
   },
 };
 const FilterContextProvider = ({ children }) => {
@@ -30,6 +33,12 @@ const FilterContextProvider = ({ children }) => {
     let userValue = event.target.value;
     dispatch({ type: "GET_SORT_VALUE", payload: userValue });
   };
+
+  // to clear filters
+  const clearFilters = () => {
+    dispatch({ type: "CLEAR_FILTERS" });
+  };
+
   // to sort products
   // console.log(products);
   useEffect(() => {
@@ -43,7 +52,9 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: "LOAD_FILTER_PRODUCTS", payload: products });
   }, [products]);
   return (
-    <FilterContext.Provider value={{ ...state, sorting, updateFilterValues }}>
+    <FilterContext.Provider
+      value={{ ...state, sorting, updateFilterValues, clearFilters }}
+    >
       {children}
     </FilterContext.Provider>
   );
