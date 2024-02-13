@@ -151,6 +151,7 @@ exports.redirectDelivererHome = (req, res) => {
   //res.redirect("http://localhost:5173/home"); // Redirect to the home page
   res.status(200).json({ success: "Redirecting to Deliverer Home Page" });
 };
+
 exports.getOrders = (req, res) => {
   const pool = req.pool;
   pool.getConnection((err, connection) => {
@@ -258,3 +259,4 @@ exports.updateOrderStatus = (req, res) => {
 //   { "delivery_id": 2, "status": 0 },
 //   { "delivery_id": 3, "status": 1 }
 // ]
+
