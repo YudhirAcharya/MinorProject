@@ -144,7 +144,7 @@ input {
   width: 100%;
   border-radius: 10px;
   text-indent: 15px;
-  height: 60px;
+  height: 40px;
 }
 
 .container {
@@ -226,7 +226,11 @@ input {
 
 .overlay {
   background: #ffc93c;
-  background: -webkit-linear-gradient(to right, #ffc93c, #b19765);
+  background: -webkit-linear-gradient(
+    to right,
+    #ffc93c,
+    #b19765
+  );
   background: linear-gradient(to right, #ffe49e, #ffc93c);
   background-repeat: no-repeat;
   background-size: cover;
@@ -319,7 +323,7 @@ input {
   display: grid;
   grid-template-rows: 30% 30% 30%;
   padding: 20px;
-  row-gap: 20%;
+  row-gap: 10%;
   margin-bottom: 20px;
 }
 .input-box3 {
@@ -328,8 +332,8 @@ input {
   display: grid;
   padding: 5px 5px;
   grid-template-rows: 15% 15% 15% 15% 15% 15%;
-  row-gap: 10px;
-  margin-bottom: 20px;
+  row-gap: 3px;
+  margin-bottom: 10px;
 }
 .main-button {
   padding: 6px 30px;

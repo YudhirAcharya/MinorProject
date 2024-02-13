@@ -30,14 +30,19 @@ function SignInForm() {
       });
     }
     try {
-      const response = await fetch("http://127.0.0.1:3001/users/register", {
-        method: "POST",
-        body: JSON.stringify(state),
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        "http://127.0.0.1:3001/users/register",
+        {
+          method: "POST",
+          body: JSON.stringify(state),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
+        throw new Error(
+          `Network response was not ok: ${response.status}`
+        );
       }
 
       const data = await response.json();
@@ -140,40 +145,52 @@ function SignInForm() {
             </select>
             <div className="m-1">
               <button
-                type="button"
+                type="submit"
                 className={`main-button ${state.role === "chef" ? "active" : ""}`}
-                onClick={() => setState({ ...state, role: "chef" })}
+                onClick={() =>
+                  setState({ ...state, role: "chef" })
+                }
               >
                 <NavLink
                   to="/chef-home"
                   className={`main-button ${state.role === "chef" ? "active" : ""}`}
-                  onClick={() => setState({ ...state, role: "chef" })}
+                  onClick={() =>
+                    setState({ ...state, role: "chef" })
+                  }
                 >
                   Chef
                 </NavLink>
               </button>
               <button
-                type="button"
+                type="submit"
                 className={`main-button ${state.role === "user" ? "active" : ""}`}
-                onClick={() => setState({ ...state, role: "user" })}
+                onClick={() =>
+                  setState({ ...state, role: "user" })
+                }
               >
                 <NavLink
                   to="/user-home"
                   className={`main-button ${state.role === "user" ? "active" : ""}`}
-                  onClick={() => setState({ ...state, role: "user" })}
+                  onClick={() =>
+                    setState({ ...state, role: "user" })
+                  }
                 >
                   User
                 </NavLink>
               </button>
               <button
-                type="button"
+                type="submit"
                 className={`main-button ${state.role === "chef" ? "active" : ""}`}
-                onClick={() => setState({ ...state, role: "delivery" })}
+                onClick={() =>
+                  setState({ ...state, role: "delivery" })
+                }
               >
                 <NavLink
                   to="/delivery-home"
                   className={`main-button ${state.role === "delivery" ? "active" : ""}`}
-                  onClick={() => setState({ ...state, role: "delivery" })}
+                  onClick={() =>
+                    setState({ ...state, role: "delivery" })
+                  }
                 >
                   Delivery
                 </NavLink>
