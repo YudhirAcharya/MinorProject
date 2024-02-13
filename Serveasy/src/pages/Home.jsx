@@ -46,7 +46,6 @@ const Home = () => {
       <Navbar />
       <Hero />
       <Category />
-      <FeatureSection />
       <div className="flex justify-center items-center mx-0 my-0 mt-3">
         <div className=" w-4/5 ">
           <Recommend />

@@ -7,6 +7,7 @@ import "./index.css";
 // import reducer from "../src/context/reducer";
 import { AppProvider } from "./context/productContext.jsx";
 // import { BrowserRouter as Router } from "react-router-dom";
+import { FilterContextProvider } from "./context/filterContext.jsx";
 
 // ReactDOM.createRoot(document.getElementById("root")).render(
 //   <React.StrictMode>
@@ -19,7 +20,9 @@ import { AppProvider } from "./context/productContext.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AppProvider>
-      <App />
+      <FilterContextProvider>
+        <App />
+      </FilterContextProvider>
     </AppProvider>
   </React.StrictMode>
 );
