@@ -165,6 +165,29 @@ app.get("/api/foods", (req, res) => {
 //   });
 // });
 
+//by yudhir
+//for chef
+// let storedData = [];
+
+// function fetchData(callback) {
+//   pool.query("SELECT * FROM ordered_items", function (error, results, fields) {
+//     if (error) throw error;
+
+//     results.forEach((element) => {
+//       console.log(element);
+//       storedData.push(element);
+//     });
+//     callback(storedData);
+//   });
+// }
+
+// module.exports = {
+//   fetchData,
+//   storedData,
+// };
+
+//for-chef
+
 //Listen on environment on port
 app.listen(port, () => console.log(`Listen on port ${port}`));
 module.exports = pool;

@@ -1,17 +1,14 @@
 import React from "react";
-// import { useEffect } from "react";
-// import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
 function SignInForm() {
   const [state, setState] = React.useState({
     email: "",
     password: "",
     role: "",
   });
+
   const handleChange = (evt) => {
-    evt.preventDefault();
     const value = evt.target.value;
     setState({
       ...state,
@@ -19,19 +16,23 @@ function SignInForm() {
     });
   };
   const navigate = useNavigate();
-  // axios.defaults.withCredentials = true;
+  const handleRoleSubmit = (role) => {
+    setState({ ...state, role });
+    handleOnSubmit();
+  };
 
   const handleOnSubmit = async (evt) => {
     evt.preventDefault();
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: "",
-      });
+
+    // Validate input
+    if (!state.email || !state.password) {
+      alert("Please enter both email and password.");
+      return;
     }
+
     try {
       const response = await fetch(
-        "http://127.0.0.1:3001/users/register",
+        "http://127.0.0.1:3001/users/login",
         {
           method: "POST",
           body: JSON.stringify(state),
@@ -48,14 +49,29 @@ function SignInForm() {
       const data = await response.json();
 
       if (data.success) {
-        navigate(getRedirectPath(state.role));
+        const { email, password } = data.user;
+
+        if (
+          state.email === email &&
+          state.password === password
+        ) {
+          // Authentication successful
+          navigate(getRedirectPath(state.role));
+        } else {
+          // Authentication failed
+          alert(
+            "Authentication failed. Email/Password error"
+          );
+        }
       } else {
-        alert(data.Error); // Or handle errors more gracefully
+        console.error("Error:", data.error);
+        alert("Authentication failed.");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
   const getRedirectPath = (role) => {
     switch (role) {
       case "chef":
@@ -68,39 +84,6 @@ function SignInForm() {
         return "/";
     }
   };
-  // useEffect(() => {
-  //   // Assuming `state` contains the registration data
-  //   fetch("http://127.0.0.1:3001/users/register", {
-  //     method: "POST",
-  //     body: JSON.stringify(state),
-  //     headers: { "Content-Type": "application/json" },
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         switch (response.status) {
-  //           case 400:
-  //             break;
-  //           case 401:
-  //             break;
-  //           case 404:
-  //             break;
-  //           case 500:
-  //             break;
-  //         }
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((res) => {
-  //       if (res.success) {
-  //         navigate("/success");
-  //       } else {
-  //         res.message || "Registration failed, please check your details.";
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //     });
-  // }, [state, navigate]);
 
   return (
     <div className="form-container sign-in-container">
@@ -146,61 +129,27 @@ function SignInForm() {
             <div className="m-1">
               <button
                 type="submit"
+                onClick={() => handleRoleSubmit("chef")}
                 className={`main-button ${state.role === "chef" ? "active" : ""}`}
-                onClick={() =>
-                  setState({ ...state, role: "chef" })
-                }
               >
-                <NavLink
-                  to="/chef-home"
-                  className={`main-button ${state.role === "chef" ? "active" : ""}`}
-                  onClick={() =>
-                    setState({ ...state, role: "chef" })
-                  }
-                >
-                  Chef
-                </NavLink>
+                Chef
               </button>
               <button
                 type="submit"
+                onClick={() => handleRoleSubmit("user")}
                 className={`main-button ${state.role === "user" ? "active" : ""}`}
-                onClick={() =>
-                  setState({ ...state, role: "user" })
-                }
               >
-                <NavLink
-                  to="/user-home"
-                  className={`main-button ${state.role === "user" ? "active" : ""}`}
-                  onClick={() =>
-                    setState({ ...state, role: "user" })
-                  }
-                >
-                  User
-                </NavLink>
+                User
               </button>
               <button
                 type="submit"
+                onClick={() => handleRoleSubmit("delivery")}
                 className={`main-button ${state.role === "chef" ? "active" : ""}`}
-                onClick={() =>
-                  setState({ ...state, role: "delivery" })
-                }
               >
-                <NavLink
-                  to="/delivery-home"
-                  className={`main-button ${state.role === "delivery" ? "active" : ""}`}
-                  onClick={() =>
-                    setState({ ...state, role: "delivery" })
-                  }
-                >
-                  Delivery
-                </NavLink>
+                Delivery
               </button>
             </div>
           </div>
-        </div>
-        <div className=" flex flex-col mt-16">
-          <a href="#">Forgot your password?</a>
-          <button className="main-button">Sign In</button>
         </div>
       </form>
     </div>

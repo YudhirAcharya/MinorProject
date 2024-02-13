@@ -1,9 +1,7 @@
-// import React from "react";
-// import axios from "axios";
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+
 function SignUpForm() {
   const [state, setState] = useState({
     user_id: "",
@@ -14,34 +12,20 @@ function SignUpForm() {
     phone_number: "",
     role: "user",
   });
-  const handleChange = (evt) => {
-    const value = evt.target.value;
-    function generateUniqueUserId() {
-      return `u_${uuidv4()}`;
-    }
-    const uniqueUserId = generateUniqueUserId();
-    setState({
-      ...state,
-      user_id: uniqueUserId,
-      [evt.target.name]: value,
-    });
-  };
 
   const navigate = useNavigate();
-  const handleOnSubmit = async (evt) => {
-    evt.preventDefault();
+
+  const handleChange = (evt) => {
+    const value = evt.target.value;
     setState((prevState) => ({
       ...prevState,
+      user_id: prevState.user_id || `u_${uuidv4()}`,
+      [evt.target.name]: value,
     }));
-    // axios.defaults.withCredentials = true;
-    console.log(state);
+  };
 
-    for (const key in state) {
-      setState({
-        ...state,
-        [key]: "",
-      });
-    }
+  const handleOnSubmit = async (evt) => {
+    evt.preventDefault();
 
     try {
       const response = await fetch(
@@ -64,15 +48,17 @@ function SignUpForm() {
       if (data.success) {
         navigate(getRedirectPath(state.role));
       } else {
-        setError(
-          data.message ||
-            "Registration failed, please check your details."
+        console.error("Error:", data.error);
+        alert(
+          "Registration failed. Please check your details."
         );
       }
     } catch (error) {
-      setError(error.message);
+      console.error("Error:", error);
+      alert("Registration failed. Please try again later.");
     }
   };
+
   const getRedirectPath = (role) => {
     switch (role) {
       case "chef":
@@ -85,104 +71,13 @@ function SignUpForm() {
         return "/";
     }
   };
-  // const handleOnSubmit = (evt) => {
-  //   evt.preventDefault();
-
-  //   setState((prevState) => ({
-  //     ...prevState,
-  //   }));
-  //   // axios.defaults.withCredentials = true;
-  //   console.log(state);
-
-  //   for (const key in state) {
-  //     setState({
-  //       ...state,
-  //       [key]: "",
-  //     });
-  //   }
-  //   // axios
-  //   //   .post("http://127.0.0.1:3001/users/register", state)
-  //   //   .then((res) => {
-  //   //     if (res.data.Status === "Success") {
-  //   //       navigate("/SignIn2");
-  //   //     } else {
-  //   //       alert("error!");
-  //   //     }
-  //   //   })
-  //   //   .then((err) => console.log(err));
-  //   // fetch("http://127.0.0.1:3001/users/register", {
-  //   //   method: "POST",
-  //   //   body: JSON.stringify(state),
-  //   //   headers: { "Content-Type": "application/json" },
-  //   // })
-  //   //   .then((response) => response.json())
-  //   //   .then(() => {
-  //   //     navigate("/SignIn2");
-  //   //   })
-  //   //   .catch((error) => {
-  //   //     console.error("Error:", error);
-  //   //   });
-  // };
-  // useEffect(() => {
-  //   // Assuming `state` contains the registration data
-  //   fetch("http://127.0.0.1:3001/users/register", {
-  //     method: "POST",
-  //     body: JSON.stringify(state),
-  //     headers: { "Content-Type": "application/json" },
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         switch (response.status) {
-  //           case 400:
-  //             break;
-  //           case 401:
-  //             break;
-  //           case 404:
-  //             break;
-  //           case 500:
-  //             break;
-  //         }
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((res) => {
-  //       if (res.success) {
-  //         navigate("/success");
-  //       } else {
-  //         res.message || "Registration failed, please check your details.";
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //     });
-  // }, [state, navigate]);
 
   return (
     <div className="form-container sign-up-container">
       <form onSubmit={handleOnSubmit}>
         <h1 className="form-title">Create Account</h1>
 
-        {/* <div className="social-container">
-          <a href="#" className="social">
-            <i className="fab fa-facebook-f" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-google-plus-g" />
-          </a>
-          <a href="#" className="social">
-            <i className="fab fa-linkedin-in" />
-          </a>
-        </div> */}
-
         <div className="input-box3">
-          <input
-            type="text"
-            name="full_name"
-            value={state.full_name}
-            onChange={handleChange}
-            required
-            placeholder="Full Name"
-          />
           <input
             type="text"
             name="user_name"
@@ -191,6 +86,16 @@ function SignUpForm() {
             required
             placeholder="User Name"
           />
+
+          <input
+            type="text"
+            name="full_name"
+            value={state.full_name}
+            onChange={handleChange}
+            required
+            placeholder="Full Name"
+          />
+
           <input
             type="email"
             name="email"
@@ -199,6 +104,7 @@ function SignUpForm() {
             required
             placeholder="Email"
           />
+
           <input
             type="password"
             name="password"
@@ -217,7 +123,8 @@ function SignUpForm() {
             onChange={handleChange}
             placeholder="Phone Number"
           />
-          <div className="">
+
+          <div className="m-1">
             <h2>You will sign up as:</h2>
           </div>
           <select
@@ -237,62 +144,28 @@ function SignUpForm() {
               Delivery
             </option>
           </select>
+
           <div className="m-1">
             <button
               type="submit"
               className={`main-button ${state.role === "chef" ? "active" : ""}`}
-              onClick={() =>
-                setState({ ...state, role: "chef" })
-              }
             >
-              <NavLink
-                to="/chef-home"
-                className={`main-button ${state.role === "chef" ? "active" : ""}`}
-                onClick={() =>
-                  setState({ ...state, role: "chef" })
-                }
-              >
-                Chef
-              </NavLink>
+              Chef
             </button>
             <button
               type="submit"
               className={`main-button ${state.role === "user" ? "active" : ""}`}
-              onClick={() =>
-                setState({ ...state, role: "user" })
-              }
             >
-              <NavLink
-                to="/user-home"
-                className={`main-button ${state.role === "user" ? "active" : ""}`}
-                onClick={() =>
-                  setState({ ...state, role: "user" })
-                }
-              >
-                User
-              </NavLink>
+              User
             </button>
             <button
               type="submit"
-              className={`main-button ${state.role === "chef" ? "active" : ""}`}
-              onClick={() =>
-                setState({ ...state, role: "delivery" })
-              }
+              className={`main-button ${state.role === "delivery" ? "active" : ""}`}
             >
-              <NavLink
-                to="/delivery-home"
-                className={`main-button ${state.role === "delivery" ? "active" : ""}`}
-                onClick={() =>
-                  setState({ ...state, role: "delivery" })
-                }
-              >
-                Delivery
-              </NavLink>
+              Delivery
             </button>
           </div>
         </div>
-
-        <button className="main-button">Sign Up</button>
       </form>
     </div>
   );

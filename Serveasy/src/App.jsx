@@ -17,6 +17,7 @@ import Landing from "./pages/Landing";
 import CartContainer from "./pages/CartContainer";
 import HomeChef from "./pages/HomeChef";
 import HomeDelivery from "./pages/HomeDelivery";
+import LoginUser from "./pages/LoginUser";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
 
@@ -48,11 +49,32 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Landing />}></Route>
-            <Route path="/account" element={<Account />}></Route>
-            <Route path="/user-home" element={<Home />}></Route>
-            <Route path="/chef-home" element={<HomeChef />}></Route>
-            <Route path="/delivery-home" element={<HomeDelivery />}></Route>
-            <Route path="/signing" element={<Signing />}></Route>
+
+            <Route
+              path="/account"
+              element={<Account />}
+            ></Route>
+            <Route
+              path="/user-home"
+              element={<Home />}
+            ></Route>
+            <Route
+              path="/chef-home"
+              element={<HomeChef />}
+            ></Route>
+            <Route
+              path="/login-user"
+              element={<LoginUser />}
+            ></Route>
+            <Route
+              path="/delivery-home"
+              element={<HomeDelivery />}
+            ></Route>
+            <Route
+              path="/signing"
+              element={<Signing />}
+            ></Route>
+
             <Route path="*" element={<Error />}></Route>
             <Route path="/product/:FoodID" element={<Product />}></Route>
             <Route
