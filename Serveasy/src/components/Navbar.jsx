@@ -3,13 +3,11 @@ import { navLinks } from "../constants";
 import { Link, NavLink } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
-<<<<<<< HEAD
 // import { useStateValue } from "../context/StateProvider";
 // import { actionType } from "../context/reducer";
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   // const [{ cartShow, cartItems }, dispatch] = useStateValue();
-=======
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
 import SearchBar from "./SearchBar";
@@ -17,7 +15,6 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const [{ cartShow, cartItems }, dispatch] =
     useStateValue();
->>>>>>> 78dd7d24dff3c35140cd93c4947b8f74dd7a8105
   const toggleMenu = () => {
     setToggle(!toggle);
   };

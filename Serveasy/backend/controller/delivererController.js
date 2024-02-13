@@ -151,3 +151,6 @@ exports.redirectDelivererHome = (req, res) => {
   //res.redirect("http://localhost:5173/home"); // Redirect to the home page
   res.status(200).json({ success: "Redirecting to Deliverer Home Page" });
 };
+
+exports.getOrdersDeliverer = (req, res) => {};
+exports.updateDeliveryStatus = (req, res) => {};

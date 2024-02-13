@@ -150,3 +150,32 @@ exports.redirectChefHome = (req, res) => {
   //res.redirect("http://localhost:5173/home"); // Redirect to the home page
   res.status(200).json({ success: "Redirecting to Chef Home Page" });
 };
+
+exports.getOrdersChef = (req, res) => {
+  const pool = req.pool;
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    // console.log(`connected as id ${connection.threadId}`);
+
+    connection.query("Select * from ordered_items", (err, rows) => {
+      connection.release();
+
+      if (!err) {
+        res.status(200).json({
+          status: "success",
+          results: rows.length,
+          data: {
+            rows,
+          },
+          // data,
+        });
+      } else {
+        console.log(err);
+      }
+    });
+  });
+};
+
+exports.updateChefStatus = (req, res) => {
+  //select ordered_items where c_status = 1 and post to db of delivery
+};
