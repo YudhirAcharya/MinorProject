@@ -18,9 +18,8 @@ const Landing = () => {
       <Banner />
       <Promotion />
       <HowItWorksSection />
-      <ChefTeam />
-
       <Testimonial />
+      <ChefTeam />
 
       <Footer />
     </>

@@ -54,7 +54,7 @@ const Navbar = () => {
         <div
           // to="/Cart"
           // onClick={showCart}
-          className="text-[2rem] hover:bg-warning hover:text-lightColor mx-1 my-3 border-2 p-2 rounded-full border-warning relative"
+          className="text-[2rem] hover:bg-warning hover:text-lightColor mx-1 my-4 border-2 p-2 rounded-full border-warning relative"
         >
           <IoCart />
           {/* {cartItems && cartItems.length > 0 && (

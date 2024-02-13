@@ -1,12 +1,14 @@
 const filterReducer = (state, action) => {
   switch (action.type) {
-    case "LOAD_FILTER_PRODUCTS":
-      // console.log(action.payload);
+    case "LOAD_FILTER_PRODUCTS": {
+      // const specificData = [...action.payload];
+      // const newData = specificData.filter((_, i) => i < 100);
       return {
         ...state,
         filterProducts: [...action.payload],
         allProducts: [...action.payload],
       };
+    }
     case "GET_SORT_VALUE": {
       // let userSortValue = document.getElementById("sort");
       // let sortValue = userSortValue.options[userSortValue.selectedIndex].value;
@@ -45,6 +47,34 @@ const filterReducer = (state, action) => {
       return {
         ...state,
         filterProducts: [...newSortData],
+      };
+    }
+    case "UPDATE_FILTERS_VALUE": {
+      const { name, value } = action.payload;
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [name]: value,
+        },
+      };
+    }
+    case "FILTER_PRODUCTS": {
+      let { allProducts } = state;
+      let tempFilterProduct = [...allProducts];
+      const { text } = state.filters;
+      console.log(text);
+      if (text) {
+        tempFilterProduct = tempFilterProduct
+          .filter((curEl) =>
+            curEl.TranslatedRecipeName.toLowerCase().includes(text)
+          )
+          .filter((_, i) => i < 100);
+        console.log(tempFilterProduct);
+      }
+      return {
+        ...state,
+        filterProducts: tempFilterProduct,
       };
     }
     default:
