@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { RiRefreshFill } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import { useStateValue } from "../context/StateProvider";
-import { actionType } from "../context/reducer";
+import { actionType } from "../reducer/reducer";
 import CartItem from "../components/CartItem";
 
 const CartContainer = () => {
