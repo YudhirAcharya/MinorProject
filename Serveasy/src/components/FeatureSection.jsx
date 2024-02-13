@@ -1,8 +1,10 @@
+import { useFilterContext } from "../context/filterContext";
 import { useProductContext } from "../context/productContext";
 import ProductCard from "./ProductCard";
 const FeatureSection = () => {
   const { isLoading, products } = useProductContext();
-
+  const { filterProducts, sorting } = useFilterContext();
+  // console.log(filterProducts);
   if (isLoading) {
     return <div>...Loading</div>;
   }
@@ -16,9 +18,38 @@ const FeatureSection = () => {
           </p>
         </div>
         <div className="space-x-4 mt-8 lg:mt-0">
-          <button className="feature_btn">Breakfast</button>
-          <button className="text-gray-600 hover:text-secondary">Lunch</button>
-          <button className="text-gray-600 hover:text-secondary">Dinner</button>
+          <select name="sort" id="sort" onClick={sorting}>
+            <option
+              className="text-gray-600 hover:text-secondary px-2"
+              value="a-z"
+            >
+              Alphabetical(A-Z)
+            </option>
+            <option
+              className="text-gray-600 hover:text-secondary px-2"
+              value="z-a"
+            >
+              Alphabetical(Z-A)
+            </option>
+            <option
+              className="text-gray-600 hover:text-secondary px-2"
+              value="lowest"
+            >
+              Price(Lowest)
+            </option>
+            <option
+              className="text-gray-600 hover:text-secondary px-2"
+              value="highest"
+            >
+              Price(Highest)
+            </option>
+            <option
+              className="text-gray-600 hover:text-secondary px-2"
+              value="time_lowest"
+            >
+              Preparation Time(Lowest)
+            </option>
+          </select>
         </div>
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 pt-8 gap-2">
@@ -30,17 +61,19 @@ const FeatureSection = () => {
           />
         </div>
         {products &&
-          products.map((product) => (
-            <ProductCard
-              key={product.FoodID}
-              id={product.FoodID}
-              img={product.imageurl}
-              name={product.TranslatedRecipeName}
-              price={product.price}
-              cuisine={product.Cuisine}
-              ingredients={product.CleanedIngredients}
-            />
-          ))}
+          filterProducts
+            .filter((_, i) => i < 24)
+            .map((product) => (
+              <ProductCard
+                key={product.FoodID}
+                id={product.FoodID}
+                img={product.imageurl}
+                name={product.TranslatedRecipeName}
+                price={product.price}
+                cuisine={product.Cuisine}
+                ingredients={product.CleanedIngredients}
+              />
+            ))}
       </div>
     </div>
   );

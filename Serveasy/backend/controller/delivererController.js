@@ -152,5 +152,111 @@ exports.redirectDelivererHome = (req, res) => {
   res.status(200).json({ success: "Redirecting to Deliverer Home Page" });
 };
 
-exports.getOrdersDeliverer = (req, res) => {};
-exports.updateDeliveryStatus = (req, res) => {};
+exports.getOrders = (req, res) => {
+  const pool = req.pool;
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    // console.log(`connected as id ${connection.threadId}`);
+
+    connection.query("Select * from delivery", (err, rows) => {
+      connection.release();
+
+      if (!err) {
+        res.status(200).json({
+          status: "success",
+          results: rows.length,
+          data: {
+            rows,
+          },
+          // data,
+        });
+      } else {
+        console.log(err);
+      }
+    });
+  });
+};
+
+exports.updateOrderStatus = (req, res) => {
+  const deliveryData = req.body; // Assuming req.body is an array of objects containing delivery_id and status
+  const pool = req.pool;
+
+  deliveryData.forEach((delivery) => {
+    const { delivery_id: sentDeliveryId, status } = delivery;
+    if (status === 1) {
+      pool.getConnection((err, connection) => {
+        if (err) {
+          console.log("Error getting database connection:", err);
+          return res
+            .status(500)
+            .json({ status: "error", error: "Internal Server Error" });
+        }
+
+        connection.query(
+          "UPDATE delivery SET status=1 WHERE delivery_id=?",
+          [sentDeliveryId],
+          (err, result) => {
+            if (err) {
+              connection.release();
+              console.log("Error Updating Delivery Status:", err);
+              return res
+                .status(500)
+                .json({ status: "error", error: "Updating Database Failed" });
+            }
+
+            console.log(
+              `Delivery ${sentDeliveryId} status updated successfully`,
+            );
+
+            // Retrieve the order_id associated with the sentDeliveryId
+            connection.query(
+              "SELECT order_id FROM delivery WHERE delivery_id=?",
+              [sentDeliveryId],
+              (err, orderResult) => {
+                if (err) {
+                  connection.release();
+                  console.log("Error Retrieving Order ID:", err);
+                  return res.status(500).json({
+                    status: "error",
+                    error: "Retrieving Order ID Failed",
+                  });
+                }
+
+                const orderId = orderResult[0].order_id;
+
+                // Update d_status in ordered_items table based on the retrieved order_id
+                connection.query(
+                  "UPDATE ordered_items SET d_status=1 WHERE order_id=?",
+                  [orderId],
+                  (err, result) => {
+                    connection.release();
+                    if (err) {
+                      console.log(
+                        "Error Updating Delivery Status in ordered_items:",
+                        err,
+                      );
+                      return res.status(500).json({
+                        status: "error",
+                        error: "Updating Database Failed",
+                      });
+                    }
+
+                    console.log(
+                      `Delivery ${sentDeliveryId} status updated successfully in ordered_items`,
+                    );
+                  },
+                );
+              },
+            );
+          },
+        );
+      });
+    }
+  });
+};
+// [
+//   { "delivery_id": 1, "status": 1 },
+//   { "delivery_id": 2, "status": 0 },
+//   { "delivery_id": 3, "status": 1 }
+// ]
+

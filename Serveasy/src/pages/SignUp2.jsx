@@ -3,7 +3,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 function SignUpForm() {
   const [state, setState] = useState({
     user_id: "",
@@ -62,7 +62,7 @@ function SignUpForm() {
       const data = await response.json();
 
       if (data.success) {
-        navigate("/success");
+        navigate(getRedirectPath(state.role));
       } else {
         setError(
           data.message ||
@@ -71,6 +71,18 @@ function SignUpForm() {
       }
     } catch (error) {
       setError(error.message);
+    }
+  };
+  const getRedirectPath = (role) => {
+    switch (role) {
+      case "chef":
+        return "/chef-home";
+      case "user":
+        return "/user-home";
+      case "delivery":
+        return "/delivery-home";
+      default:
+        return "/";
     }
   };
   // const handleOnSubmit = (evt) => {
@@ -205,6 +217,9 @@ function SignUpForm() {
             onChange={handleChange}
             placeholder="Phone Number"
           />
+          <div className="">
+            <h2>You will sign up as:</h2>
+          </div>
           <select
             name="role"
             value={state.role}
@@ -212,20 +227,72 @@ function SignUpForm() {
             onChange={handleChange}
             className="selects"
           >
-            <option value="user" className="options">
-              User
-            </option>
             <option value="chef" className="options">
               Chef
             </option>
             <option value="user" className="options">
+              User
+            </option>
+            <option value="delivery" className="options">
               Delivery
             </option>
           </select>
+          <div className="m-1">
+            <button
+              type="submit"
+              className={`main-button ${state.role === "chef" ? "active" : ""}`}
+              onClick={() =>
+                setState({ ...state, role: "chef" })
+              }
+            >
+              <NavLink
+                to="/chef-home"
+                className={`main-button ${state.role === "chef" ? "active" : ""}`}
+                onClick={() =>
+                  setState({ ...state, role: "chef" })
+                }
+              >
+                Chef
+              </NavLink>
+            </button>
+            <button
+              type="submit"
+              className={`main-button ${state.role === "user" ? "active" : ""}`}
+              onClick={() =>
+                setState({ ...state, role: "user" })
+              }
+            >
+              <NavLink
+                to="/user-home"
+                className={`main-button ${state.role === "user" ? "active" : ""}`}
+                onClick={() =>
+                  setState({ ...state, role: "user" })
+                }
+              >
+                User
+              </NavLink>
+            </button>
+            <button
+              type="submit"
+              className={`main-button ${state.role === "chef" ? "active" : ""}`}
+              onClick={() =>
+                setState({ ...state, role: "delivery" })
+              }
+            >
+              <NavLink
+                to="/delivery-home"
+                className={`main-button ${state.role === "delivery" ? "active" : ""}`}
+                onClick={() =>
+                  setState({ ...state, role: "delivery" })
+                }
+              >
+                Delivery
+              </NavLink>
+            </button>
+          </div>
         </div>
-        <Link to="/home">
-          <button className="main-button">Sign Up</button>
-        </Link>
+
+        <button className="main-button">Sign Up</button>
       </form>
     </div>
   );

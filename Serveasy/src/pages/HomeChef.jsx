@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Link, NavLink } from "react-router-dom";
+import Footer from "../components/Footer";
+import RecommendMulti from "../components/RecommendMulti";
 const HomeChef = () => {
   const [toggleOrder, setToggleOrder] = useState(false);
 
@@ -10,7 +12,9 @@ const HomeChef = () => {
   };
   return (
     <div>
+      <Navbar />
       Home Chef
+      <RecommendMulti />
       <div className="m-6 ">
         <table className=" border ">
           <thead>
@@ -38,6 +42,7 @@ const HomeChef = () => {
           </tbody>
         </table>
       </div>
+      <Footer />
     </div>
   );
 };

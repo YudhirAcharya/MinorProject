@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useStateValue } from "../context/StateProvider";
-import { actionType } from "../context/reducer";
+import { actionType } from "../reducer/reducer";
 // import { useDispatch } from "react-redux";
 
 let items = [];

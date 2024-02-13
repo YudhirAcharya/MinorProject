@@ -6,7 +6,7 @@ const ProductReducer = (state, action) => {
         isLoading: true,
       };
     case "MY_API_DATA": {
-      const featureData = action.payload.filter((_, i) => i < 15);
+      const featureData = action.payload;
       return {
         ...state,
         isLoading: false,
