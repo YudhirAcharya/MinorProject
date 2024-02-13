@@ -1,6 +1,7 @@
 import { useFilterContext } from "../context/filterContext";
 import { useProductContext } from "../context/productContext";
 import ProductCard from "./ProductCard";
+import FeatureSearch from "./FeatureSearch";
 const FeatureSection = () => {
   const { isLoading, products } = useProductContext();
   const { filterProducts, sorting } = useFilterContext();
@@ -18,7 +19,7 @@ const FeatureSection = () => {
           </p>
         </div>
         <div>
-          <FeatureSection />
+          <FeatureSearch />
         </div>
         <div className="space-x-4 mt-8 lg:mt-0">
           <select name="sort" id="sort" onClick={sorting}>
