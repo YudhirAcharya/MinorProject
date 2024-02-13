@@ -8,7 +8,7 @@ const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
 
 const orderRoutes = require("./routes/orderRoutes");
-const pageRoutes = require("./routes/pagesRoutes");
+// const pageRoutes = require("./routes/pagesRoutes");
 
 const chefRoutes = require("./routes/chefRoutes");
 const delivererRoutes = require("./routes/delivererRoutes");
@@ -89,7 +89,6 @@ app.use(
   },
   orderRoutes,
 );
-
 
 //Khalti Route
 app.post("/khalti-api", async (req, res) => {

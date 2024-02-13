@@ -17,6 +17,9 @@ const FeatureSection = () => {
             Most trending meals in the market.
           </p>
         </div>
+        <div>
+          <FeatureSection />
+        </div>
         <div className="space-x-4 mt-8 lg:mt-0">
           <select name="sort" id="sort" onClick={sorting}>
             <option
