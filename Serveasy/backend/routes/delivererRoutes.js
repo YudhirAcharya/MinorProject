@@ -8,7 +8,7 @@ router.route("/register").post(delivererController.registerDeliverer);
 // router.route("/home").get(requireAuth, redirectHome);
 // router.route("/:id").get(foodController.getaFood);
 router.route("/login").post(delivererController.loginDeliverer);
-router.route("/logout").get(delivererController.logoutDeliverer);
+router.route("/logout").get(requireAuth, delivererController.logoutDeliverer);
 router
   .route("/home")
   .get(requireAuth, delivererController.redirectDelivererHome);
