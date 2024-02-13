@@ -13,9 +13,11 @@ router
   .route("/home")
   .get(requireAuth, delivererController.redirectDelivererHome);
 
-router.route("/orders").get(requireAuth, delivererController.getOrders);
 router
-  .route("/orders")
+  .route("/ordersDeliverer")
+  .get(requireAuth, delivererController.getOrders);
+router
+  .route("/ordersDeliverer")
   .post(requireAuth, delivererController.updateOrderStatus);
 
 module.exports = router;

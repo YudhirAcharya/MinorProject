@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+const uuid = require("uuid");
 require("dotenv").config();
 const comparePassword = require("./../utils/comparePassword");
 const bcrypt = require("bcrypt");
@@ -177,5 +178,64 @@ exports.getOrdersChef = (req, res) => {
 };
 
 exports.updateChefStatus = (req, res) => {
-  //select ordered_items where c_status = 1 and post to db of delivery
+  const chefdata = req.body; // Assuming req.body is an array of objects containing order_id and c_status
+  const pool = req.pool;
+  chefdata.forEach((chefOrder) => {
+    const { order_id, c_status } = chefOrder;
+    if (c_status === 1) {
+      pool.getConnection((err, connection) => {
+        if (err) {
+          console.log("Error getting database connection:", err);
+          return res
+            .status(500)
+            .json({ status: "error", error: "Internal Server Error" });
+        }
+
+        // Update c_status in ordered_items table
+        connection.query(
+          "UPDATE ordered_items SET c_status=1 WHERE order_id=?",
+          [order_id],
+          (err, result) => {
+            if (err) {
+              connection.release();
+              console.log("Error Updating Chef Status:", err);
+              return res
+                .status(500)
+                .json({ status: "error", error: "Updating Database Failed" });
+            }
+
+            console.log(
+              `Chef status updated successfully for order ${order_id}`,
+            );
+
+            // Generate a random delivery_id
+            const delivery_id = uuid.v4();
+
+            // Copy rows with c_status=1 to delivery table
+            connection.query(
+              `INSERT INTO delivery (delivery_id,order_id,food_name, quantity, user_id, address) SELECT ?,order_id,food_name, quantity, user_id, address FROM ordered_items WHERE order_id=? AND c_status=1`,
+              [delivery_id, order_id],
+              (err, insertResult) => {
+                // connection.release();
+                if (err) {
+                  console.log("Error copying rows to delivery table:", err);
+                  return res.status(500).json({
+                    status: "error",
+                    error: "Copying Rows to Delivery Table Failed",
+                  });
+                }
+
+                console.log(
+                  `Rows copied to delivery table for order ${order_id}`,
+                );
+              },
+            );
+          },
+        );
+      });
+    }
+  });
+  res
+    .status(200)
+    .json({ status: "success", message: "Orders updated successfully" });
 };
