@@ -12,4 +12,8 @@ router.route("/logout").get(delivererController.logoutDeliverer);
 router
   .route("/home")
   .get(requireAuth, delivererController.redirectDelivererHome);
+router.route("/orders").get(requireAuth, delivererController.getOrders);
+router
+  .route("/orders")
+  .post(requireAuth, delivererController.updateOrderStatus);
 module.exports = router;

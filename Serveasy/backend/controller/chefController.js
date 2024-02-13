@@ -147,6 +147,6 @@ exports.logoutChef = (req, res) => {
   res.status(200).json({ success: "Redirecting to Landing Page" });
 };
 exports.redirectChefHome = (req, res) => {
-  //res.redirect("http://localhost:5173/home"); // Redirect to the home page
+  //res.redirect("http://localhost:5173/chef/home"); // Redirect to the home page
   res.status(200).json({ success: "Redirecting to Chef Home Page" });
 };
