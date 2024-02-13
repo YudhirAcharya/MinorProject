@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useReducer } from "react";
-import reducer from "../context/productReducer";
+import reducer from "../reducer/productReducer";
 
 const AppContext = createContext();
 const API = "http://127.0.0.1:3001/foods";

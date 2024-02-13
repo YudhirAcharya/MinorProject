@@ -1,8 +1,10 @@
+import { useFilterContext } from "../context/filterContext";
 import { useProductContext } from "../context/productContext";
 import ProductCard from "./ProductCard";
 const FeatureSection = () => {
   const { isLoading, products } = useProductContext();
-
+  const { filterProducts } = useFilterContext();
+  console.log(filterProducts);
   if (isLoading) {
     return <div>...Loading</div>;
   }
@@ -16,9 +18,16 @@ const FeatureSection = () => {
           </p>
         </div>
         <div className="space-x-4 mt-8 lg:mt-0">
-          <button className="feature_btn">Breakfast</button>
-          <button className="text-gray-600 hover:text-secondary">Lunch</button>
-          <button className="text-gray-600 hover:text-secondary">Dinner</button>
+          <button className="feature_btn">Trending</button>
+          <button className="text-gray-600 hover:text-secondary">
+            Price(Lowest)
+          </button>
+          <button className="text-gray-600 hover:text-secondary">
+            Price(Highest)
+          </button>
+          <button className="text-gray-600 hover:text-secondary">
+            Preparation Time(Lowest)
+          </button>
         </div>
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 pt-8 gap-2">
