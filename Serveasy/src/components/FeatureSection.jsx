@@ -18,7 +18,7 @@ const FeatureSection = () => {
             Most trending meals in the market.
           </p>
         </div>
-        <div>
+        <div className="mt-8">
           <FeatureSearch />
         </div>
         <div className="space-x-4 mt-8 lg:mt-0">

@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { Recipe } from "../constants/indianFoodDataset";
+// import { Recipe } from "../constants/indianFoodDataset";
 
-// import { useProductContext } from "../context/productContext";
+import { useProductContext } from "../context/productContext";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [isResultsOpen, setIsResultsOpen] = useState(false);
   const searchContainerRef = useRef(null);
-  // const { Products } = useProductContext();
+  const { Products } = useProductContext();
   const handleSearch = () => {
-    const filtered = Recipe.filter((recipe) =>
+    const filtered = Products.filter((recipe) =>
       recipe.TranslatedRecipeName.toLowerCase().includes(
         searchTerm.toLowerCase()
       )

@@ -1,3 +1,4 @@
+import { AiOutlineSearch } from "react-icons/ai";
 import { useFilterContext } from "../context/filterContext";
 const FeatureSearch = () => {
   const {
@@ -8,16 +9,19 @@ const FeatureSearch = () => {
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
-      className="flex bg-transparent flex-row mx-0 my-0 "
+      className="flex bg-transparent flex-row mx-0 my-0 p-0 gap-4"
     >
       <input
         type="text"
         name="text"
         value={text}
         onChange={updateFilterValues}
-        className="w-[200px] p-2"
+        className="w-[10rem] p-2 md:w-[20rem] vsm:w-[30rem]"
         placeholder="Search Food"
       />
+      <button className="text-[2rem]" onClick={updateFilterValues}>
+        <AiOutlineSearch />
+      </button>
     </form>
   );
 };
