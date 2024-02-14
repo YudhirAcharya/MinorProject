@@ -3,23 +3,24 @@ import { navLinks } from "../constants";
 import { Link, NavLink } from "react-router-dom";
 import { IoCart } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
-// import { useStateValue } from "../context/StateProvider";
-// import { actionType } from "../context/reducer";
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../reducer/reducer";
 import SearchBar from "./SearchBar";
 import { useCartContext } from "../context/cartContext";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const { cart, totalItem } = useCartContext();
+  const [{ cartShow }, dispatch] = useStateValue();
   const toggleMenu = () => {
     setToggle(!toggle);
   };
-  // const showCart = () => {
-  //   dispatch({
-  //     type: actionType.SET_CART_SHOW,
-  //     cartShow: !cartShow,
-  //   });
-  // };
+  const showCart = () => {
+    dispatch({
+      type: actionType.SET_CART_SHOW,
+      cartShow: !cartShow,
+    });
+  };
   return (
     <nav className="bg-primary navbar w-full flex justify-between items-center">
       <Link to="/">
@@ -52,8 +53,8 @@ const Navbar = () => {
           JoinUS
         </NavLink>
         <div
-          // to="/Cart"
-          // onClick={showCart}
+          to="/Cart"
+          onClick={showCart}
           className="text-[2rem] hover:bg-warning hover:text-lightColor mx-1 my-4 border-2 p-2 rounded-full border-warning relative"
         >
           <IoCart />

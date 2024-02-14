@@ -44,9 +44,9 @@ const CartProvider = ({ children }) => {
     dispatch({ type: "REMOVE_ITEM", payload: order_id });
   };
 
-  const showCart = () => {
-    dispatch({ type: "SHOW_CART", cartShow: !state.cartShow });
-  };
+  // const showCart = () => {
+  //   dispatch({ type: "SHOW_CART", cartShow: !state.cartShow });
+  // };
 
   const clearCart = () => {
     dispatch({ type: "CLEAR_CART" });
@@ -63,6 +63,7 @@ const CartProvider = ({ children }) => {
   // get vs set
   useEffect(() => {
     dispatch({ type: "CART_TOTAL_ITEM" });
+    dispatch({ type: "CART_TOTAL_PRICE" });
     localStorage.setItem("localCart", JSON.stringify(state.cart));
   }, [state.cart]);
 
@@ -73,7 +74,7 @@ const CartProvider = ({ children }) => {
         addToCart,
         removeItem,
         clearCart,
-        showCart,
+        // showCart,
         setDecrease,
         setIncrease,
       }}

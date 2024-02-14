@@ -9,41 +9,41 @@ const cartReducer = (state, action) => {
         amount,
         singleProduct,
       } = action.payload;
-      let existingProduct = state.cart.find(
-        (curEl) => (curEl.order_id = FoodID + TranslatedRecipeName.slice(0, 5))
-      );
-      if (existingProduct) {
-        let updateProduct = state.cart.map((curEl) => {
-          if (curEl.order_id === FoodID + TranslatedRecipeName.slice(0, 5)) {
-            let newAmount = curEl.amount + amount;
-            return {
-              ...curEl,
-              amount: newAmount,
-            };
-          } else {
-            return curEl;
-          }
-        });
-        return {
-          ...state,
-          cart: updateProduct,
-        };
-      } else {
-        // console.log(singleProduct);
-        let cartProduct = {
-          order_id: FoodID + TranslatedRecipeName.slice(0, 5),
-          food_name: TranslatedRecipeName,
-          ingredients: singleProduct.CleanedIngredients,
-          price,
-          amount,
-          delivery_time: singleProduct.TotalTimeInMins + 30,
-          imageurl,
-        };
-        return {
-          ...state,
-          cart: [...state.cart, cartProduct],
-        };
-      }
+      // let existingProduct = state.cart.find(
+      //   (curEl) => (curEl.order_id = FoodID + TranslatedRecipeName.slice(0, 5))
+      // );
+      // if (existingProduct) {
+      //   let updateProduct = state.cart.map((curEl) => {
+      //     if (curEl.order_id === FoodID + TranslatedRecipeName.slice(0, 5)) {
+      //       let newAmount = curEl.amount + amount;
+      //       return {
+      //         ...curEl,
+      //         amount: newAmount,
+      //       };
+      //     } else {
+      //       return curEl;
+      //     }
+      //   });
+      //   return {
+      //     ...state,
+      //     cart: updateProduct,
+      //   };
+      // } else {
+      // console.log(singleProduct);
+      let cartProduct = {
+        order_id: FoodID + TranslatedRecipeName.slice(0, 5),
+        food_name: TranslatedRecipeName,
+        ingredients: singleProduct.CleanedIngredients,
+        price,
+        amount,
+        delivery_time: singleProduct.TotalTimeInMins + 30,
+        imageurl,
+      };
+      return {
+        ...state,
+        cart: [...state.cart, cartProduct],
+      };
+      // }
     }
     case "REMOVE_ITEM": {
       let updatedCart = state.cart.filter(
@@ -54,15 +54,17 @@ const cartReducer = (state, action) => {
         cart: updatedCart,
       };
     }
+
     case "CLEAR_CART":
       return { ...state, cart: [] };
-    case "SHOW_CART": {
-      // console.log(action.payload);
-      return {
-        ...state,
-        cartShow: action.cartShow,
-      };
-    }
+
+    // case "SHOW_CART": {
+    //   // console.log(action.payload);
+    //   return {
+    //     ...state,
+    //     cartShow: action.cartShow,
+    //   };
+    // }
     case "SET_DECREMENT": {
       let updatedProduct = state.cart.map((curEl) => {
         if (curEl.order_id === action.payload) {
@@ -110,6 +112,18 @@ const cartReducer = (state, action) => {
       return {
         ...state,
         totalItem: updatedItemVal,
+      };
+    }
+    case "CART_TOTAL_PRICE": {
+      let totalAmounts = state.cart.reduce((initialValue, curEl) => {
+        let { price, amount } = curEl;
+        initialValue = initialValue + price * amount;
+        console.log(initialValue);
+        return initialValue;
+      }, 0);
+      return {
+        ...state,
+        totalAmount: totalAmounts,
       };
     }
 

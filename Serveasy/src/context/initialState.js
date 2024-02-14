@@ -6,6 +6,6 @@
 export const initialState = {
   // // user: userInfo,
   // foodItems: null,
-  cartShow: false,
+  cartShow: true,
   // cartItems: cartInfo,
 };

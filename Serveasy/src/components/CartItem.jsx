@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 // /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
 
 import { motion } from "framer-motion";
 
@@ -18,55 +17,6 @@ const CartItem = ({
   delivery_time,
   imageurl,
 }) => {
-  // const [qty, setQty] = useState(item.qty || 1);
-  // console.log(qty);
-  // const [{ cartItems }, dispatch] = useStateValue();
-
-  // const cartDispatch = () => {
-  //   localStorage.setItem("cartItems", JSON.stringify(items));
-  //   dispatch({
-  //     type: actionType.SET_CARTITEMS,
-  //     cartItems: items,
-  //   });
-  // };
-
-  // const updateQty = (action, id) => {
-  //   if (action === "add") {
-  //     setQty(qty + 1);
-  //     cartItems.map((item) => {
-  //       if (item.id === id) {
-  //         item.qty += 1;
-  //       }
-  //       setFlag(flag + 1);
-  //     });
-  //     cartDispatch();
-  //   } else {
-  //     if (qty === 1) {
-  //       items = cartItems.filter((item) => item.id !== id);
-  //       setFlag(flag + 1);
-  //       cartDispatch();
-  //     } else {
-  //       setQty(qty - 1);
-  //       cartItems.map((item) => {
-  //         if (item.id === id) {
-  //           item.qty -= 1;
-  //           setFlag(flag + 1);
-  //         }
-  //       });
-  //       cartDispatch();
-  //     }
-  //   }
-  // };
-  // useEffect(() => {
-  //   items = cartItems;
-  // }, [qty, items]);
-
-  // const setDecrease = () => {
-  //   amount > 1 ? setAmount(amount - 1) : setAmount(1);
-  // };
-  // const setIncrease = () => {
-  //   setAmount(amount + 1);
-  // };
   const { removeItem, setDecrease, setIncrease } = useCartContext();
 
   return (
@@ -79,9 +29,7 @@ const CartItem = ({
       {/* Item Name Section */}
       <div className="flex flex-col gap-2">
         <p className="text-base text-gray-50 font-semibold">{food_name}</p>
-        <p className="text-sm block text-gray-100 font-bold">
-          Rs.{price * amount}
-        </p>
+        <p className="text-sm block text-gray-100 font-bold">Rs.{price}</p>
       </div>
       {/* Item Button Section */}
       <div className="group flex ml-auto items-center gap-2 cursor-pointer">
