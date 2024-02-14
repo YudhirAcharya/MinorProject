@@ -158,22 +158,25 @@ exports.getOrdersChef = (req, res) => {
     if (err) throw err;
     // console.log(`connected as id ${connection.threadId}`);
 
-    connection.query("Select * from ordered_items", (err, rows) => {
-      connection.release();
+    connection.query(
+      "Select * from ordered_items where c_status=0 and d_status=0",
+      (err, rows) => {
+        connection.release();
 
-      if (!err) {
-        res.status(200).json({
-          status: "success",
-          results: rows.length,
-          data: {
-            rows,
-          },
-          // data,
-        });
-      } else {
-        console.log(err);
-      }
-    });
+        if (!err) {
+          res.status(200).json({
+            status: "success",
+            results: rows.length,
+            data: {
+              rows,
+            },
+            // data,
+          });
+        } else {
+          console.log(err);
+        }
+      },
+    );
   });
 };
 

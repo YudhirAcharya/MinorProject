@@ -11,6 +11,26 @@ import CartAmountToggle from "../components/CartAmountToggle";
 import { useCartContext } from "../context/cartContext";
 const API = "http://127.0.0.1:3001/foods/";
 const Product = () => {
+  // const [qty, setQty] = useState(0);
+  // const { state } = useLocation();
+  // const { img, name, price, cuisine, ingredients } = state;
+  // const [buy, setBuy] = React.useState({});
+
+  // const handlePurchase = (evt) => {
+  //   evt.preventDefault();
+  //   setBuy((prevState) => ({
+  //     ...prevState,
+  //     orderId: Math.floor(Math.random() * 100000) + 1,
+  //     userId: Math.floor(Math.random() * 1000) + 1,
+  //     foodName: name,
+  //     quantity: qty,
+  //     totalprice: price * qty,
+  //   }));
+  //   setQty(0);
+  // };
+  // useEffect(() => {
+  //   console.log(buy);
+  // }, [buy]);
   const { addToCart } = useCartContext();
   const [amount, setAmount] = useState(1);
   const setDecrease = () => {
@@ -22,7 +42,7 @@ const Product = () => {
   const { getSingleProduct, isSingleLoading, singleProduct } =
     useProductContext();
   // console.log(isSingleLoading, singleProduct);
-  // const { FoodID } = useParams();
+  const { FoodID } = useParams();
   const {
     CleanedIngredients,
     Cuisine,
@@ -30,7 +50,6 @@ const Product = () => {
     TranslatedRecipeName,
     imageurl,
     price,
-    FoodID,
   } = singleProduct;
   useEffect(() => {
     // console.log(`${API}/${FoodID}`);
@@ -81,9 +100,8 @@ const Product = () => {
                 setIncrease={setIncrease}
               />
             </div>
-
-            <button
-              className="flex items-center gap-4 justify-center bg-warning py-2 w-full text-lightColor rounded-lg shadow mt-5 hover:bg-primary hover:text-textColor border-none"
+            <NavLink
+              to="/user-home"
               onClick={() =>
                 addToCart(
                   FoodID,
@@ -95,12 +113,13 @@ const Product = () => {
                 )
               }
             >
-              <GiShoppingCart className="text-[38px] " />
-              <span className="font-semibold py-3 px-2 rounded-xl h-full">
-                Add to Cart
-              </span>
-            </button>
-
+              <button className="flex items-center gap-4 justify-center bg-warning py-2 w-full text-lightColor rounded-lg shadow mt-5 hover:bg-primary hover:text-textColor border-none">
+                <GiShoppingCart className="text-[38px] " />
+                <span className="font-semibold py-3 px-2 rounded-xl h-full">
+                  Add to Cart
+                </span>
+              </button>
+            </NavLink>
             <NavLink to="/Checkout">
               <button
                 className="flex items-center gap-4 justify-center bg-warning py-2 w-full text-lightColor rounded-lg shadow mt-5 hover:bg-primary hover:text-textColor border-none"

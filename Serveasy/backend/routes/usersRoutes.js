@@ -13,4 +13,6 @@ router.route("/login").post(userController.loginUser);
 router.route("/logout").get(userController.logoutUser);
 // router.route("/home").get(requireAuth, userController.redirectUserHome);
 router.route("/home").get(userController.redirectUserHome);
+router.route("/registerOrder").post(userController.registerOrder);
+router.route("/recommendationData").get(userController.giveRecommendationData);
 module.exports = router;

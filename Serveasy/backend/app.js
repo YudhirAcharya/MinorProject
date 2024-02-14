@@ -7,8 +7,6 @@ const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
 
-const orderRoutes = require("./routes/orderRoutes");
-
 const chefRoutes = require("./routes/chefRoutes");
 const delivererRoutes = require("./routes/delivererRoutes");
 
@@ -77,16 +75,6 @@ app.use(
     next();
   },
   delivererRoutes,
-);
-
-app.use(
-  "/orders",
-  (req, res, next) => {
-    // Middleware to attach the database pool to the request object
-    req.pool = pool;
-    next();
-  },
-  orderRoutes,
 );
 
 //Khalti Route
@@ -164,6 +152,29 @@ app.get("/api/foods", (req, res) => {
 //     console.log(element);
 //   });
 // });
+
+//by yudhir
+//for chef
+// let storedData = [];
+
+// function fetchData(callback) {
+//   pool.query("SELECT * FROM ordered_items", function (error, results, fields) {
+//     if (error) throw error;
+
+//     results.forEach((element) => {
+//       console.log(element);
+//       storedData.push(element);
+//     });
+//     callback(storedData);
+//   });
+// }
+
+// module.exports = {
+//   fetchData,
+//   storedData,
+// };
+
+//for-chef
 
 //Listen on environment on port
 app.listen(port, () => console.log(`Listen on port ${port}`));

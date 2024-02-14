@@ -148,3 +148,124 @@ exports.redirectUserHome = (req, res) => {
   //res.redirect("http://localhost:5173/home"); // Redirect to the home page
   res.status(200).json({ success: "Redirecting to User Home Page" });
 };
+
+exports.registerOrder = (req, res) => {
+  const pool = req.pool;
+  const { orders_id, user_id, created_at, foods } = req.body; // Destructure order_id, user_id, and foods array from req.body
+
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to connect to database" });
+      return;
+    }
+
+    // Begin a transaction
+    connection.beginTransaction((err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to begin transaction" });
+        return;
+      }
+
+      // Insert into orders table
+      connection.query(
+        "INSERT INTO orders (orders_id, user_id, created_at, num_of_foods) VALUES (?, ?, ?, ?)",
+        [orders_id, user_id, created_at, foods.length],
+        (err, orderResult) => {
+          if (err) {
+            connection.rollback(() => {
+              console.error(err);
+              res.status(500).json({ error: "Failed to register the order" });
+            });
+            return;
+          }
+
+          // Insert into ordered_items table
+          let insertCount = 0;
+          foods.forEach(
+            ({
+              order_id,
+              food_name,
+              ingredients,
+              quantity,
+              delivery_time,
+              address,
+            }) => {
+              connection.query(
+                "INSERT INTO ordered_items (order_id, food_name, ingredients, user_id, quantity, orders_id, delivery_time, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                [
+                  order_id,
+                  food_name,
+                  ingredients,
+                  user_id,
+                  quantity,
+                  orders_id,
+                  delivery_time,
+                  address,
+                ],
+                (err) => {
+                  if (err) {
+                    connection.rollback(() => {
+                      console.error(err);
+                      res.status(500).json({
+                        error: "Failed to register the ordered items",
+                      });
+                    });
+                  } else {
+                    insertCount++;
+                    if (insertCount === foods.length) {
+                      // All inserts successful
+                      // Commit the transaction
+                      connection.commit((err) => {
+                        if (err) {
+                          connection.rollback(() => {
+                            console.error(err);
+                            res
+                              .status(500)
+                              .json({ error: "Failed to commit transaction" });
+                          });
+                        } else {
+                          connection.release();
+                          res.status(201).json({
+                            status: "success",
+                            message: "Order registered successfully",
+                          });
+                        }
+                      });
+                    }
+                  }
+                },
+              );
+            },
+          );
+        },
+      );
+    });
+  });
+};
+
+exports.giveRecommendationData = (req, res) => {
+  const pool = req.pool;
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    // console.log(`connected as id ${connection.threadId}`);
+
+    connection.query("Select * from recommendation_data", (err, rows) => {
+      connection.release();
+
+      if (!err) {
+        res.status(200).json({
+          status: "success",
+          results: rows.length,
+          data: {
+            rows,
+          },
+          // data,
+        });
+      } else {
+        console.log(err);
+      }
+    });
+  });
+};

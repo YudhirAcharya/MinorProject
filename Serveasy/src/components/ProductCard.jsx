@@ -26,27 +26,18 @@ const ProductCard = (item) => {
 
   // const navigate = useNavigate();
   const { id, img, name, price } = item;
-  const { addToCart } = useCartContext();
-  const { singleProduct } = useProductContext();
-  const {
-    CleanedIngredients,
-    Cuisine,
-    TotalTimeInMins,
-    TranslatedRecipeName,
-    imageurl,
-  } = singleProduct;
-  // const handleClick = () => {
+  // const { addToCart } = useCartContext();
+  // const amount = 1;
+  // const FoodID = id;
+  // const { singleProduct } = useProductContext();
+  // const {
+  //   CleanedIngredients,
+  //   Cuisine,
+  //   TotalTimeInMins,
+  //   TranslatedRecipeName,
+  //   imageurl,
+  // } = singleProduct;
 
-  //   navigate("/product", {
-  //     state: {
-  //       img,
-  //       name,
-  //       price,
-  //       cuisine,
-  //       ingredients,
-  //     },
-  //   });
-  // };
   return (
     <div>
       <div className="border border-gray-200 hover:border-gray-400 transition-transform rounded-lg relative">
@@ -55,7 +46,6 @@ const ProductCard = (item) => {
             className="w-full h-[200px] object-cover rounded-lg rounded-b-none"
             src={img}
             alt={name}
-            // onClick={handleClick}
           />
         </NavLink>
         <div className="space-y-2 relative p-4">
@@ -73,23 +63,23 @@ const ProductCard = (item) => {
             <h3 className="text-2xl font-medium text-warning ">
               {`Rs.` + price}
             </h3>
-            <NavLink
-              onClick={() =>
-                addToCart(
-                  FoodID,
-                  TranslatedRecipeName,
-                  imageurl,
-                  price,
-                  amount,
-                  singleProduct
-                )
-              }
+
+            {/* <button
+              className="absolute border-none bottom-2.5 right-2 bg-warning text-lightColor text-[28px] w-[100px] h-[50px] rounded-full flex justify-content-center items-center cursor-pointer pl-4 gap-1 hover:bg-primary hover:text-textColor"
+              // onClick={() =>
+              //   addToCart(
+              //     FoodID,
+              //     TranslatedRecipeName,
+              //     imageurl,
+              //     price,
+              //     amount,
+              //     singleProduct
+              //   )
+              // }
             >
-              <button className="absolute border-none bottom-2.5 right-2 bg-warning text-lightColor text-[28px] w-[100px] h-[50px] rounded-full flex justify-content-center items-center cursor-pointer pl-4 gap-1 hover:bg-primary hover:text-textColor">
-                <AiOutlineShopping />
-                <span className=" text-[14px]">Add</span>
-              </button>
-            </NavLink>
+              <AiOutlineShopping />
+              <span className=" text-[14px]">Add</span>
+            </button> */}
           </div>
         </div>
       </div>
