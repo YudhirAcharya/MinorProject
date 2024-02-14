@@ -6,7 +6,7 @@ import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../reducer/reducer";
 import CartItem from "../components/CartItem";
 import { useCartContext } from "../context/cartContext";
-
+import { NavLink } from "react-router-dom";
 const CartContainer = () => {
   const [{ cartShow }, dispatch] = useStateValue();
 
@@ -80,20 +80,24 @@ const CartContainer = () => {
           </div>
 
           {/* User logged in cha ki chaina tyo hisab le euta kun button dekhaune garna parcha yaha */}
-          <motion.button
-            whileTap={{ scale: 0.8 }}
-            type="button"
-            className="w-1/3 p-2 rounded-full  bg-primary text-textColor text-lg my-4 hover:shadow-lg font-semibold  mx-[35%]"
-          >
-            Check Out
-          </motion.button>
-          {/* <motion.button
-            whileTap={{ scale: 0.8 }}
-            type="button"
-            className="w-1/3 p-2 rounded-full mx-[35%] bg-primary text-textColor font-semibold text-lg my-4 hover:shadow-lg "
-          >
-            Login to check out
-          </motion.button> */}
+          <NavLink to="/Checkout">
+            <motion.button
+              whileTap={{ scale: 0.8 }}
+              type="button"
+              className="w-1/3 p-2 rounded-full  bg-primary text-textColor text-lg my-2 hover:shadow-lg font-semibold  mx-[35%]"
+            >
+              Check Out
+            </motion.button>
+          </NavLink>
+          <NavLink to="/schedule-meal">
+            <motion.button
+              whileTap={{ scale: 0.8 }}
+              type="button"
+              className="w-1/3 p-2 rounded-full mx-[35%] bg-primary text-textColor font-semibold text-lg  hover:shadow-lg "
+            >
+              Schedule Meal
+            </motion.button>
+          </NavLink>
         </div>
       ) : (
         <div className="w-full h-full flex flex-col items-center justify-center gap-6">

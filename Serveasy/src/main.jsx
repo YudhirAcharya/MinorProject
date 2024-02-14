@@ -9,6 +9,7 @@ import { AppProvider } from "./context/productContext.jsx";
 // import { BrowserRouter as Router } from "react-router-dom";
 import { FilterContextProvider } from "./context/filterContext.jsx";
 import { CartProvider } from "./context/cartContext.jsx";
+
 // import { initialState } from "./context/initialState.js";
 
 // ReactDOM.createRoot(document.getElementById("root")).render(
