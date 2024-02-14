@@ -45,7 +45,7 @@ exports.registerChef = (req, res) => {
           if (result && result.length > 0)
             // Check if email already exists
             return res.json({
-              status: "failure",
+              status: "error",
               error: "Email has already been registered",
             });
           else {
@@ -64,14 +64,12 @@ exports.registerChef = (req, res) => {
                       httpOnly: true,
                       maxAge: maxAge * 1000,
                     });
-                    res
-                      .status(201)
-                      .json({ chef_id: c_id, chef_email: c_email });
+                    res.status(201).json({ status: "success" });
                   } else {
-                    console.log(err);
+                    // console.log(err);
                     res.json({
                       status: "failure",
-                      error: "Failed to register chef",
+                      error: err,
                     });
                   }
                 },
@@ -122,13 +120,11 @@ exports.loginChef = (req, res) => {
                 httpOnly: true,
                 maxAge: maxAge * 1000,
               });
-              res
-                .status(201)
-                .json({ chef_id: stored_chef_id, email: storedEmail });
+              res.json({ status: "success" });
             } else {
               return res
                 .status(401)
-                .json({ status: "failure", failure: "Incorrect Password" });
+                .json({ status: "error", error: "Incorrect Password" });
             }
           } catch (error) {
             console.error("Error comparing passwords:", error);
