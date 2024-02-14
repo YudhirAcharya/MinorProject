@@ -241,6 +241,8 @@ exports.updateOrderStatus = (req, res) => {
                       });
                     }
 
+                    //orders ma counter 1
+
                     // console.log(
                     //   `Delivery ${sentDeliveryId} status updated successfully in ordered_items`,
                     // );
