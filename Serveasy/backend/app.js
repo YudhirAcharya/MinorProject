@@ -7,8 +7,6 @@ const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
 
-const orderRoutes = require("./routes/orderRoutes");
-
 const chefRoutes = require("./routes/chefRoutes");
 const delivererRoutes = require("./routes/delivererRoutes");
 
@@ -77,16 +75,6 @@ app.use(
     next();
   },
   delivererRoutes,
-);
-
-app.use(
-  "/orders",
-  (req, res, next) => {
-    // Middleware to attach the database pool to the request object
-    req.pool = pool;
-    next();
-  },
-  orderRoutes,
 );
 
 //Khalti Route
