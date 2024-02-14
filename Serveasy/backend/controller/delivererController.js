@@ -44,7 +44,7 @@ exports.registerDeliverer = (req, res) => {
           if (result && result.length > 0)
             // Check if email already exists
             return res.json({
-              status: "failure",
+              status: "error",
               error: "Email has already been registered",
             });
           else {
@@ -63,14 +63,12 @@ exports.registerDeliverer = (req, res) => {
                       httpOnly: true,
                       maxAge: maxAge * 1000,
                     });
-                    res
-                      .status(201)
-                      .json({ Deliverer_id: d_id, Deliverer_email: d_email });
+                    res.status(201).json({ status: "success" });
                   } else {
-                    console.log(err);
+                    // console.log(err);
                     res.json({
                       status: "failure",
-                      error: "Failed to register Deliverer",
+                      error: err,
                     });
                   }
                 },
@@ -122,14 +120,11 @@ exports.loginDeliverer = (req, res) => {
                 httpOnly: true,
                 maxAge: maxAge * 1000,
               });
-              res.status(201).json({
-                Deliverer_id: stored_Deliverer_id,
-                email: storedEmail,
-              });
+              res.json({ status: "success" });
             } else {
               return res
                 .status(401)
-                .json({ status: "failure", failure: "Incorrect Password" });
+                .json({ status: "error", error: "Incorrect Password" });
             }
           } catch (error) {
             console.error("Error comparing passwords:", error);

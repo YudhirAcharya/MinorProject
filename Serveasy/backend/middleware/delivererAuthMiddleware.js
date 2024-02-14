@@ -13,8 +13,9 @@ const requireAuth = (req, res, next) => {
       (err, decodedToken) => {
         if (err) {
           console.log(err);
+          res.redirect("http://127.0.0.1:3001/deliverer/delivererLogin");
           // res.redirect("/deliverer/login");
-          res.json({ error: "Redirect to deliverer login page" });
+          // res.json({ error: "Redirect to deliverer login page" });
         } else {
           console.log(decodedToken);
           next();
@@ -22,8 +23,9 @@ const requireAuth = (req, res, next) => {
       },
     );
   } else {
+    res.redirect("http://127.0.0.1:3001/deliverer/delivererLogin");
     // res.redirect("/deliverer/login");
-    res.json({ error: "Redirect to deliverer login page" });
+    // res.json({ error: "Redirect to deliverer login page" });
   }
 };
 
