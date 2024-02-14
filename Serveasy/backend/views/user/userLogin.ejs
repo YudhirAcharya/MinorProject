@@ -1,0 +1,87 @@
+<h1>This is the user login page</h1>
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login as User</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/stylesheets/signupStyle.css"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <form id="registerForm" action="#">
+        <div class="title">Login as User</div>
+        <div class="input-box underline">
+          <input
+            id="emailInput"
+            type="email"
+            placeholder="Enter Your Email"
+            required
+          />
+          <div class="underline"></div>
+        </div>
+        <div class="input-box">
+          <input
+            id="passwordInput"
+            type="password"
+            placeholder="Enter Your Password"
+            required
+          />
+          <div class="underline"></div>
+        </div>
+        <div class="input-box button">
+          <input type="submit" value="Continue" />
+        </div>
+        <div id="error-message"></div>
+      </form>
+    </div>
+
+    <script>
+      const errorMessageDiv = document.getElementById("error-message");
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          // Get the values from the input fields
+          const email = document.getElementById("emailInput").value;
+          const password = document.getElementById("passwordInput").value;
+
+          // Log retreived values
+          // console.log("Email:", email);
+          // console.log("Password:", password);
+
+          //making a POST request to server
+
+          fetch("http://127.0.0.1:3001/users/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: email,
+              password: password,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status === "success") {
+                window.location.href = "http://127.0.0.1:3001/users/userHome";
+              }
+
+              if (data.status === "error") {
+                errorMessageDiv.classList.add("error-message-display");
+                errorMessageDiv.textContent = data.error;
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>
