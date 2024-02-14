@@ -37,7 +37,7 @@ const AppProvider = ({ children }) => {
     try {
       const response = await fetch(url, { method: "GET" });
       const singleProduct = await response.json();
-      console.log(singleProduct);
+      // console.log(singleProduct);
       dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct[0] });
     } catch (error) {
       dispatch({ type: "SET_SINGLE_ERROR" });
