@@ -158,7 +158,7 @@ exports.getOrders = (req, res) => {
     if (err) throw err;
     // console.log(`connected as id ${connection.threadId}`);
 
-    connection.query("Select * from delivery", (err, rows) => {
+    connection.query("Select * from delivery where status=0", (err, rows) => {
       connection.release();
 
       if (!err) {
@@ -241,9 +241,9 @@ exports.updateOrderStatus = (req, res) => {
                       });
                     }
 
-                    console.log(
-                      `Delivery ${sentDeliveryId} status updated successfully in ordered_items`,
-                    );
+                    // console.log(
+                    //   `Delivery ${sentDeliveryId} status updated successfully in ordered_items`,
+                    // );
                   },
                 );
               },
@@ -253,10 +253,13 @@ exports.updateOrderStatus = (req, res) => {
       });
     }
   });
+  res.status(200).json({
+    status: "success",
+    message: "Delivery status updated successfully",
+  });
 };
 // [
 //   { "delivery_id": 1, "status": 1 },
 //   { "delivery_id": 2, "status": 0 },
 //   { "delivery_id": 3, "status": 1 }
 // ]
-
