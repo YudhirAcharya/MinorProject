@@ -346,3 +346,27 @@ exports.registerOrder = (req, res) => {
     });
   });
 };
+exports.giveRecommendationData = (req, res) => {
+  const pool = req.pool;
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    // console.log(`connected as id ${connection.threadId}`);
+
+    connection.query("Select * from recommendation_data", (err, rows) => {
+      connection.release();
+
+      if (!err) {
+        res.status(200).json({
+          status: "success",
+          results: rows.length,
+          data: {
+            rows,
+          },
+          // data,
+        });
+      } else {
+        console.log(err);
+      }
+    });
+  });
+};
