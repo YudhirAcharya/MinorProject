@@ -13,8 +13,7 @@ const requireAuth = (req, res, next) => {
       (err, decodedToken) => {
         if (err) {
           console.log(err);
-          // res.redirect("/chef/login");
-          res.json({ error: "Redirect to chef login page" });
+          res.redirect("http://127.0.0.1:3001/chef/chefLogin");
         } else {
           console.log(decodedToken);
           next();
@@ -23,6 +22,7 @@ const requireAuth = (req, res, next) => {
     );
   } else {
     // res.redirect("/chef/login");
+    res.redirect("http://127.0.0.1:3001/chef/chefLogin");
     res.json({ error: "Redirect to chef login page" });
   }
 };
