@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const path = require("path");
 
 const chefRoutes = require("./routes/chefRoutes");
 const delivererRoutes = require("./routes/delivererRoutes");
@@ -17,18 +18,22 @@ const app = express();
 const port = process.env.PORT || 3001;
 require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(bodyParser.json());
-
 app.use(cookieParser());
-
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
 const corsOptions = {
-  origin: "http://localhost:5173",
+  // origin: ["http://localhost:5173", "http://127.0.0.1:8005/"],
+  origin: "*",
   methods: "GET,POST,PUT,PATCH,DELETE", // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true,
 };
 app.use(cors(corsOptions));
+
+//view engine setup
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 //MYSQL
 const pool = mysql.createPool({
@@ -76,6 +81,9 @@ app.use(
   },
   delivererRoutes,
 );
+app.get("/", (req, res) => {
+  res.redirect("http://localhost:5173/");
+});
 
 //Khalti Route
 app.post("/khalti-api", async (req, res) => {

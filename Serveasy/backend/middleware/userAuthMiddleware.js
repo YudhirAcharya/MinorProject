@@ -13,8 +13,9 @@ const requireAuth = (req, res, next) => {
       (err, decodedToken) => {
         if (err) {
           console.log(err);
-          // res.redirect("/users/login");
-          res.json({ error: "Redirect to user login page" });
+          res.redirect("http://127.0.0.1:3001/users/userLogin");
+          // res.json({ error: "Redirect to user login page" });
+          // console.log("Redirect to login page");
         } else {
           console.log(decodedToken);
           next();
@@ -22,8 +23,9 @@ const requireAuth = (req, res, next) => {
       },
     );
   } else {
-    // res.redirect("/users/login");
-    res.json({ error: "Redirect to user login page" });
+    res.redirect("http://127.0.0.1:3001/users/userLogin");
+    // res.json({ error: "Redirect to user login page" });
+    // console.log("Redirect to login page");
   }
 };
 
