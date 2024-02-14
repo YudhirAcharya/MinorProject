@@ -4,6 +4,8 @@ import propTypes from "prop-types";
 import { AiOutlineStar, AiFillStar, AiOutlineShopping } from "react-icons/ai";
 // import Product from "../pages/Product";
 import { NavLink } from "react-router-dom";
+import { useCartContext } from "../context/cartContext";
+import { useProductContext } from "../context/productContext";
 // import { useStateValue } from "../context/StateProvider";
 // import { actionType } from "../context/reducer";
 const ProductCard = (item) => {
@@ -24,6 +26,15 @@ const ProductCard = (item) => {
 
   // const navigate = useNavigate();
   const { id, img, name, price } = item;
+  const { addToCart } = useCartContext();
+  const { singleProduct } = useProductContext();
+  const {
+    CleanedIngredients,
+    Cuisine,
+    TotalTimeInMins,
+    TranslatedRecipeName,
+    imageurl,
+  } = singleProduct;
   // const handleClick = () => {
 
   //   navigate("/product", {
@@ -37,14 +48,16 @@ const ProductCard = (item) => {
   //   });
   // };
   return (
-    <NavLink to={`/product/${id}`}>
+    <div>
       <div className="border border-gray-200 hover:border-gray-400 transition-transform rounded-lg relative">
-        <img
-          className="w-full h-[200px] object-cover rounded-lg rounded-b-none"
-          src={img}
-          alt={name}
-          // onClick={handleClick}
-        />
+        <NavLink to={`/product/${id}`}>
+          <img
+            className="w-full h-[200px] object-cover rounded-lg rounded-b-none"
+            src={img}
+            alt={name}
+            // onClick={handleClick}
+          />
+        </NavLink>
         <div className="space-y-2 relative p-4">
           <div className="text-yellow-400 flex gap-[5px] text-[20px]">
             <AiFillStar />
@@ -60,17 +73,27 @@ const ProductCard = (item) => {
             <h3 className="text-2xl font-medium text-warning ">
               {`Rs.` + price}
             </h3>
-            <button
-              className="absolute border-none bottom-2.5 right-2 bg-warning text-lightColor text-[28px] w-[100px] h-[50px] rounded-full flex justify-content-center items-center cursor-pointer pl-4 gap-1 hover:bg-primary hover:text-textColor"
-              // onClick={() => setItems([...cartItems, item])}
+            <NavLink
+              onClick={() =>
+                addToCart(
+                  FoodID,
+                  TranslatedRecipeName,
+                  imageurl,
+                  price,
+                  amount,
+                  singleProduct
+                )
+              }
             >
-              <AiOutlineShopping />
-              <span className=" text-[14px]">Add</span>
-            </button>
+              <button className="absolute border-none bottom-2.5 right-2 bg-warning text-lightColor text-[28px] w-[100px] h-[50px] rounded-full flex justify-content-center items-center cursor-pointer pl-4 gap-1 hover:bg-primary hover:text-textColor">
+                <AiOutlineShopping />
+                <span className=" text-[14px]">Add</span>
+              </button>
+            </NavLink>
           </div>
         </div>
       </div>
-    </NavLink>
+    </div>
   );
 };
 ProductCard.propTypes = {
