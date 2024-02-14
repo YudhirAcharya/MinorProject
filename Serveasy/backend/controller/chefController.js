@@ -159,7 +159,7 @@ exports.getOrdersChef = (req, res) => {
     // console.log(`connected as id ${connection.threadId}`);
 
     connection.query(
-      "Select * from ordered_items c_status=0 and d_status=0",
+      "Select * from ordered_items where c_status=0 and d_status=0",
       (err, rows) => {
         connection.release();
 
