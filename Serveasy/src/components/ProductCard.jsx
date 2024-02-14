@@ -4,8 +4,8 @@ import propTypes from "prop-types";
 import { AiOutlineStar, AiFillStar, AiOutlineShopping } from "react-icons/ai";
 // import Product from "../pages/Product";
 import { NavLink } from "react-router-dom";
-import { useCartContext } from "../context/cartContext";
-import { useProductContext } from "../context/productContext";
+// import { useCartContext } from "../context/cartContext";
+// import { useProductContext } from "../context/productContext";
 // import { useStateValue } from "../context/StateProvider";
 // import { actionType } from "../context/reducer";
 const ProductCard = (item) => {

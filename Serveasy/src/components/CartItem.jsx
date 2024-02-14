@@ -2,10 +2,8 @@
 // /* eslint-disable react/prop-types */
 
 import { motion } from "framer-motion";
-
 import CartAmountToggle from "./CartAmountToggle";
 import { FaTrash } from "react-icons/fa6";
-
 import { useCartContext } from "../context/cartContext";
 
 const CartItem = ({
