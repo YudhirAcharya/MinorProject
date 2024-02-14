@@ -5,7 +5,7 @@ const PageNavigation = ({ title }) => {
     <section>
       <div className="bg-white pl-4">
         <div className="flex flex-wrap h-16 py-4 items-center">
-          <NavLink to="/home">
+          <NavLink to="/user-home">
             <a className="inline-block text-sm text-black font-bold">Home</a>
           </NavLink>
           <span className="mx-3">
