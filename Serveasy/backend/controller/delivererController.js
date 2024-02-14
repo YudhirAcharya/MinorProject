@@ -82,6 +82,7 @@ exports.registerDeliverer = (req, res) => {
     }
   });
 };
+
 exports.loginDeliverer = (req, res) => {
   const { d_email, d_password: checkPassword } = req.body;
   const pool = req.pool;
@@ -229,23 +230,22 @@ exports.updateOrderStatus = (req, res) => {
                   "UPDATE ordered_items SET d_status=1 WHERE order_id=?",
                   [orderId],
                   (err, result) => {
-                    connection.release();
                     if (err) {
                       console.log(
                         "Error Updating Delivery Status in ordered_items:",
                         err,
                       );
+                      connection.release();
                       return res.status(500).json({
                         status: "error",
-                        error: "Updating Database Failed",
+                        error: "Updating ordered_items Failed",
                       });
                     }
 
-                    //orders ma counter 1
-
-                    // console.log(
-                    //   `Delivery ${sentDeliveryId} status updated successfully in ordered_items`,
-                    // );
+                    console.log(
+                      `Delivery ${sentDeliveryId} status updated successfully in ordered_items`,
+                    );
+                    connection.release(); // Release the connection here
                   },
                 );
               },
@@ -260,8 +260,111 @@ exports.updateOrderStatus = (req, res) => {
     message: "Delivery status updated successfully",
   });
 };
-// [
-//   { "delivery_id": 1, "status": 1 },
-//   { "delivery_id": 2, "status": 0 },
-//   { "delivery_id": 3, "status": 1 }
-// ]
+
+// exports.moveToRecommendationTable = (req, res) => {
+//   const orderData = req.body;
+//   const pool = req.pool;
+
+//   orderData.forEach((order) => {
+//     const { order_id, c_status, d_status } = order;
+
+//     if (c_status === 1 && d_status === 1) {
+//       pool.getConnection((err, connection) => {
+//         if (err) {
+//           console.error("Error getting database connection:", err);
+//           return res
+//             .status(500)
+//             .json({ status: "error", error: "Internal Server Error" });
+//         }
+
+//         connection.query(
+//           "SELECT user_id, food_name FROM ordered_items WHERE order_id=? AND c_status=1 AND d_status=1",
+//           [order_id],
+//           (err, items) => {
+//             if (err) {
+//               connection.release();
+//               console.error("Error checking item status:", err);
+//               return res.status(500).json({
+//                 status: "error",
+//                 error: "Checking Item Status Failed",
+//               });
+//             }
+
+//             if (items.length === 0) {
+//               connection.release();
+//               console.error("No items found with c_status=1 and d_status=1");
+//               return res.status(500).json({
+//                 status: "error",
+//                 error: "No items found with c_status=1 and d_status=1",
+//               });
+//             }
+
+//             const userId = items[0].user_id;
+//             const foodName = items[0].food_name;
+
+//             connection.query(
+//               "SELECT user_name FROM user WHERE user_id=?",
+//               [userId],
+//               (err, UserName) => {
+//                 if (err) {
+//                   connection.release();
+//                   console.error("Error Retrieving User NAME:", err);
+//                   return res.status(500).json({
+//                     status: "error",
+//                     error: "Retrieving User NAME Failed",
+//                   });
+//                 }
+//                 const userName = UserName[0].user_name;
+//                 connection.query(
+//                   "SELECT FoodID FROM food WHERE TranslatedRecipeName = ?",
+//                   [foodName],
+//                   (err, FoodID) => {
+//                     if (err) {
+//                       connection.release();
+//                       console.error("Error Retrieving Food ID:", err);
+//                       return res.status(500).json({
+//                         status: "error",
+//                         error: "Retrieving Food ID Failed",
+//                       });
+//                     }
+//                     const foodID = FoodID[0].FoodID;
+
+//                     // Inserting into Recommendation_Data table
+//                     connection.query(
+//                       "INSERT INTO dummy_recommendation(delivered_id, orderID, recipeID, recipe_name, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?)",
+//                       [
+//                         sentDeliveryId,
+//                         order_id,
+//                         foodID,
+//                         foodName,
+//                         userId,
+//                         userName,
+//                       ],
+//                       (err, finalresult) => {
+//                         if (err) {
+//                           connection.release();
+//                           console.error(
+//                             "Error inserting into Recommendation_Data table:",
+//                             err,
+//                           );
+//                           return res.status(500).json({
+//                             status: "error",
+//                             error:
+//                               "Failed to insert into Recommendation_Data table",
+//                           });
+//                         }
+
+//                         connection.release();
+//                         console.log("Inserted into dummy_recommendation table");
+//                       },
+//                     );
+//                   },
+//                 );
+//               },
+//             );
+//           },
+//         );
+//       });
+//     }
+//   });
+// };
