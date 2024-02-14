@@ -151,7 +151,7 @@ exports.redirectUserHome = (req, res) => {
 
 exports.registerOrder = (req, res) => {
   const pool = req.pool;
-  const { orders_id, user_id, created_at, foods } = req.body; // Destructure order_id, user_id, and foods array from req.body
+  const { orders_id, user_id, created_at, num_of_foods, foods } = req.body; // Destructure order_id, user_id, and foods array from req.body
 
   pool.getConnection((err, connection) => {
     if (err) {
@@ -171,7 +171,7 @@ exports.registerOrder = (req, res) => {
       // Insert into orders table
       connection.query(
         "INSERT INTO orders (orders_id, user_id, created_at, num_of_foods) VALUES (?, ?, ?, ?)",
-        [orders_id, user_id, created_at, foods.length],
+        [orders_id, user_id, created_at, num_of_foods],
         (err, orderResult) => {
           if (err) {
             connection.rollback(() => {
@@ -188,7 +188,7 @@ exports.registerOrder = (req, res) => {
               order_id,
               food_name,
               ingredients,
-              quantity,
+              amount,
               delivery_time,
               address,
             }) => {
@@ -199,7 +199,7 @@ exports.registerOrder = (req, res) => {
                   food_name,
                   ingredients,
                   user_id,
-                  quantity,
+                  amount,
                   orders_id,
                   delivery_time,
                   address,
