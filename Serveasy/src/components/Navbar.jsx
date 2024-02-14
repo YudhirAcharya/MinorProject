@@ -6,11 +6,11 @@ import { FaCircleUser } from "react-icons/fa6";
 // import { useStateValue } from "../context/StateProvider";
 // import { actionType } from "../context/reducer";
 import SearchBar from "./SearchBar";
+import { useCartContext } from "../context/cartContext";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
-  // const [{ cartShow, cartItems }, dispatch] =
-  //   useStateValue();
+  const { cart, totalItem } = useCartContext();
   const toggleMenu = () => {
     setToggle(!toggle);
   };
@@ -57,13 +57,11 @@ const Navbar = () => {
           className="text-[2rem] hover:bg-warning hover:text-lightColor mx-1 my-4 border-2 p-2 rounded-full border-warning relative"
         >
           <IoCart />
-          {/* {cartItems && cartItems.length > 0 && (
+          {cart && cart.length > 0 && (
             <div className="absolute -top-2 right-0 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-              <p className="text-xs text-white font-semibold ">
-                {cartItems.length}
-              </p>
+              <p className="text-xs text-white font-semibold ">{totalItem}</p>
             </div>
-          )} */}
+          )}
         </div>
         <NavLink
           to="/Account"

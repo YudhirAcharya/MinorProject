@@ -7,16 +7,17 @@ import Footer from "../components/Footer";
 // import axios from "axios";
 // import { useEffect, useState } from "react";
 // import AccountSelection from "../components/AccountSelection";
-import HomeChef from "./HomeChef";
-import HomeDelivery from "./HomeDelivery";
+// import HomeChef from "./HomeChef";
+// import HomeDelivery from "./HomeDelivery";
 
-// import CartContainer from "./CartContainer";
-// import { useEffect } from "react";
+import CartContainer from "./CartContainer";
+import { useEffect } from "react";
 
 // import { useStateValue } from "../context/StateProvider";
 
 // import Landing from "./Landing";
 import Recommend from "../components/Recommend";
+import { useCartContext } from "../context/cartContext";
 // import SearchBar from "../components/SearchBar";
 // import ProductCard from "../components/ProductCard";
 // import Product from "./Product";
@@ -41,6 +42,9 @@ const Home = () => {
   // //     }
   // //   });
   // // }, []);
+  const { cartShow } = useCartContext();
+  useEffect(() => {}, [cartShow]);
+  console.log(cartShow);
   return (
     <div>
       <Navbar />
@@ -54,7 +58,8 @@ const Home = () => {
 
       <FeatureSection />
       <Footer />
-      {/* {cartShow && <CartContainer />} */}
+      {cartShow && <CartContainer />}
+      <CartContainer />
     </div>
   );
 };

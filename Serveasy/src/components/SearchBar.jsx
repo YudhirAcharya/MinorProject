@@ -8,9 +8,10 @@ const SearchBar = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [isResultsOpen, setIsResultsOpen] = useState(false);
   const searchContainerRef = useRef(null);
-  const { Products } = useProductContext();
+  const { products } = useProductContext();
   const handleSearch = () => {
-    const filtered = Products.filter((recipe) =>
+    // console.log(products);
+    const filtered = products.filter((recipe) =>
       recipe.TranslatedRecipeName.toLowerCase().includes(
         searchTerm.toLowerCase()
       )
@@ -37,7 +38,7 @@ const SearchBar = () => {
   }, []);
 
   return (
-    <div className="relative mx-0 my-0" ref={searchContainerRef}>
+    <div className="relative mx-0 my-0 md:max-w-[30%]" ref={searchContainerRef}>
       <div className="flex flex-row mx-0 my-0 mt-3">
         <input
           type="text"

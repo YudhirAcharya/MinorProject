@@ -13,7 +13,7 @@ const filterReducer = (state, action) => {
       // );
       // 3rd
       let maxPrice = Math.max(...priceArr);
-      console.log(maxPrice);
+      // console.log(maxPrice);
       return {
         ...state,
         filterProducts: [...action.payload],
@@ -79,7 +79,7 @@ const filterReducer = (state, action) => {
       let { allProducts } = state;
       let tempFilterProduct = [...allProducts];
       const { text, price } = state.filters;
-      console.log(text);
+      // console.log(text);
       if (text) {
         tempFilterProduct = tempFilterProduct
           .filter((curEl) =>

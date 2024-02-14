@@ -8,6 +8,7 @@ import { useParams, NavLink } from "react-router-dom";
 import { useProductContext } from "../context/productContext";
 import PageNavigation from "../components/PageNavigation";
 import CartAmountToggle from "../components/CartAmountToggle";
+import { useCartContext } from "../context/cartContext";
 const API = "http://127.0.0.1:3001/foods/";
 const Product = () => {
   // const [qty, setQty] = useState(0);
@@ -30,6 +31,7 @@ const Product = () => {
   // useEffect(() => {
   //   console.log(buy);
   // }, [buy]);
+  const { addToCart } = useCartContext();
   const [amount, setAmount] = useState(1);
   const setDecrease = () => {
     amount > 1 ? setAmount(amount - 1) : setAmount(1);
@@ -39,7 +41,7 @@ const Product = () => {
   };
   const { getSingleProduct, isSingleLoading, singleProduct } =
     useProductContext();
-  console.log(isSingleLoading, singleProduct);
+  // console.log(isSingleLoading, singleProduct);
   const { FoodID } = useParams();
   const {
     CleanedIngredients,
@@ -91,12 +93,26 @@ const Product = () => {
           </h6>
           <hr className="max-w-full w-[100%] border-[0.1rem] border-solid border-textColor" />
           <div className="mt-2">
-            <CartAmountToggle
-              amount={amount}
-              setDecrease={setDecrease}
-              setIncrease={setIncrease}
-            />
-            <NavLink to="/CartContainer">
+            <div className="flex flex-row items-center py-1 rounded ">
+              <CartAmountToggle
+                amount={amount}
+                setDecrease={setDecrease}
+                setIncrease={setIncrease}
+              />
+            </div>
+            <NavLink
+              to="/user-home"
+              onClick={() =>
+                addToCart(
+                  FoodID,
+                  TranslatedRecipeName,
+                  imageurl,
+                  price,
+                  amount,
+                  singleProduct
+                )
+              }
+            >
               <button className="flex items-center gap-4 justify-center bg-warning py-2 w-full text-lightColor rounded-lg shadow mt-5 hover:bg-primary hover:text-textColor border-none">
                 <GiShoppingCart className="text-[38px] " />
                 <span className="font-semibold py-3 px-2 rounded-xl h-full">
@@ -104,16 +120,18 @@ const Product = () => {
                 </span>
               </button>
             </NavLink>
-            <button
-              className="flex items-center gap-4 justify-center bg-warning py-2 w-full text-lightColor rounded-lg shadow mt-5 hover:bg-primary hover:text-textColor border-none"
-              // onClick={handlePurchase}
-              // value={buy}
-            >
-              <BiSolidPurchaseTag className="text-[38px] " />
-              <span className="font-semibold py-3 px-2 rounded-xl h-full">
-                Buy Now
-              </span>
-            </button>
+            <NavLink to="/Checkout">
+              <button
+                className="flex items-center gap-4 justify-center bg-warning py-2 w-full text-lightColor rounded-lg shadow mt-5 hover:bg-primary hover:text-textColor border-none"
+                // onClick={handlePurchase}
+                // value={buy}
+              >
+                <BiSolidPurchaseTag className="text-[38px] " />
+                <span className="font-semibold py-3 px-2 rounded-xl h-full">
+                  Buy Now
+                </span>
+              </button>
+            </NavLink>
           </div>
         </div>
       </section>

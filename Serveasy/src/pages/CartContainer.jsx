@@ -1,43 +1,46 @@
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { motion } from "framer-motion";
 import { RiRefreshFill } from "react-icons/ri";
-import { useState, useEffect } from "react";
-import { useStateValue } from "../context/StateProvider";
-import { actionType } from "../reducer/reducer";
+// import { useState, useEffect } from "react";
+// import { useStateValue } from "../context/StateProvider";
+// import { actionType } from "../reducer/reducer";
 import CartItem from "../components/CartItem";
+import { useCartContext } from "../context/cartContext";
 
 const CartContainer = () => {
-  const [{ cartShow, cartItems }, dispatch] = useStateValue();
-  const [flag, setFlag] = useState(1);
-  const [tot, setTot] = useState(0);
+  // const [{ cartShow, cartItems }, dispatch] = useStateValue();
+  // const [flag, setFlag] = useState(1);
+  // const [tot, setTot] = useState(0);
 
-  const showCart = () => {
-    dispatch({
-      type: actionType.SET_CART_SHOW,
-      cartShow: !cartShow,
-    });
-  };
+  // const showCart = () => {
+  //   dispatch({
+  //     type: actionType.SET_CART_SHOW,
+  //     cartShow: !cartShow,
+  //   });
+  // };
 
-  useEffect(() => {
-    console.log(cartItems);
-    let totalPrice = cartItems.reduce(function (accumulator, item) {
-      const price = Number(item.price);
-      const qty = Number(item?.qty);
-      return accumulator + price * qty;
-    }, 0);
-    setTot(totalPrice);
-    // console.log(tot);
-  }, [tot, flag, cartItems]);
+  // useEffect(() => {
+  //   console.log(cartItems);
+  //   let totalPrice = cartItems.reduce(function (accumulator, item) {
+  //     const price = Number(item.price);
+  //     const qty = Number(item?.qty);
+  //     return accumulator + price * qty;
+  //   }, 0);
+  //   setTot(totalPrice);
+  //   // console.log(tot);
+  // }, [tot, flag, cartItems]);
 
-  const clearCart = () => {
-    dispatch({
-      type: actionType.SET_CARTITEMS,
-      cartItems: [],
-    });
+  // const clearCart = () => {
+  //   dispatch({
+  //     type: actionType.SET_CARTITEMS,
+  //     cartItems: [],
+  //   });
 
-    localStorage.setItem("cartItems", JSON.stringify([]));
-  };
+  //   localStorage.setItem("cartItems", JSON.stringify([]));
+  // };
 
+  const { cart, clearCart, showCart } = useCartContext();
+  // console.log(cart);
   return (
     <motion.div
       initial={{ opacity: 0, x: 400 }}
@@ -62,20 +65,13 @@ const CartContainer = () => {
         </motion.p>
       </div>
       {/* Bottom Section */}
-      {cartItems && cartItems.length > 0 ? (
+      {cart && cart.length > 0 ? (
         <div className="w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col ">
           {/* Cart Items Section */}
           <div className="w-full h-340 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll example">
             {/* Cart Item */}
-            {cartItems &&
-              cartItems.map((item) => (
-                <CartItem
-                  key={item.id}
-                  item={item}
-                  setFlag={setFlag}
-                  flag={flag}
-                />
-              ))}
+            {cart &&
+              cart.map((curEl) => <CartItem key={curEl.id} {...curEl} />)}
           </div>
 
           {/* Cart Subtotal Section */}
@@ -85,7 +81,7 @@ const CartContainer = () => {
                 Sub Total
               </p>
               <p className="text-lighttextGray text-lg font-semibold">
-                Rs. {tot}
+                {/* Rs. {tot} */}
               </p>
             </div>
             <div className="w-full flex items-center justify-between">
@@ -97,7 +93,7 @@ const CartContainer = () => {
 
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-200 text-xl font-bold">Total</p>
-              <p className="text-gray-200 text-xl font-bold">Rs.{tot + 50}</p>
+              {/* <p className="text-gray-200 text-xl font-bold">Rs.{tot + 50}</p> */}
             </div>
           </div>
 
