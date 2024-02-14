@@ -25,8 +25,8 @@ router.route("/ordersDeliverer").get(delivererController.getOrders);
 //   .route("/ordersDeliverer")
 //   .post(requireAuth, delivererController.updateOrderStatus);
 router.route("/ordersDeliverer").post(delivererController.updateOrderStatus);
-// router
-//   .route("/ordeToRecommendationTable")
-//   .post(delivererController.moveToRecommendationTable);
+router
+  .route("/ordeToRecommendationTable")
+  .post(delivererController.moveToRecommendationTable);
 
 module.exports = router;
