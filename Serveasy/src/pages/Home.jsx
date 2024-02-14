@@ -43,7 +43,6 @@ const Home = () => {
       <FeatureSection />
       <Footer />
       {cartShow && <CartContainer />}
-      {/* <CartContainer /> */}
     </div>
   );
 };
