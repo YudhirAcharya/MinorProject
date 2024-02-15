@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useReducer } from "react";
+import { toast } from "react-hot-toast";
 import reducer from "../reducer/cartReducer";
 const CartContext = createContext();
 const getLocalCartData = () => {
