@@ -31,7 +31,7 @@ const Navbar = () => {
         />
       </Link>
       <div className="flex flex-row gap-5 mx-0 my-0">
-        <SearchBar />
+        {/* <SearchBar /> */}
         <ul className="list-none sm:flex hidden justify-center items-center flex-1">
           {navLinks.map((nav) => (
             <li key={nav.id} className="cursor-pointer mr-6">

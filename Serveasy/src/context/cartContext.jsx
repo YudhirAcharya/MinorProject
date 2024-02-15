@@ -17,6 +17,7 @@ const initialState = {
   deliveryFee: 50,
   cartShow: false,
 };
+// console.log(cart);
 const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const addToCart = (
