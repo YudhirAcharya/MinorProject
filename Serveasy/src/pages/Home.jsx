@@ -31,7 +31,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <LoginUser />
+      {/* <LoginUser /> */}
       <Hero />
       <Category />
       <div className="flex justify-center items-center mx-0 my-0 mt-3">
