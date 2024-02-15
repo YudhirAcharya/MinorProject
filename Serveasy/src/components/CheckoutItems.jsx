@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
 const CheckoutItems = ({
-  order_id,
+  // order_id,
   food_name,
-  ingredients,
+  // ingredients,
   price,
   amount,
   delivery_time,

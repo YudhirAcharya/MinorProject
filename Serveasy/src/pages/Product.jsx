@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { Toaster } from "react-hot-toast";
 import { GiShoppingCart } from "react-icons/gi";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -136,6 +136,7 @@ const Product = () => {
         </div>
       </section>
       <Footer />
+      <Toaster />
     </>
   );
 };

@@ -18,7 +18,7 @@ import { useStateValue } from "../context/StateProvider";
 // import Landing from "./Landing";
 import Recommend from "../components/Recommend";
 // import { useCartContext } from "../context/cartContext";
-import LoginUser from "./LoginUser";
+// import LoginUser from "./LoginUser";
 // import SearchBar from "../components/SearchBar";
 // import ProductCard from "../components/ProductCard";
 // import Product from "./Product";

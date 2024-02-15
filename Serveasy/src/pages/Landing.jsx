@@ -1,5 +1,5 @@
 // import React from "react";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Banner from "../components/Banner";
 import Promotion from "../components/Promotion";
@@ -51,7 +51,7 @@ const Landing = () => {
               }
               alt="menu"
               className="w-[40px] mr-6 cursor-pointer"
-              onClick={toggleMenu}
+              // onClick={toggleMenu}
             />
 
             <div

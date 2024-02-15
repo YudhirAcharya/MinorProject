@@ -5,7 +5,7 @@ import { IoCart } from "react-icons/io5";
 import { FaCircleUser } from "react-icons/fa6";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../reducer/reducer";
-import SearchBar from "./SearchBar";
+// import SearchBar from "./SearchBar";
 import { useCartContext } from "../context/cartContext";
 
 const Navbar = () => {
