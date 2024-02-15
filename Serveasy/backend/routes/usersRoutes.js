@@ -23,6 +23,6 @@ router.route("/userRegister").get((req, res) => {
 });
 
 router.route("/userHome").get(requireAuth, (req, res) => {
-  res.render("user/userHome", {});
+  res.redirect("http://localhost:5173/user-home");
 });
 module.exports = router;
