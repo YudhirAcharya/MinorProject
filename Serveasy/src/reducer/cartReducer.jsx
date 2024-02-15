@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART": {
@@ -31,7 +32,7 @@ const cartReducer = (state, action) => {
       // } else {
       // console.log(singleProduct);
       let cartProduct = {
-        order_id: FoodID + TranslatedRecipeName.slice(0, 5),
+        order_id: nanoid(),
         food_name: TranslatedRecipeName,
         ingredients: singleProduct.CleanedIngredients,
         price,

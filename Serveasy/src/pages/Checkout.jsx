@@ -1,5 +1,6 @@
 // import React from "react";
 import { v4 as uuid } from "uuid";
+import { nanoid } from "nanoid";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { NavLink } from "react-router-dom";
@@ -7,7 +8,10 @@ import { useCartContext } from "../context/cartContext";
 import { IoMdClose } from "react-icons/io";
 import CheckoutItems from "../components/CheckoutItems";
 import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// import dotenv from "dotenv";
+// dotenv.config();
 const Checkout = () => {
   const { cart, totalAmount, deliveryFee } = useCartContext();
   const navigate = useNavigate();
@@ -17,12 +21,20 @@ const Checkout = () => {
     province: "",
     country: "NP",
   });
+  const [orderData, setOrderData] = useState({
+    orders_id: "",
+    user_id: "",
+    created_at: 0,
+    num_of_foods: 0,
+    foods: [],
+  });
   const handleChange = (evt) => {
     setState({
       ...state,
       [evt.target.name]: evt.target.value,
     });
   };
+  const [confirm, setConfirm] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,6 +44,8 @@ const Checkout = () => {
     }
     const { add, city, country, province } = state;
     const full_address = `${add},${city},${country},${province}`;
+
+    setConfirm(!confirm);
 
     // Get user ID from logged-in user (replace with your method)
     const userId = `random`; // Replace with your implementation
@@ -52,20 +66,23 @@ const Checkout = () => {
     const foods = newCart;
 
     // Build the complete data object
-    const orderData = {
+
+    const newOrderData = {
       orders_id: ordersId,
       user_id: userId,
       created_at: createdAt,
       num_of_foods: foods.length,
       foods,
     };
+
+    setOrderData(newOrderData);
     try {
       const response = await fetch(
         "http://127.0.0.1:3001/users/registerOrder",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(orderData),
+          body: JSON.stringify(newOrderData),
         }
       );
 
@@ -76,18 +93,61 @@ const Checkout = () => {
       const data = await response.json();
       if (data.success) {
         navigate("/success");
-      } else {
-        console.error("Error:", data.error);
-        alert("Registration failed. Please check your details.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Registration failed. Please try again later.");
+      alert("Confirmation failed. Please try again later.");
     }
 
-    console.log("Order data:", orderData);
+    console.log("Order data:", newOrderData);
   };
 
+  const handlePayment = async (orderData, totalAmount, deliveryFee) => {
+    console.log(orderData, totalAmount, deliveryFee);
+    const payload = {
+      return_url: "http://localhost:3000/success",
+      website_url: "http://localhost:3000",
+      amount: (totalAmount + deliveryFee) * 100,
+      purchase_order_id: orderData.orders_id,
+      purchase_order_name: orderData.user_id,
+      customer_info: {
+        name: "Ashim Upadhaya",
+        email: "example@gmail.com",
+        phone: "9811496763",
+      },
+    };
+
+    const response = await axios.post(
+      "http://localhost:3001/khalti-api",
+      payload
+    );
+    if (response) {
+      window.location.href = `${response?.data?.data?.payment_url}`;
+    }
+    if (response.status === 200 && response.data.success) {
+      navigate("/success");
+    }
+
+    // try {
+    //   const response = await fetch("http://localhost:3001/khalti-api", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(payload),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error(`Network response was not ok: ${response.status}`);
+    //   }
+
+    //   const data = await response.json();
+    //   if (data.success) {
+    //     navigate("/success");
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    //   alert("Payment failed. Please try again later.");
+    // }
+  };
   return (
     <section>
       <Navbar />
@@ -182,18 +242,27 @@ const Checkout = () => {
             </form>
           </div>
           <div className="rounded-md"></div>
-          <button
-            className="submit-button px-4 py-3 rounded-full bg-primary text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors"
-            onClick={handleSubmit}
-          >
-            Pay Rs.{totalAmount + deliveryFee}
-          </button>
+          {confirm ? (
+            <button
+              className="submit-button px-4 py-3 rounded-full bg-primary text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors"
+              onClick={() => handlePayment(orderData, totalAmount, deliveryFee)}
+            >
+              Pay Rs.{totalAmount + deliveryFee}
+            </button>
+          ) : (
+            <button
+              className="submit-button px-4 py-3 rounded-full bg-primary text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors"
+              onClick={handleSubmit}
+            >
+              Confirm Location
+            </button>
+          )}
         </div>
         <div className="col-span-1 bg-white lg:block hidden">
           <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">
             Order Summary
           </h1>
-          <ul className="py-6 border-b space-y-6 px-8 overflow-scroll">
+          <ul className="py-6 h-340 md:h-42 border-b space-y-6 px-8 overflow-y-scroll">
             {cart &&
               cart.map((curEl) => <CheckoutItems key={curEl.id} {...curEl} />)}
           </ul>

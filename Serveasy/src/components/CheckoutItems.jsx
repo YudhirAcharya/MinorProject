@@ -12,7 +12,7 @@ const CheckoutItems = ({
   return (
     <li className="grid grid-cols-6 gap-2 border-b-1">
       <div className="col-span-1 self-center">
-        <img src={imageurl} alt="Product" className="rounded w-full" />
+        <img src={imageurl} alt="Product" className="rounded w-full h-25" />
       </div>
 
       <div className="flex flex-col col-span-3 pt-2">
