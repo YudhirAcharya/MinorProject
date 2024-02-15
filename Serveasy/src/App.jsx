@@ -19,6 +19,7 @@ import HomeChef from "./pages/HomeChef";
 import HomeDelivery from "./pages/HomeDelivery";
 import LoginUser from "./pages/LoginUser";
 import Checkout from "./pages/Checkout";
+import ScheduleMeal from "./pages/ScheduleMeal";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
 
@@ -65,6 +66,7 @@ function App() {
               element={<CartContainer />}
             ></Route>
             <Route path="/Checkout" element={<Checkout />}></Route>
+            <Route path="/ScheduleMeal" element={<ScheduleMeal />}></Route>
             <Route path="/Landing" element={<Landing />}></Route>
           </Routes>
         </BrowserRouter>

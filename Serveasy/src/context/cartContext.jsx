@@ -16,7 +16,9 @@ const initialState = {
   totalAmount: "",
   deliveryFee: 50,
   cartShow: false,
+  date_time: Date.now(),
 };
+// console.log(cart);
 const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const addToCart = (

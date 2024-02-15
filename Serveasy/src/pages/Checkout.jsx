@@ -1,6 +1,6 @@
 // import React from "react";
 import { v4 as uuid } from "uuid";
-import { nanoid } from "nanoid";
+
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { NavLink } from "react-router-dom";
@@ -105,9 +105,9 @@ const Checkout = () => {
   const handlePayment = async (orderData, totalAmount, deliveryFee) => {
     console.log(orderData, totalAmount, deliveryFee);
     const payload = {
-      return_url: "http://localhost:5173",
-      website_url: "http://localhost:5173",
-      amount: (totalAmount + deliveryFee) * 100,
+      return_url: "http://localhost:5173/user-home",
+      website_url: "http://localhost:3001",
+      amount: (totalAmount + deliveryFee) * 10,
       purchase_order_id: orderData.orders_id,
       purchase_order_name: orderData.user_id,
       customer_info: {
@@ -121,33 +121,15 @@ const Checkout = () => {
       "http://localhost:3001/khalti-api",
       payload
     );
+    console.log(response);
     if (response) {
       window.location.href = `${response?.data?.data?.payment_url}`;
     }
     if (response.status === 200 && response.data.success) {
       navigate("/success");
     }
-
-    // try {
-    //   const response = await fetch("http://localhost:3001/khalti-api", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(payload),
-    //   });
-
-    //   if (!response.ok) {
-    //     throw new Error(`Network response was not ok: ${response.status}`);
-    //   }
-
-    //   const data = await response.json();
-    //   if (data.success) {
-    //     navigate("/success");
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   alert("Payment failed. Please try again later.");
-    // }
   };
+
   return (
     <section>
       <Navbar />
