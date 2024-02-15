@@ -92,7 +92,7 @@ const CartContainer = () => {
               Check Out
             </motion.button>
           </NavLink>
-          <NavLink to="/schedule-meal">
+          <NavLink to="/ScheduleMeal">
             <motion.button
               whileTap={{ scale: 0.8 }}
               type="button"
