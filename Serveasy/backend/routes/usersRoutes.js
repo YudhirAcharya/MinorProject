@@ -13,6 +13,7 @@ router.route("/logout").get(userController.logoutUser);
 // router.route("/home").get(requireAuth, userController.redirectUserHome);
 router.route("/registerOrder").post(userController.registerOrder);
 router.route("/recommendationData").get(userController.giveRecommendationData);
+router.route("/:id").get(userController.getUserOrderInfo);
 
 router.route("/userLogin").get((req, res) => {
   res.render("user/userLogin", {});
