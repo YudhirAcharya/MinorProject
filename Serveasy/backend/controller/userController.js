@@ -267,3 +267,23 @@ exports.giveRecommendationData = (req, res) => {
     });
   });
 };
+
+exports.getUserOrderInfo = (req, res) => {
+  const pool = req.pool;
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+
+    connection.query(
+      "SELECT *, UNIX_TIMESTAMP() * 1000 - created_at AS time_diff FROM recommendation_data WHERE user_id =?ORDER BY time_diff ASC LIMIT 0, 5",
+      [req.params.id],
+      (err, rows) => {
+        connection.release();
+        if (!err) {
+          res.send(rows);
+        } else {
+          console.log(err);
+        }
+      },
+    );
+  });
+};
