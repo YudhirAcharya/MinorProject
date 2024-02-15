@@ -127,7 +127,6 @@ const cartReducer = (state, action) => {
         totalAmount: totalAmounts,
       };
     }
-
     default:
       return state;
   }

@@ -8,28 +8,12 @@ import ChefTeam from "../components/ChefTeam";
 import { NavLink, Link } from "react-router-dom";
 import Testimonial from "../components/Testimonial";
 import { navLinks } from "../constants";
-import { IoCart } from "react-icons/io5";
-import { FaCircleUser } from "react-icons/fa6";
-// import SelectionForm from "./SelectionForm";
-// import Recommend from "../components/Recommend";
-import { IoLogInOutline } from "react-icons/io5";
+
 import { useState } from "react";
-import { useStateValue } from "../context/StateProvider";
-import { actionType } from "../reducer/reducer";
-import { useCartContext } from "../context/cartContext";
+
 const Landing = () => {
   const [toggle, setToggle] = useState(false);
-  const { cart, totalItem } = useCartContext();
-  const [{ cartShow }, dispatch] = useStateValue();
-  const toggleMenu = () => {
-    setToggle(!toggle);
-  };
-  const showCart = () => {
-    dispatch({
-      type: actionType.SET_CART_SHOW,
-      cartShow: !cartShow,
-    });
-  };
+
   return (
     <>
       <>
