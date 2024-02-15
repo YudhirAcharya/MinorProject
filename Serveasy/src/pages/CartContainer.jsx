@@ -46,7 +46,10 @@ const CartContainer = () => {
       {cart && cart.length > 0 ? (
         <div className="w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col ">
           {/* Cart Items Section */}
-          <div className="w-full h-340 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll example">
+          <div
+            className="w-full h-340 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll example"
+            key={cart.id}
+          >
             {/* Cart Item */}
             {cart &&
               cart.map((curEl) => <CartItem key={curEl.id} {...curEl} />)}
