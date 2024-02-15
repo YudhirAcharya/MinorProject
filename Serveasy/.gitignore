@@ -25,4 +25,4 @@ dist-ssr
 
 #backend
 backend/node_modules
-backend/config.env
+backend/.env
