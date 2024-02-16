@@ -126,7 +126,7 @@ app.get("/", (req, res) => {
 app.get("/api/foods", (req, res) => {
   // Pagination parameters
   const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
-  const limit = parseInt(req.query.limit) || 10; // Default limit to 10 if not provided
+  const limit = parseInt(req.query.limit) || 30; // Default limit to 40 if not provided
   const offset = (page - 1) * limit; // Calculate offset
 
   // Acquire a connection from the pool

@@ -23,7 +23,7 @@ const AppProvider = ({ children }) => {
       });
       const data = await response.json();
       const products = data.data.rows;
-
+      console.log(data);
       dispatch({ type: "MY_API_DATA", payload: products });
     } catch (error) {
       dispatch({ type: "API_ERROR" });

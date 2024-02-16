@@ -8,7 +8,7 @@ const FilterContext = createContext();
 const initialState = {
   filterProducts: [],
   allProducts: [],
-  sortingValue: "lowest",
+  sortingValue: "a-z",
   filters: {
     text: "",
     maxPrice: 0,
