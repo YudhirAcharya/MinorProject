@@ -148,28 +148,58 @@ exports.redirectDelivererHome = (req, res) => {
   res.status(200).json({ success: "Redirecting to Deliverer Home Page" });
 };
 
+// exports.getOrders = (req, res) => {
+//   const pool = req.pool;
+//   pool.getConnection((err, connection) => {
+//     if (err) throw err;
+//     // console.log(`connected as id ${connection.threadId}`);
+
+//     connection.query("Select * from delivery where status=0", (err, rows) => {
+//       connection.release();
+
+//       if (!err) {
+//         res.status(200).json({
+//           status: "success",
+//           results: rows.length,
+//           data: {
+//             rows,
+//           },
+//           // data,
+//         });
+//       } else {
+//         console.log(err);
+//       }
+
+//       connection.query("Select phone_number from user where user_id = ?");
+//     });
+//   });
+// };
+
 exports.getOrders = (req, res) => {
   const pool = req.pool;
   pool.getConnection((err, connection) => {
     if (err) throw err;
-    // console.log(`connected as id ${connection.threadId}`);
 
-    connection.query("Select * from delivery where status=0", (err, rows) => {
-      connection.release();
+    connection.query(
+      "SELECT d.*, u.phone_number FROM delivery d INNER JOIN user u ON d.user_id = u.user_id WHERE d.status = 0",
+      (err, rows) => {
+        connection.release();
+        if (err) {
+          console.log(err);
+          return res
+            .status(500)
+            .json({ status: "error", message: "Internal server error" });
+        }
 
-      if (!err) {
         res.status(200).json({
           status: "success",
           results: rows.length,
           data: {
-            rows,
+            orders: rows,
           },
-          // data,
         });
-      } else {
-        console.log(err);
-      }
-    });
+      },
+    );
   });
 };
 
@@ -255,140 +285,6 @@ exports.updateOrderStatus = (req, res) => {
     message: "Delivery status updated successfully",
   });
 };
-
-// exports.moveToRecommendationTable = (req, res) => {
-//   const orderData = req.body;
-//   const deliveryData = req.body;
-//   const pool = req.pool;
-
-//   let duplicateError = false; // Flag to track if any duplicate entry error occurs
-
-//   deliveryData.forEach((delivery) => {
-//     const { delivery_id: sentDeliveryId } = delivery;
-//     orderData.forEach((order) => {
-//       const { order_id, c_status, d_status } = order;
-
-//       if (c_status === 1 && d_status === 1) {
-//         pool.getConnection((err, connection) => {
-//           if (err) {
-//             console.error("Error getting database connection:", err);
-//             return res
-//               .status(500)
-//               .json({ status: "error", error: "Internal Server Error" });
-//           }
-
-//           connection.query(
-//             "SELECT user_id, food_name FROM ordered_items WHERE order_id=? AND c_status=1 AND d_status=1",
-//             [order_id],
-//             (err, items) => {
-//               if (err) {
-//                 connection.release();
-//                 console.error("Error checking item status:", err);
-//                 return res.status(500).json({
-//                   status: "error",
-//                   error: "Checking Item Status Failed",
-//                 });
-//               }
-
-//               if (items.length === 0) {
-//                 connection.release();
-//                 console.error("No items found with c_status=1 and d_status=1");
-//                 return res.status(500).json({
-//                   status: "error",
-//                   error: "No items found with c_status=1 and d_status=1",
-//                 });
-//               }
-
-//               const userId = items[0].user_id;
-//               const foodName = items[0].food_name;
-
-//               connection.query(
-//                 "SELECT user_name FROM user WHERE user_id=?",
-//                 [userId],
-//                 (err, UserName) => {
-//                   if (err) {
-//                     connection.release();
-//                     console.error("Error Retrieving User NAME:", err);
-//                     return res.status(500).json({
-//                       status: "error",
-//                       error: "Retrieving User NAME Failed",
-//                     });
-//                   }
-//                   const userName = UserName[0].user_name;
-//                   connection.query(
-//                     "SELECT FoodID FROM food WHERE TranslatedRecipeName = ?",
-//                     [foodName],
-//                     (err, FoodID) => {
-//                       if (err) {
-//                         connection.release();
-//                         console.error("Error Retrieving Food ID:", err);
-//                         return res.status(500).json({
-//                           status: "error",
-//                           error: "Retrieving Food ID Failed",
-//                         });
-//                       }
-//                       const foodID = FoodID[0].FoodID;
-
-//                       // Inserting into Recommendation_Data table
-//                       connection.query(
-//                         "INSERT INTO dummy_recommendation(delivered_id, orderID, recipeID, recipe_name, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?)",
-//                         [
-//                           sentDeliveryId,
-//                           order_id,
-//                           foodID,
-//                           foodName,
-//                           userId,
-//                           userName,
-//                         ],
-//                         (err, finalresult) => {
-//                           connection.release();
-//                           if (err) {
-//                             // Check if it's a duplicate entry error
-//                             if (err.code === "ER_DUP_ENTRY") {
-//                               console.error("Duplicate entry error:", err);
-//                               duplicateError = true; // Set flag to true
-//                             } else {
-//                               console.error(
-//                                 "Error inserting into Recommendation_Data table:",
-//                                 err,
-//                               );
-//                             }
-//                           } else {
-//                             console.log(
-//                               "Inserted into dummy_recommendation table",
-//                             );
-//                           }
-
-//                           // Check if this is the last iteration before sending the response
-//                           const allOrdersProcessed = deliveryData.every(
-//                             (delivery) => {
-//                               return delivery.order_id === order_id;
-//                             },
-//                           );
-
-//                           if (allOrdersProcessed) {
-//                             // Send success response if all orders are processed
-//                             if (duplicateError) {
-//                               // Send 400 status if a duplicate entry error occurred
-//                               return res.status(400).json({
-//                                 status: "error",
-//                                 error: "Duplicate entry. Data already exists.",
-//                               });
-//                             }
-//                           }
-//                         },
-//                       );
-//                     },
-//                   );
-//                 },
-//               );
-//             },
-//           );
-//         });
-//       }
-//     });
-//   });
-// };
 
 exports.moveToRecommendationTable = (req, res) => {
   const orderData = req.body;
