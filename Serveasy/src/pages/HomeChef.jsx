@@ -5,6 +5,8 @@ import { FaCloudDownloadAlt } from "react-icons/fa";
 import jsPDF from "jspdf";
 const HomeChef = () => {
   const [orders, setOrders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 7;
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(12);
@@ -30,28 +32,30 @@ const HomeChef = () => {
     // Download the PDF file
     doc.save("orders.pdf");
   };
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:3001/chef/ordersChef", {
-          method: "GET",
-        });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:3001/chef/ordersChef", {
+        method: "GET",
+      });
 
-        const data = await response.json();
-        let datas = data.data.rows;
-        console.log(data);
-        datas.sort((a, b) => a.delivery_time - b.delivery_time);
-        setOrders(datas);
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
       }
-    };
+
+      const data = await response.json();
+      let datas = data.data.rows;
+      console.log(data);
+      datas.sort((a, b) => a.delivery_time - b.delivery_time);
+      setOrders(datas);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+  useEffect(() => {
     fetchOrders();
-  }, [orders]);
+  }, [currentPage]);
 
   const [orderStatus, setOrderStatus] = useState({});
 
@@ -211,7 +215,10 @@ const HomeChef = () => {
               <tbody className=" overflow-y-auto ">
                 {orders &&
                   orders
-                    .filter((_, i) => i < 10)
+                    .slice(
+                      (currentPage - 1) * ordersPerPage,
+                      currentPage * ordersPerPage
+                    )
                     .map((item) => (
                       <tr key={item.id}>
                         <td className="border-b border-gray-200 bg-white px-5 py-5 ">
@@ -272,13 +279,34 @@ const HomeChef = () => {
           </div>
           <div className="flex flex-col items-center border-t bg-white px-5 py-5 sm:flex-row sm:justify-between">
             <span className="text-xs text-gray-600 sm:text-sm">
-              Showing 1 to 5 of 12 Entries
+              Showing {(currentPage - 1) * ordersPerPage + 1} to{" "}
+              {Math.min(currentPage * ordersPerPage, orders.length)} of{" "}
+              {orders.length} Entries
             </span>
             <div className="mt-2 inline-flex sm:mt-0">
-              <button className="mr-2 h-12 w-12 rounded-full border text-sm font-semibold text-gray-600 transition duration-150 hover:bg-gray-100">
+              <button
+                className="mr-2 h-12 w-12 rounded-full border text-sm font-semibold text-textColor transition duration-150 hover:bg-primary"
+                onClick={() =>
+                  setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+                }
+                disabled={currentPage === 1}
+              >
                 Prev
               </button>
-              <button className="h-12 w-12 rounded-full border text-sm font-semibold text-gray-600 transition duration-150 hover:bg-gray-100">
+              <button
+                className="h-12 w-12 rounded-full border text-sm font-semibold text-textColor transition duration-150 hover:bg-primary"
+                onClick={() =>
+                  setCurrentPage((prevPage) =>
+                    Math.min(
+                      prevPage + 1,
+                      Math.ceil(orders.length / ordersPerPage)
+                    )
+                  )
+                }
+                disabled={
+                  currentPage === Math.ceil(orders.length / ordersPerPage)
+                }
+              >
                 Next
               </button>
             </div>

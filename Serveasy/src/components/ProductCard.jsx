@@ -1,7 +1,7 @@
 // import { useEffect, useState } from "react";
 
 import propTypes from "prop-types";
-import { AiOutlineStar, AiFillStar, AiOutlineShopping } from "react-icons/ai";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 // import Product from "../pages/Product";
 import { NavLink } from "react-router-dom";
 // import { useCartContext } from "../context/cartContext";
