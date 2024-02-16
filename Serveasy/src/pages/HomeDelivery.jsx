@@ -1,82 +1,194 @@
 // import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 // import { Link, NavLink } from "react-router-dom";
 import Footer from "../components/Footer";
-const HomeDelivery = () => {
-  const [toggleOrder, setToggleOrder] = useState(false);
 
-  const handleToggle = () => {
-    setToggleOrder(!toggleOrder);
+const HomeDelivery = () => {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:3001/deliverer/ordersDeliverer",
+          {
+            method: "GET",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const data = await response.json();
+        let datas = data.data.orders;
+        console.log(data);
+        datas.sort((a, b) => a.delivery_time - b.delivery_time);
+        setOrders(datas);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+    fetchOrders();
+  }, [orders]);
+
+  const initialOrderStatus = orders.reduce((acc, item) => {
+    acc[item.delivery_id] = true;
+    return acc;
+  }, {});
+
+  const [orderStatus, setOrderStatus] = useState(initialOrderStatus);
+
+  // const [orderStatus, setOrderStatus] = useState({});
+
+  const handleToggle = (delivery_id) => {
+    setOrderStatus((prevStatus) => ({
+      ...prevStatus,
+      [delivery_id]: !prevStatus[delivery_id],
+    }));
+  };
+
+  const handleDone = async (delivery_id) => {
+    // Update the c_status property of the order with the given orderId
+    const updatedOrders = orders.map((item) => {
+      if (item.delivery_id === delivery_id) {
+        return { ...item, status: 1 };
+      }
+      return item;
+    });
+
+    // Filter out the orders with c_status = 1 and update the state
+    const visibleOrders = updatedOrders.filter((item) => item.status === 0);
+    setOrders(visibleOrders);
+    let newOrderData = [{ delivery_id, status: 1 }];
+    try {
+      // Make a POST request to the server to update the order status
+      const response = await fetch(
+        "http://127.0.0.1:3001/deliverer/ordersDeliverer",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newOrderData),
+        }
+      );
+      console.log(newOrderData);
+      if (!response.ok) {
+        throw new Error(
+          `Failed to update order status: ${response.status} ${response.statusText}`
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+      // Revert the state if the server update fails
+      setOrders(updatedOrders);
+    }
   };
   return (
     <div>
       <Navbar />
-      <div className="w-[screen]">
-        <div className="mx-auto my-8 max-w-screen-lg px-2">
-          <p className="font-semibold">Delivery: </p>
-          <div className="sm:flex  sm:items-center sm:justify-between flex-col sm:flex-row">
-            <div className="mt-6 overflow-hidden rounded-xl w-full">
-              <table className="min-w-full border-separate border-spacing-y-2 border-spacing-x-2">
-                <thead className="hidden border-b lg:table-header-group">
-                  <tr className="border-[2px]">
-                    <td
-                      width="50%"
-                      className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6"
-                    >
-                      Delivery Address
-                    </td>
+      <div className="w-[screen]  my-8">
+        <div className=" grid grid-cols-1 items-center justify-between pb-6 mx-8">
+          <div>
+            <h2 className="text-gray-600 font-semibold">Delivery</h2>
+            <span className="text-xs">All delivery requests</span>
+          </div>
 
-                    <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                      Schedule
-                    </td>
-
-                    <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                      Quantity
-                    </td>
-
-                    <td className="whitespace-normal py-4 text-sm font-medium text-gray-500 sm:px-6">
-                      Status
-                    </td>
-                  </tr>
-                </thead>
-
-                <tbody className="lg:border-gray-300">
-                  <tr className="">
-                    <td
-                      width="50%"
-                      className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 sm:px-6"
-                    >
-                      Address
-                      <div className="mt-1 lg:hidden">
-                        <p className="font-normal text-gray-500">Address</p>
-                      </div>
-                    </td>
-
-                    <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                      Date
-                    </td>
-
-                    <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 lg:text-left">
-                      Status
-                      <div className="flex mt-1 ml-auto w-fit items-center rounded-full bg-red-200 py-1 px-2 text-left font-medium text-red-500 lg:hidden">
-                        Canceled
-                      </div>
-                    </td>
-
-                    <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                      <div className="inline-flex items-center rounded-full bg-red-200 py-1 px-2 text-red-500">
-                        Canceled
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <div>
+            <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+              <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                <table className="min-w-full leading-normal">
+                  <thead>
+                    <tr>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        User Phone Number
+                      </th>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Address
+                      </th>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        User ID
+                      </th>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Quantity
+                      </th>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders &&
+                      orders.map((item, index) => (
+                        <tr key={index}>
+                          <td className="px-5 py-3 border-b border-gray-200 bg-white">
+                            <div className="flex items-center">
+                              <div className="ml-3">
+                                <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
+                                  {item.phone_number}
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-5 py-3 border-b border-gray-200 bg-white">
+                            <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
+                              {item.address}
+                            </p>
+                          </td>
+                          <td className="px-5 py-3 border-b border-gray-200 bg-white">
+                            <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
+                              {item.user_id}
+                            </p>
+                          </td>
+                          <td className="px-5 py-3 border-b border-gray-200 bg-white">
+                            <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
+                              {item.quantity}
+                            </p>
+                          </td>
+                          <td className="px-5 py-3 border-b border-gray-200 bg-white font-normal text-[16px] text-white">
+                            {orderStatus[item.delivery_id] === undefined ||
+                            orderStatus[item.delivery_id] ? (
+                              <button
+                                className="p-2 bg-red-400 text-white"
+                                onClick={() => handleToggle(item.delivery_id)}
+                              >
+                                Pending
+                              </button>
+                            ) : (
+                              <button
+                                className="p-2 bg-green-400 text-white"
+                                onClick={() => handleDone(item.delivery_id)}
+                              >
+                                Done
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-        <Footer />
       </div>
+      <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+        <span className="text-xs xs:text-sm text-gray-900">
+          Showing 1 to 4 of 50 Entries
+        </span>
+        <div className="inline-flex mt-2 xs:mt-0">
+          <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
+            Prev
+          </button>
+          &nbsp; &nbsp;
+          <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r">
+            Next
+          </button>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };
