@@ -5,10 +5,13 @@ import numpy as np
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 CORS(app)
 
-# Load the cosine similarity matrix 
+
+
+
 with open('./cosine_similarity_matrix.pkl', 'rb') as file:
     cosine_sim_matrix = pickle.load(file)
 
@@ -33,6 +36,7 @@ df['keywords'] = df['Cleaned-Ingredients'] + df['Cuisine']
 
 data_frame = df[['FoodID',	'TranslatedRecipeName', 'keywords']]
 
+                  
 data_frame['keywords'] = data_frame['keywords'].apply(lambda x:" ".join(x))
 
 data_frame['keywords'] = data_frame['keywords'].apply(lambda x: x.replace(',', ' '))

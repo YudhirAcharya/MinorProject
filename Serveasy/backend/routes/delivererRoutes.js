@@ -24,9 +24,6 @@ router.route("/ordersDeliverer").get(delivererController.getOrders);
 router
   .route("/ordersDeliverer")
   .post(delivererController.updateAndMoveToRecommendation);
-// router
-//   .route("/ordeToRecommendationTable")
-//   .post(delivererController.moveToRecommendationTable);
 
 router.route("/delivererLogin").get((req, res) => {
   res.render("deliverer/delivererLogin", {});
@@ -35,6 +32,10 @@ router.route("/delivererLogin").get((req, res) => {
 router.route("/delivererRegister").get((req, res) => {
   res.render("deliverer/delivererRegister", {});
 });
+
+// router
+//   .route("/updateordersDelivererdCount")
+//   .post(delivererController.updateDeliveredCount);
 
 router.route("/delivererHome").get(requireAuth, (req, res) => {
   res.render("deliverer/delivererHome", {});

@@ -203,462 +203,316 @@ exports.getOrders = (req, res) => {
   });
 };
 
-// exports.updateOrderStatus = (req, res) => {
-//   const deliveryData = req.body; // Assuming req.body is an array of objects containing delivery_id and status
-//   const pool = req.pool;
-
-//   deliveryData.forEach((delivery) => {
-//     const { delivery_id: sentDeliveryId, status } = delivery;
-//     if (status === 1) {
-//       pool.getConnection((err, connection) => {
-//         if (err) {
-//           console.log("Error getting database connection:", err);
-//           return res
-//             .status(500)
-//             .json({ status: "error", error: "Internal Server Error" });
-//         }
-
-//         connection.query(
-//           "UPDATE delivery SET status=1 WHERE delivery_id=?",
-//           [sentDeliveryId],
-//           (err, result) => {
-//             if (err) {
-//               connection.release();
-//               console.log("Error Updating Delivery Status:", err);
-//               return res
-//                 .status(500)
-//                 .json({ status: "error", error: "Updating Database Failed" });
-//             }
-
-//             console.log(
-//               `Delivery ${sentDeliveryId} status updated successfully`,
-//             );
-
-//             // Retrieve the order_id associated with the sentDeliveryId
-//             connection.query(
-//               "SELECT order_id FROM delivery WHERE delivery_id=?",
-//               [sentDeliveryId],
-//               (err, orderResult) => {
-//                 if (err) {
-//                   connection.release();
-//                   console.log("Error Retrieving Order ID:", err);
-//                   return res.status(500).json({
-//                     status: "error",
-//                     error: "Retrieving Order ID Failed",
-//                   });
-//                 }
-
-//                 const orderId = orderResult[0].order_id;
-
-//                 // Update d_status in ordered_items table based on the retrieved order_id
-//                 connection.query(
-//                   "UPDATE ordered_items SET d_status=1 WHERE order_id=?",
-//                   [orderId],
-//                   (err, result) => {
-//                     if (err) {
-//                       console.log(
-//                         "Error Updating Delivery Status in ordered_items:",
-//                         err,
-//                       );
-//                       connection.release();
-//                       return res.status(500).json({
-//                         status: "error",
-//                         error: "Updating ordered_items Failed",
-//                       });
-//                     }
-
-//                     console.log(
-//                       `Delivery ${sentDeliveryId} status updated successfully in ordered_items`,
-//                     );
-//                     connection.release(); // Release the connection here
-//                   },
-//                 );
-//               },
-//             );
-//           },
-//         );
-//       });
-//     }
-//   });
-//   res.status(200).json({
-//     status: "success",
-//     message: "Delivery status updated successfully",
-//   });
-// };
-
-// exports.moveToRecommendationTable = (req, res) => {
-//   const orderData = req.body;
-//   const deliveryData = req.body;
-//   const pool = req.pool;
-
-//   let duplicateError = false; // Flag to track if any duplicate entry error occurs
-//   let processedOrders = 0; // Counter to track processed orders
-
-//   deliveryData.forEach((delivery) => {
-//     const { delivery_id: sentDeliveryId } = delivery;
-//     orderData.forEach((order) => {
-//       const { order_id, c_status, d_status } = order;
-
-//       if (c_status === 1 && d_status === 1) {
-//         pool.getConnection((err, connection) => {
-//           if (err) {
-//             console.error("Error getting database connection:", err);
-//             return res
-//               .status(500)
-//               .json({ status: "error", error: "Internal Server Error" });
-//           }
-
-//           connection.query(
-//             "SELECT user_id, food_name FROM ordered_items WHERE order_id=? AND c_status=1 AND d_status=1",
-//             [order_id],
-//             (err, items) => {
-//               if (err) {
-//                 connection.release();
-//                 console.error("Error checking item status:", err);
-//                 return res.status(500).json({
-//                   status: "error",
-//                   error: "Checking Item Status Failed",
-//                 });
-//               }
-
-//               if (items.length === 0) {
-//                 connection.release();
-//                 console.error("No items found with c_status=1 and d_status=1");
-//                 return res.status(500).json({
-//                   status: "error",
-//                   error: "No items found with c_status=1 and d_status=1",
-//                 });
-//               }
-
-//               const userId = items[0].user_id;
-//               const foodName = items[0].food_name;
-
-//               connection.query(
-//                 "SELECT user_name FROM user WHERE user_id=?",
-//                 [userId],
-//                 (err, UserName) => {
-//                   if (err) {
-//                     connection.release();
-//                     console.error("Error Retrieving User NAME:", err);
-//                     return res.status(500).json({
-//                       status: "error",
-//                       error: "Retrieving User NAME Failed",
-//                     });
-//                   }
-//                   const userName = UserName[0].user_name;
-//                   connection.query(
-//                     "SELECT FoodID FROM food WHERE TranslatedRecipeName = ?",
-//                     [foodName],
-//                     (err, FoodID) => {
-//                       if (err) {
-//                         connection.release();
-//                         console.error("Error Retrieving Food ID:", err);
-//                         return res.status(500).json({
-//                           status: "error",
-//                           error: "Retrieving Food ID Failed",
-//                         });
-//                       }
-//                       const foodID = FoodID[0].FoodID;
-
-//                       // Inserting into Recommendation_Data table
-//                       connection.query(
-//                         "INSERT INTO dummy_recommendation(delivered_id, orderID, recipeID, recipe_name, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?)",
-//                         [
-//                           sentDeliveryId,
-//                           order_id,
-//                           foodID,
-//                           foodName,
-//                           userId,
-//                           userName,
-//                         ],
-//                         (err, finalresult) => {
-//                           connection.release();
-//                           if (err) {
-//                             // Check if it's a duplicate entry error
-//                             if (err.code === "ER_DUP_ENTRY") {
-//                               console.error("Duplicate entry error:", err);
-//                               duplicateError = true; // Set flag to true
-//                             } else {
-//                               console.error(
-//                                 "Error inserting into Recommendation_Data table:",
-//                                 err,
-//                               );
-//                             }
-//                           } else {
-//                             console.log(
-//                               "Inserted into dummy_recommendation table",
-//                             );
-//                           }
-
-//                           processedOrders++; // Increment processed orders count
-
-//                           // Check if all orders are processed
-//                           if (
-//                             processedOrders ===
-//                             deliveryData.length * orderData.length
-//                           ) {
-//                             // Send appropriate response based on duplicate error flag
-//                             if (duplicateError) {
-//                               return res.status(400).json({
-//                                 status: "error",
-//                                 error: "Duplicate entry. Data already exists.",
-//                               });
-//                             } else {
-//                               return res.status(200).json({
-//                                 status: "success",
-//                                 message:
-//                                   "Recommendation data inserted successfully",
-//                               });
-//                             }
-//                           }
-//                         },
-//                       );
-//                     },
-//                   );
-//                 },
-//               );
-//             },
-//           );
-//         });
-//       }
-//     });
-//   });
-// };
-
-exports.updateAndMoveToRecommendation = (req, res) => {
-  const deliveryData = req.body;
+exports.updateAndMoveToRecommendationAndChangeStatus = (req, res) => {
   const pool = req.pool;
+  const deliveryData = req.body;
 
-  let duplicateError = false; // Flag to track if any duplicate entry error occurs
-  let processedOrders = 0; // Counter to track processed orders
+  let duplicateError = false;
+  let processedOrders = 0;
 
-  deliveryData.forEach((delivery) => {
-    const { delivery_id: sentDeliveryId, status } = delivery;
-    if (status === 1) {
-      pool.getConnection((err, connection) => {
-        if (err) {
-          console.error("Error getting database connection:", err);
-          return res
-            .status(500)
-            .json({ status: "error", error: "Internal Server Error" });
-        }
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error("Error getting database connection:", err);
+      return res
+        .status(500)
+        .json({ status: "error", error: "Internal Server Error" });
+    }
 
-        connection.beginTransaction((err) => {
-          if (err) {
-            connection.release();
-            console.error("Error starting transaction:", err);
-            return res
-              .status(500)
-              .json({ status: "error", error: "Transaction start failed" });
-          }
+    connection.beginTransaction((err) => {
+      if (err) {
+        connection.release();
+        console.error("Error starting transaction:", err);
+        return res
+          .status(500)
+          .json({ status: "error", error: "Transaction start failed" });
+      }
 
-          connection.query(
-            "UPDATE delivery SET status=1 WHERE delivery_id=?",
-            [sentDeliveryId],
-            (err, result) => {
+      const deliveredDeliveryIds = deliveryData
+        .filter((item) => item.status === 1)
+        .map((item) => item.delivery_id);
+
+      if (deliveredDeliveryIds.length === 0) {
+        connection.rollback(() => {
+          connection.release();
+          return res.status(200).json({
+            status: "success",
+            message: "No deliveries with status = 1",
+          });
+        });
+      }
+
+      const updateDeliveredCountSQL = `
+        UPDATE orders o
+        SET o.delivered_count = o.delivered_count + 1
+        WHERE o.orders_id IN (
+            SELECT oi.orders_id
+            FROM ordered_items oi
+            WHERE oi.order_id IN (
+                SELECT d.order_id
+                FROM delivery d
+                WHERE d.delivery_id = ?
+            )
+        )`;
+
+      const updateOverallStatusSQL = `
+        UPDATE orders o
+        SET o.overall_status = 1
+        WHERE o.delivered_count = o.num_of_foods`;
+
+      const insertRecommendationSQL = `
+        INSERT INTO dummy_recommendation(delivered_id, orderID, recipeID, recipe_name, user_id, user_name)
+        VALUES (?, ?, ?, ?, ?, ?)`;
+
+      deliveredDeliveryIds.forEach((deliveryId) => {
+        connection.query(
+          updateDeliveredCountSQL,
+          [deliveryId],
+          (err, results) => {
+            if (err) {
+              console.error("Error updating delivered count:", err);
+              connection.rollback(() => {
+                connection.release();
+                return res.status(500).json({
+                  status: "error",
+                  error: "Updating delivered count failed",
+                });
+              });
+            }
+
+            connection.query(updateOverallStatusSQL, (err, results) => {
               if (err) {
-                return connection.rollback(() => {
+                console.error("Error updating overall status:", err);
+                connection.rollback(() => {
                   connection.release();
-                  console.error("Error updating delivery status:", err);
                   return res.status(500).json({
                     status: "error",
-                    error: "Updating delivery status failed",
+                    error: "Updating overall status failed",
                   });
                 });
               }
 
-              console.log(
-                `Delivery ${sentDeliveryId} status updated successfully`,
-              );
-
-              connection.query(
-                "SELECT order_id FROM delivery WHERE delivery_id=?",
-                [sentDeliveryId],
-                (err, orderResult) => {
-                  if (err) {
-                    return connection.rollback(() => {
-                      connection.release();
-                      console.error("Error retrieving order ID:", err);
-                      return res.status(500).json({
-                        status: "error",
-                        error: "Retrieving order ID failed",
-                      });
-                    });
-                  }
-
-                  const orderId = orderResult[0].order_id;
-
+              deliveryData.forEach((delivery) => {
+                const { delivery_id: sentDeliveryId, status } = delivery;
+                if (status === 1 && sentDeliveryId === deliveryId) {
                   connection.query(
-                    "UPDATE ordered_items SET d_status=1 WHERE order_id=?",
-                    [orderId],
+                    "UPDATE delivery SET status=1 WHERE delivery_id=?",
+                    [sentDeliveryId],
                     (err, result) => {
                       if (err) {
                         return connection.rollback(() => {
                           connection.release();
-                          console.error(
-                            "Error updating delivery status in ordered_items:",
-                            err,
-                          );
+                          console.error("Error updating delivery status:", err);
                           return res.status(500).json({
                             status: "error",
-                            error:
-                              "Updating delivery status in ordered_items failed",
+                            error: "Updating delivery status failed",
                           });
                         });
                       }
 
-                      console.log(
-                        `Delivery ${sentDeliveryId} status updated successfully in ordered_items`,
-                      );
-
                       connection.query(
-                        "SELECT order_id, user_id, food_name FROM ordered_items WHERE order_id=? AND c_status=1 AND d_status=1",
-                        [orderId],
-                        (err, items) => {
+                        "SELECT order_id FROM delivery WHERE delivery_id=?",
+                        [sentDeliveryId],
+                        (err, orderResult) => {
                           if (err) {
                             return connection.rollback(() => {
                               connection.release();
-                              console.error(
-                                "Error retrieving order details:",
-                                err,
-                              );
+                              console.error("Error retrieving order ID:", err);
                               return res.status(500).json({
                                 status: "error",
-                                error: "Retrieving order details failed",
+                                error: "Retrieving order ID failed",
                               });
                             });
                           }
 
-                          items.forEach((item) => {
-                            const { order_id, user_id, food_name } = item;
-                            connection.query(
-                              "SELECT user_name FROM user WHERE user_id=?",
-                              [user_id],
-                              (err, userNameResult) => {
-                                if (err) {
-                                  return connection.rollback(() => {
-                                    connection.release();
-                                    console.error(
-                                      "Error retrieving user name:",
-                                      err,
-                                    );
-                                    return res.status(500).json({
-                                      status: "error",
-                                      error: "Retrieving user name failed",
-                                    });
+                          const orderId = orderResult[0].order_id;
+
+                          connection.query(
+                            "UPDATE ordered_items SET d_status=1 WHERE order_id=?",
+                            [orderId],
+                            (err, result) => {
+                              if (err) {
+                                return connection.rollback(() => {
+                                  connection.release();
+                                  console.error(
+                                    "Error updating delivery status in ordered_items:",
+                                    err,
+                                  );
+                                  return res.status(500).json({
+                                    status: "error",
+                                    error:
+                                      "Updating delivery status in ordered_items failed",
                                   });
-                                }
-                                const userName = userNameResult[0].user_name;
+                                });
+                              }
 
-                                connection.query(
-                                  "SELECT FoodID FROM food WHERE TranslatedRecipeName = ?",
-                                  [food_name],
-                                  (err, foodIDResult) => {
-                                    if (err) {
-                                      return connection.rollback(() => {
-                                        connection.release();
-                                        console.error(
-                                          "Error retrieving food ID:",
-                                          err,
-                                        );
-                                        return res.status(500).json({
-                                          status: "error",
-                                          error: "Retrieving food ID failed",
-                                        });
+                              connection.query(
+                                "SELECT order_id, user_id, food_name FROM ordered_items WHERE order_id=? AND c_status=1 AND d_status=1",
+                                [orderId],
+                                (err, items) => {
+                                  if (err) {
+                                    return connection.rollback(() => {
+                                      connection.release();
+                                      console.error(
+                                        "Error retrieving order details:",
+                                        err,
+                                      );
+                                      return res.status(500).json({
+                                        status: "error",
+                                        error:
+                                          "Retrieving order details failed",
                                       });
-                                    }
-                                    const foodID = foodIDResult[0].FoodID;
+                                    });
+                                  }
 
+                                  items.forEach((item) => {
+                                    const { order_id, user_id, food_name } =
+                                      item;
                                     connection.query(
-                                      "INSERT INTO dummy_recommendation(delivered_id, orderID, recipeID, recipe_name, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?)",
-                                      [
-                                        sentDeliveryId,
-                                        order_id,
-                                        foodID,
-                                        food_name,
-                                        user_id,
-                                        userName,
-                                      ],
-                                      (err, finalresult) => {
+                                      "SELECT user_name FROM user WHERE user_id=?",
+                                      [user_id],
+                                      (err, userNameResult) => {
                                         if (err) {
-                                          // Check if it's a duplicate entry error
-                                          if (err.code === "ER_DUP_ENTRY") {
+                                          return connection.rollback(() => {
+                                            connection.release();
                                             console.error(
-                                              "Duplicate entry error:",
+                                              "Error retrieving user name:",
                                               err,
                                             );
-                                            duplicateError = true; // Set flag to true
-                                          } else {
-                                            console.error(
-                                              "Error inserting into Recommendation_Data table:",
-                                              err,
-                                            );
-                                          }
-                                        } else {
-                                          console.log(
-                                            "Inserted into dummy_recommendation table",
-                                          );
+                                            return res.status(500).json({
+                                              status: "error",
+                                              error:
+                                                "Retrieving user name failed",
+                                            });
+                                          });
                                         }
 
-                                        processedOrders++; // Increment processed orders count
+                                        const userName =
+                                          userNameResult[0].user_name;
 
-                                        if (processedOrders === items.length) {
-                                          if (duplicateError) {
-                                            connection.rollback(() => {
-                                              connection.release();
-                                              return res.status(400).json({
-                                                status: "error",
-                                                error:
-                                                  "Duplicate entry. Data already exists.",
+                                        connection.query(
+                                          "SELECT FoodID FROM food WHERE TranslatedRecipeName = ?",
+                                          [food_name],
+                                          (err, foodIDResult) => {
+                                            if (err) {
+                                              return connection.rollback(() => {
+                                                connection.release();
+                                                console.error(
+                                                  "Error retrieving food ID:",
+                                                  err,
+                                                );
+                                                return res.status(500).json({
+                                                  status: "error",
+                                                  error:
+                                                    "Retrieving food ID failed",
+                                                });
                                               });
-                                            });
-                                          } else {
-                                            connection.commit((err) => {
-                                              if (err) {
-                                                return connection.rollback(
-                                                  () => {
-                                                    connection.release();
+                                            }
+
+                                            const foodID =
+                                              foodIDResult[0].FoodID;
+
+                                            connection.query(
+                                              insertRecommendationSQL,
+                                              [
+                                                sentDeliveryId,
+                                                order_id,
+                                                foodID,
+                                                food_name,
+                                                user_id,
+                                                userName,
+                                              ],
+                                              (err, finalresult) => {
+                                                if (err) {
+                                                  if (
+                                                    err.code === "ER_DUP_ENTRY"
+                                                  ) {
                                                     console.error(
-                                                      "Error committing transaction:",
+                                                      "Duplicate entry error:",
                                                       err,
                                                     );
-                                                    return res
-                                                      .status(500)
-                                                      .json({
-                                                        status: "error",
-                                                        error:
-                                                          "Transaction commit failed",
-                                                      });
-                                                  },
-                                                );
-                                              }
+                                                    duplicateError = true;
+                                                  } else {
+                                                    console.error(
+                                                      "Error inserting into Recommendation_Data table:",
+                                                      err,
+                                                    );
+                                                  }
+                                                } else {
+                                                  console.log(
+                                                    "Inserted into dummy_recommendation table",
+                                                  );
+                                                }
 
-                                              connection.release();
-                                              return res.status(200).json({
-                                                status: "success",
-                                                message:
-                                                  "Recommendation data inserted successfully",
-                                              });
-                                            });
-                                          }
-                                        }
+                                                processedOrders++;
+
+                                                if (
+                                                  processedOrders ===
+                                                  items.length
+                                                ) {
+                                                  if (duplicateError) {
+                                                    connection.rollback(() => {
+                                                      connection.release();
+                                                      return res
+                                                        .status(400)
+                                                        .json({
+                                                          status: "error",
+                                                          error:
+                                                            "Duplicate entry. Data already exists.",
+                                                        });
+                                                    });
+                                                  } else {
+                                                    connection.commit((err) => {
+                                                      if (err) {
+                                                        return connection.rollback(
+                                                          () => {
+                                                            connection.release();
+                                                            console.error(
+                                                              "Error committing transaction:",
+                                                              err,
+                                                            );
+                                                            return res
+                                                              .status(500)
+                                                              .json({
+                                                                status: "error",
+                                                                error:
+                                                                  "Transaction commit failed",
+                                                              });
+                                                          },
+                                                        );
+                                                      }
+
+                                                      connection.release();
+                                                      return res
+                                                        .status(200)
+                                                        .json({
+                                                          status: "success",
+                                                          message:
+                                                            "Recommendation data inserted successfully",
+                                                        });
+                                                    });
+                                                  }
+                                                }
+                                              },
+                                            );
+                                          },
+                                        );
                                       },
                                     );
-                                  },
-                                );
-                              },
-                            );
-                          });
+                                  });
+                                },
+                              );
+                            },
+                          );
                         },
                       );
                     },
                   );
-                },
-              );
-            },
-          );
-        });
+                }
+              });
+            });
+          },
+        );
       });
-    }
+    });
   });
 };

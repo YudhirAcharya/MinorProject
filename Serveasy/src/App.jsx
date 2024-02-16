@@ -20,6 +20,7 @@ import HomeDelivery from "./pages/HomeDelivery";
 import LoginUser from "./pages/LoginUser";
 import Checkout from "./pages/Checkout";
 import ScheduleMeal from "./pages/ScheduleMeal";
+import HomeUser from "./pages/HomeUser";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
 
@@ -55,6 +56,7 @@ function App() {
             <Route path="/account" element={<Account />}></Route>
             <Route path="/user-home" element={<Home />}></Route>
             <Route path="/chef-home" element={<HomeChef />}></Route>
+            <Route path="/userhome2" element={<HomeUser />}></Route>
             <Route path="/login-user" element={<LoginUser />}></Route>
             <Route path="/delivery-home" element={<HomeDelivery />}></Route>
             <Route path="/signing" element={<Signing />}></Route>
