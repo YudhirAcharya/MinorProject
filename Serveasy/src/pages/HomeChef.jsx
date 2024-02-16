@@ -5,6 +5,7 @@ import { FaCloudDownloadAlt } from "react-icons/fa";
 import jsPDF from "jspdf";
 const HomeChef = () => {
   const [orders, setOrders] = useState([]);
+  const [timers, setTimers] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const ordersPerPage = 7;
   const generatePDF = () => {
@@ -31,6 +32,7 @@ const HomeChef = () => {
 
     // Download the PDF file
     doc.save("orders.pdf");
+    window.open(doc.output("bloburl"), "_blank");
   };
 
   const fetchOrders = async () => {
@@ -74,7 +76,13 @@ const HomeChef = () => {
       }
       return item;
     });
-
+    // Clear the interval for the completed order
+    const intervalId = timers[order_id + "_intervalId"];
+    clearInterval(intervalId);
+    setTimers((prevTimers) => {
+      const { [order_id + "_intervalId"]: _, ...rest } = prevTimers;
+      return rest;
+    });
     // Filter out the orders with c_status = 1 and update the state
     const visibleOrders = updatedOrders.filter((item) => item.c_status === 0);
     setOrders(visibleOrders);
@@ -101,80 +109,100 @@ const HomeChef = () => {
     }
   };
 
-  // Timer:
-  // We need ref in this, because we are dealing
-  // with JS setInterval to keep track of it and
-  // stop it when needed
-  // const Ref = useRef(null);
+  const [timer, setTimer] = useState("02:00:00");
 
-  // // The state for our timer
-  // const [timer, setTimer] = useState("00:30:00");
+  const getTimeRemaining = (e) => {
+    const total = Date.parse(e) - Date.parse(new Date());
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor((total / 1000 / 60 / 60) % 24);
 
-  // const getTimeRemaining = (e) => {
-  //   const total = Date.parse(e) - Date.parse(new Date());
-  //   const seconds = Math.floor((total / 1000) % 60);
-  //   const minutes = Math.floor((total / 1000 / 60) % 60);
-  //   const hours = Math.floor((total / 1000 / 60 / 60) % 24);
+    return {
+      total,
+      hours,
+      minutes,
+      seconds,
+    };
+  };
 
-  //   return {
-  //     total,
-  //     hours,
-  //     minutes,
-  //     seconds,
-  //   };
+  const startTimer = (orderId, e) => {
+    let { total, hours, minutes, seconds } = getTimeRemaining(e);
+    if (total >= 0) {
+      const isTwoHoursBefore = total <= 2 * 60 * 60 * 1000;
+
+      setTimers((prevTimers) => ({
+        ...prevTimers,
+        [orderId]: `${hours}:${minutes}:${seconds}`,
+      }));
+
+      if (isTwoHoursBefore) {
+        const id = setInterval(() => {
+          startTimer(orderId, e);
+        }, 1000);
+
+        setTimers((prevTimers) => ({
+          ...prevTimers,
+          [orderId + "_intervalId"]: id,
+        }));
+      }
+    }
+  };
+
+  // const clearTimer = () => {
+  //   orders.forEach((order) => {
+  //     const isTwoHoursBefore =
+  //       getTimeRemaining(new Date(order.delivery_time)).total <=
+  //       2 * 60 * 60 * 1000;
+
+  //     if (isTwoHoursBefore) {
+  //       const id = setInterval(() => {
+  //         startTimer(order.order_id, new Date(order.delivery_time));
+  //       }, 1000);
+
+  //       setTimers((prevTimers) => ({
+  //         ...prevTimers,
+  //         [order.order_id]: "02:00:00",
+  //         [order.order_id + "_intervalId"]: id,
+  //       }));
+  //     }
+  //   });
   // };
+  const clearTimer = () => {
+    console.log("clearTimer called");
+    orders.forEach((order) => {
+      const isTwoHoursBefore =
+        getTimeRemaining(new Date(order.delivery_time)).total <=
+        2 * 60 * 60 * 1000;
 
-  // const startTimer = (e) => {
-  //   let { total, hours, minutes, seconds } = getTimeRemaining(e);
-  //   if (total >= 0) {
-  //     // update the timer
-  //     // check if less than 10 then we need to
-  //     // add '0' at the beginning of the variable
-  //     setTimer(
-  //       (hours > 9 ? hours : "0" + hours) +
-  //         ":" +
-  //         (minutes > 9 ? minutes : "0" + minutes) +
-  //         ":" +
-  //         (seconds > 9 ? seconds : "0" + seconds)
-  //     );
-  //   }
-  // };
+      if (isTwoHoursBefore) {
+        const id = setInterval(() => {
+          startTimer(order.order_id, new Date(order.delivery_time));
+        }, 1000);
 
-  // const clearTimer = (e) => {
-  //   // If you adjust it you should also need to
-  //   // adjust the Endtime formula we are about
-  //   // to code next
-  //   setTimer("00:30:00");
+        setTimers((prevTimers) => ({
+          ...prevTimers,
+          [order.order_id]: "02:00:00",
+          [order.order_id + "_intervalId"]: id,
+        }));
+        console.log(
+          `Set timer for order ${order.order_id} with interval ${id}`
+        );
+      }
+    });
+  };
 
-  //   // If you try to remove this line the
-  //   // updating of timer Variable will be
-  //   // after 1000ms or 1sec
-  //   if (Ref.current) clearInterval(Ref.current);
+  const getDeadTime = () => {
+    let deadline = new Date();
+    // Set the deadline to 2 hour and 00 minutes from now
+    deadline.setHours(deadline.getHours() + 2);
+    deadline.setMinutes(deadline.getMinutes() + 0);
+    return deadline;
+  };
+  const curTime = new Date();
 
-  //   const id = setInterval(() => {
-  //     startTimer(e);
-  //   }, 1000);
-
-  //   Ref.current = id;
-  // };
-
-  // const getDeadTime = () => {
-  //   let deadline = new Date();
-  //   // Set the deadline to 1 hour and 30 minutes from now
-  //   deadline.setHours(deadline.getHours() + 0);
-  //   deadline.setMinutes(deadline.getMinutes() + 30);
-  //   return deadline;
-  // };
-  // const curTime = new Date();
-
-  // // We can use useEffect so that when the component
-  // // mount the timer will start as soon as possible
-  // // We put empty array to act as componentDid
-  // // mount only
-  // useEffect(() => {
-  //   clearTimer(getDeadTime());
-  // }, []);
-
+  useEffect(() => {
+    clearTimer();
+  }, [orders]);
   return (
     <>
       <Navbar />
@@ -219,30 +247,34 @@ const HomeChef = () => {
                       (currentPage - 1) * ordersPerPage,
                       currentPage * ordersPerPage
                     )
-                    .map((item) => (
-                      <tr key={item.id}>
-                        <td className="border-b border-gray-200 bg-white px-5 py-5 ">
-                          <p className="whitespace-no-wrap text-textColor font-normal text-[1rem]">
-                            {item.quantity}
-                          </p>
-                        </td>
-                        <td className="border-b border-gray-200 bg-white px-5 py-5">
-                          <div className="flex items-center">
-                            <div className="ml-3">
-                              <p className="whitespace-no-wrap text-textColor font-semibold text-[1rem]">
-                                {item.user_id}
-                              </p>
+                    .map((item) => {
+                      const isTwoHoursBefore =
+                        getTimeRemaining(item.delivery_time).total <=
+                        2 * 60 * 60 * 1000;
+                      return (
+                        <tr key={item.id}>
+                          <td className="border-b border-gray-200 bg-white px-5 py-5 ">
+                            <p className="whitespace-no-wrap text-textColor font-normal text-[1rem]">
+                              {item.quantity}
+                            </p>
+                          </td>
+                          <td className="border-b border-gray-200 bg-white px-5 py-5">
+                            <div className="flex items-center">
+                              <div className="ml-3">
+                                <p className="whitespace-no-wrap text-textColor font-semibold text-[1rem]">
+                                  {item.user_id}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="border-b border-gray-200 bg-white px-5 py-5 ">
-                          <p className="whitespace-no-wrap text-textColor font-semibold text-[1rem]">
-                            {item.food_name}
-                          </p>
-                        </td>
-                        <td className="border-b border-gray-200 bg-white px-5 py-5 ">
-                          <p className="whitespace-no-wrap text-textColor font-semibold text-[1rem]">
-                            {/* {curTime.getDay() * 24 * 60 +
+                          </td>
+                          <td className="border-b border-gray-200 bg-white px-5 py-5 ">
+                            <p className="whitespace-no-wrap text-textColor font-semibold text-[1rem]">
+                              {item.food_name}
+                            </p>
+                          </td>
+                          <td className="border-b border-gray-200 bg-white px-5 py-5 ">
+                            <p className="whitespace-no-wrap text-textColor font-semibold text-[1rem]">
+                              {/* {curTime.getDay() * 24 * 60 +
                               curTime.getHours() * 60 +
                               curTime.getMinutes() +
                               item.delivery_time -
@@ -252,28 +284,39 @@ const HomeChef = () => {
                             30
                               ? item.delivery_time
                               : timer} */}
-                          </p>
-                        </td>
-                        <td className="border-b border-gray-200 bg-white px-5 py-5 ">
-                          {orderStatus[item.order_id] === undefined ||
-                          orderStatus[item.order_id] ? (
-                            <button
-                              className="p-2 bg-red-400 text-white"
-                              onClick={() => handleToggle(item.order_id)}
-                            >
-                              Pending
-                            </button>
-                          ) : (
-                            <button
-                              className="p-2 bg-green-400 text-white"
-                              onClick={() => handleDone(item.order_id)}
-                            >
-                              Done
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                              {/* {timer} */}
+                              {/* {item.delivery_time} */}
+                              {orderStatus[item.order_id] === undefined ||
+                              orderStatus[item.order_id]
+                                ? timers[item.order_id]
+                                  ? timers[item.order_id]
+                                  : new Date(
+                                      item.delivery_time
+                                    ).toLocaleString()
+                                : "Done"}
+                            </p>
+                          </td>
+                          <td className="border-b border-gray-200 bg-white px-5 py-5 ">
+                            {orderStatus[item.order_id] === undefined ||
+                            orderStatus[item.order_id] ? (
+                              <button
+                                className="p-2 bg-red-400 text-white"
+                                onClick={() => handleToggle(item.order_id)}
+                              >
+                                Pending
+                              </button>
+                            ) : (
+                              <button
+                                className="p-2 bg-green-400 text-white"
+                                onClick={() => handleDone(item.order_id)}
+                              >
+                                Done
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
               </tbody>
             </table>
           </div>

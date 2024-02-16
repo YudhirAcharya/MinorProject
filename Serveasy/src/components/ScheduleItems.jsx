@@ -2,13 +2,15 @@
 
 import * as React from "react";
 import dayjs from "dayjs";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+// import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 // import { DesktopDateTimePicker } from "@mui/x-date-pickers/DesktopDateTimePicker";
-
+import { DatePicker, Stack } from "rsuite";
+import { FaCalendar } from "react-icons/fa";
+import { BsCalendar2MonthFill } from "react-icons/bs";
 const ScheduleItems = ({
   food_name,
   price,
@@ -53,18 +55,24 @@ const ScheduleItems = ({
                 />
               </div>
               <div className="mx-auto flex h-20 items-stretch text-gray-600">
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer
-                    components={["DateTimePicker", "DesktopDateTimePicker"]}
-                  >
-                    <DemoItem>
-                      <DateTimePicker
-                        value={today}
-                        onChange={handleDateTimeChange}
-                      />
-                    </DemoItem>
-                  </DemoContainer>
-                </LocalizationProvider>
+                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DateTimePicker
+                    label={"give date and time"}
+                    value={today}
+                    onChange={handleDateTimeChange}
+                  />
+                </LocalizationProvider> */}
+
+                <Stack spacing={10} direction="column" alignItems="flex-start">
+                  <DatePicker
+                    format="dd MMM yyyy hh:mm:ss aa"
+                    showMeridian
+                    caretAs={FaCalendar}
+                    style={{ width: 220 }}
+                    onChange={handleDateTimeChange}
+                    value={today}
+                  />
+                </Stack>
               </div>
             </div>
           </div>

@@ -60,6 +60,7 @@ const Checkout = () => {
       return {
         ...item,
         address: full_address,
+        delivery_time: Date.now() + item.delivery_time * 60000,
       };
     });
 
