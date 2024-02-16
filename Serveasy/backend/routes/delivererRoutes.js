@@ -24,9 +24,6 @@ router.route("/ordersDeliverer").get(delivererController.getOrders);
 router
   .route("/ordersDeliverer")
   .post(delivererController.updateAndMoveToRecommendation);
-// router
-//   .route("/ordeToRecommendationTable")
-//   .post(delivererController.moveToRecommendationTable);
 
 router.route("/delivererLogin").get((req, res) => {
   res.render("deliverer/delivererLogin", {});
