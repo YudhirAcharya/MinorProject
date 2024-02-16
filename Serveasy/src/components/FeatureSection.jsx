@@ -2,6 +2,8 @@ import { useFilterContext } from "../context/filterContext";
 import { useProductContext } from "../context/productContext";
 import ProductCard from "./ProductCard";
 import FeatureSearch from "./FeatureSearch";
+import Pagination from "./Pagination";
+import { useState, useEffect } from "react";
 const FeatureSection = () => {
   const { isLoading, products } = useProductContext();
   const {
@@ -13,6 +15,21 @@ const FeatureSection = () => {
   } = useFilterContext();
   // console.log(price, minPrice, maxPrice);
   // console.log(filterProducts);
+
+  // for pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const productsPerPage = 34;
+  useEffect(() => {
+    // Fetching data is not required here
+    // Just update the total pages based on your filterProducts length
+    setTotalPages(Math.ceil(filterProducts.length / 39));
+  }, [filterProducts]);
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+  //
+
   if (isLoading) {
     return <div>...Loading</div>;
   }
@@ -87,9 +104,14 @@ const FeatureSection = () => {
             className="w-full h-full object-cover"
           /> */}
         </div>
+
         {products &&
           filterProducts
-            .filter((_, i) => i < 24)
+            .slice(
+              (currentPage - 1) * productsPerPage,
+              currentPage * productsPerPage
+            )
+            // .filter((_, i) => i < 24)
             .map((product) => (
               <ProductCard
                 key={product.FoodID}
@@ -101,6 +123,14 @@ const FeatureSection = () => {
                 ingredients={product.CleanedIngredients}
               />
             ))}
+      </div>
+      {/* Pagintaion here */}
+      <div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePageChange={handlePageChange}
+        />
       </div>
     </div>
   );

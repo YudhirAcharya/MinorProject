@@ -39,7 +39,7 @@ const ProductCard = (item) => {
   // } = singleProduct;
 
   return (
-    <div>
+    <div className="mb-auto">
       <div className="border border-gray-200 hover:border-gray-400 transition-transform rounded-lg relative">
         <NavLink to={`/product/${id}`}>
           <img
