@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { FaCloudDownloadAlt } from "react-icons/fa";
@@ -43,6 +43,7 @@ const HomeChef = () => {
 
         const data = await response.json();
         let datas = data.data.rows;
+        console.log(data);
         datas.sort((a, b) => a.delivery_time - b.delivery_time);
         setOrders(datas);
       } catch (error) {
@@ -61,91 +62,114 @@ const HomeChef = () => {
     }));
   };
 
-  const handleDone = (orderId) => {
-    setOrderStatus((prevStatus) => {
-      const updatedStatus = { ...prevStatus };
-      delete updatedStatus[orderId];
-      return updatedStatus;
+  const handleDone = async (order_id) => {
+    // Update the c_status property of the order with the given orderId
+    const updatedOrders = orders.map((item) => {
+      if (item.order_id === order_id) {
+        return { ...item, c_status: 1 };
+      }
+      return item;
     });
 
-    // Remove the order from the orders array
-    const updatedOrders = orders.filter((item) => item.order_id !== orderId);
-    setOrders(updatedOrders);
+    // Filter out the orders with c_status = 1 and update the state
+    const visibleOrders = updatedOrders.filter((item) => item.c_status === 0);
+    setOrders(visibleOrders);
+    let newOrderData = [{ order_id, c_status: 1 }];
+    try {
+      // Make a POST request to the server to update the order status
+      const response = await fetch("http://127.0.0.1:3001/chef/ordersChef", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newOrderData),
+      });
+      console.log(newOrderData);
+      if (!response.ok) {
+        throw new Error(
+          `Failed to update order status: ${response.status} ${response.statusText}`
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
+      // Revert the state if the server update fails
+      setOrders(updatedOrders);
+    }
   };
 
   // Timer:
   // We need ref in this, because we are dealing
   // with JS setInterval to keep track of it and
   // stop it when needed
-  const Ref = useRef(null);
+  // const Ref = useRef(null);
 
-  // The state for our timer
-  const [timer, setTimer] = useState("01:30:00");
+  // // The state for our timer
+  // const [timer, setTimer] = useState("00:30:00");
 
-  const getTimeRemaining = (e) => {
-    const total = Date.parse(e) - Date.parse(new Date());
-    const seconds = Math.floor((total / 1000) % 60);
-    const minutes = Math.floor((total / 1000 / 60) % 60);
-    const hours = Math.floor((total / 1000 / 60 / 60) % 24);
+  // const getTimeRemaining = (e) => {
+  //   const total = Date.parse(e) - Date.parse(new Date());
+  //   const seconds = Math.floor((total / 1000) % 60);
+  //   const minutes = Math.floor((total / 1000 / 60) % 60);
+  //   const hours = Math.floor((total / 1000 / 60 / 60) % 24);
 
-    return {
-      total,
-      hours,
-      minutes,
-      seconds,
-    };
-  };
+  //   return {
+  //     total,
+  //     hours,
+  //     minutes,
+  //     seconds,
+  //   };
+  // };
 
-  const startTimer = (e) => {
-    let { total, hours, minutes, seconds } = getTimeRemaining(e);
-    if (total >= 0) {
-      // update the timer
-      // check if less than 10 then we need to
-      // add '0' at the beginning of the variable
-      setTimer(
-        (hours > 9 ? hours : "0" + hours) +
-          ":" +
-          (minutes > 9 ? minutes : "0" + minutes) +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds)
-      );
-    }
-  };
+  // const startTimer = (e) => {
+  //   let { total, hours, minutes, seconds } = getTimeRemaining(e);
+  //   if (total >= 0) {
+  //     // update the timer
+  //     // check if less than 10 then we need to
+  //     // add '0' at the beginning of the variable
+  //     setTimer(
+  //       (hours > 9 ? hours : "0" + hours) +
+  //         ":" +
+  //         (minutes > 9 ? minutes : "0" + minutes) +
+  //         ":" +
+  //         (seconds > 9 ? seconds : "0" + seconds)
+  //     );
+  //   }
+  // };
 
-  const clearTimer = (e) => {
-    // If you adjust it you should also need to
-    // adjust the Endtime formula we are about
-    // to code next
-    setTimer("00:30:00");
+  // const clearTimer = (e) => {
+  //   // If you adjust it you should also need to
+  //   // adjust the Endtime formula we are about
+  //   // to code next
+  //   setTimer("00:30:00");
 
-    // If you try to remove this line the
-    // updating of timer Variable will be
-    // after 1000ms or 1sec
-    if (Ref.current) clearInterval(Ref.current);
+  //   // If you try to remove this line the
+  //   // updating of timer Variable will be
+  //   // after 1000ms or 1sec
+  //   if (Ref.current) clearInterval(Ref.current);
 
-    const id = setInterval(() => {
-      startTimer(e);
-    }, 1000);
+  //   const id = setInterval(() => {
+  //     startTimer(e);
+  //   }, 1000);
 
-    Ref.current = id;
-  };
+  //   Ref.current = id;
+  // };
 
-  const getDeadTime = () => {
-    let deadline = new Date();
-    // Set the deadline to 1 hour and 30 minutes from now
-    deadline.setHours(deadline.getHours() + 0);
-    deadline.setMinutes(deadline.getMinutes() + 30);
-    return deadline;
-  };
-  const curTime = new Date();
+  // const getDeadTime = () => {
+  //   let deadline = new Date();
+  //   // Set the deadline to 1 hour and 30 minutes from now
+  //   deadline.setHours(deadline.getHours() + 0);
+  //   deadline.setMinutes(deadline.getMinutes() + 30);
+  //   return deadline;
+  // };
+  // const curTime = new Date();
 
-  // We can use useEffect so that when the component
-  // mount the timer will start as soon as possible
-  // We put empty array to act as componentDid
-  // mount only
-  useEffect(() => {
-    clearTimer(getDeadTime());
-  }, []);
+  // // We can use useEffect so that when the component
+  // // mount the timer will start as soon as possible
+  // // We put empty array to act as componentDid
+  // // mount only
+  // useEffect(() => {
+  //   clearTimer(getDeadTime());
+  // }, []);
 
   return (
     <>
@@ -157,6 +181,9 @@ const HomeChef = () => {
             <span className="text-xs text-gray-500">
               Following are the orders of different customers.
             </span>
+          </div>
+          <div>
+            <button className="bg-red-800 p-2 text-white">Logout</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="ml-10 space-x-8 lg:ml-40">
@@ -184,7 +211,7 @@ const HomeChef = () => {
               <tbody className=" overflow-y-auto ">
                 {orders &&
                   orders
-                    .filter((_, i) => i < 7)
+                    .filter((_, i) => i < 10)
                     .map((item) => (
                       <tr key={item.id}>
                         <td className="border-b border-gray-200 bg-white px-5 py-5 ">
@@ -208,7 +235,7 @@ const HomeChef = () => {
                         </td>
                         <td className="border-b border-gray-200 bg-white px-5 py-5 ">
                           <p className="whitespace-no-wrap text-textColor font-semibold text-[1rem]">
-                            {curTime.getDay() * 24 * 60 +
+                            {/* {curTime.getDay() * 24 * 60 +
                               curTime.getHours() * 60 +
                               curTime.getMinutes() +
                               item.delivery_time -
@@ -217,21 +244,21 @@ const HomeChef = () => {
                                 new Date().getDay() * 24 * 60) >
                             30
                               ? item.delivery_time
-                              : timer}
+                              : timer} */}
                           </p>
                         </td>
                         <td className="border-b border-gray-200 bg-white px-5 py-5 ">
                           {orderStatus[item.order_id] === undefined ||
                           orderStatus[item.order_id] ? (
                             <button
-                              className="p-2 bg-red-300 text-white"
+                              className="p-2 bg-red-400 text-white"
                               onClick={() => handleToggle(item.order_id)}
                             >
                               Pending
                             </button>
                           ) : (
                             <button
-                              className="p-2 bg-green-300 text-white"
+                              className="p-2 bg-green-400 text-white"
                               onClick={() => handleDone(item.order_id)}
                             >
                               Done
