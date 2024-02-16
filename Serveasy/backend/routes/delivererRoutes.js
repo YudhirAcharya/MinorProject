@@ -21,10 +21,12 @@ router.route("/ordersDeliverer").get(delivererController.getOrders);
 // router
 //   .route("/ordersDeliverer")
 //   .post(requireAuth, delivererController.updateOrderStatus);
-router.route("/ordersDeliverer").post(delivererController.updateOrderStatus);
 router
-  .route("/ordeToRecommendationTable")
-  .post(delivererController.moveToRecommendationTable);
+  .route("/ordersDeliverer")
+  .post(delivererController.updateAndMoveToRecommendation);
+// router
+//   .route("/ordeToRecommendationTable")
+//   .post(delivererController.moveToRecommendationTable);
 
 router.route("/delivererLogin").get((req, res) => {
   res.render("deliverer/delivererLogin", {});
