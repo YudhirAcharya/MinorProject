@@ -23,14 +23,7 @@ router.route("/ordersDeliverer").get(delivererController.getOrders);
 //   .post(requireAuth, delivererController.updateOrderStatus);
 router
   .route("/ordersDeliverer")
-  .post(delivererController.updateAndMoveToRecommendation);
-
-router
-  .route("/updateordersDelivererdCount")
-  .post(delivererController.updateDeliveredCount);
-// router
-//   .route("/ordeToRecommendationTable")
-//   .post(delivererController.moveToRecommendationTable);
+  .post(delivererController.updateAndMoveToRecommendationAndChangeStatus);
 
 router.route("/delivererLogin").get((req, res) => {
   res.render("deliverer/delivererLogin", {});
