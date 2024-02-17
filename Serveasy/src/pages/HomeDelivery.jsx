@@ -6,6 +6,8 @@ import Footer from "../components/Footer";
 
 const HomeDelivery = () => {
   const [orders, setOrders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 7;
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -31,7 +33,7 @@ const HomeDelivery = () => {
       }
     };
     fetchOrders();
-  }, [orders]);
+  }, [currentPage]);
 
   const initialOrderStatus = orders.reduce((acc, item) => {
     acc[item.delivery_id] = true;
@@ -86,16 +88,21 @@ const HomeDelivery = () => {
       setOrders(updatedOrders);
     }
   };
+  const totalOrders = orders.length;
+  const lastPage = Math.ceil(totalOrders / ordersPerPage);
+
   return (
     <div>
       <Navbar />
-      <div className="w-[screen]  my-8">
+      <div className="w-[screen] mx-4 my-8">
         <div className=" grid grid-cols-1 items-center justify-between pb-6 mx-8">
           <div>
             <h2 className="text-gray-600 font-semibold">Delivery</h2>
-            <span className="text-xs">All delivery requests</span>
+            <h3 className="text-xs">All delivery requests</h3>
           </div>
-
+          <div className="my-2">
+            <button className="bg-warning text-lightColor p-2">Logout</button>
+          </div>
           <div>
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
               <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -174,16 +181,30 @@ const HomeDelivery = () => {
           </div>
         </div>
       </div>
-      <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-        <span className="text-xs xs:text-sm text-gray-900">
-          Showing 1 to 4 of 50 Entries
+      <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
+        <span className="text-xs xs:text-sm text-textColor">
+          Showing {Math.min((currentPage - 1) * ordersPerPage + 1, totalOrders)}{" "}
+          to {Math.min(currentPage * ordersPerPage, totalOrders)} of{" "}
+          {totalOrders} Entries
         </span>
         <div className="inline-flex mt-2 xs:mt-0">
-          <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
+          <button
+            className="text-sm text-textColor transition duration-150  bg-primary font-semibold py-2 px-4 rounded-l"
+            onClick={() =>
+              setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+            }
+            disabled={currentPage === 1}
+          >
             Prev
           </button>
           &nbsp; &nbsp;
-          <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r">
+          <button
+            className="text-sm text-textColor transition duration-150  bg-primary font-semibold py-2 px-4 rounded-r"
+            onClick={() =>
+              setCurrentPage((prevPage) => Math.min(prevPage + 1, lastPage))
+            }
+            disabled={currentPage === lastPage}
+          >
             Next
           </button>
         </div>

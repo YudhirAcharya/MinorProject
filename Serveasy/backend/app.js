@@ -10,7 +10,7 @@ const path = require("path");
 
 const chefRoutes = require("./routes/chefRoutes");
 const delivererRoutes = require("./routes/delivererRoutes");
-
+const khaltiRoutes = require("./routes/khaltiRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const app = express();
@@ -81,15 +81,52 @@ app.use(
   },
   delivererRoutes,
 );
+
+app.use(
+  "/khalti-api",
+  (req, res, next) => {
+    // Middleware to attach the database pool to the request object
+    req.pool = pool;
+    next();
+  },
+  khaltiRoutes,
+);
 app.get("/", (req, res) => {
   res.redirect("http://localhost:5173/");
 });
+
+// // Khalti Route
+// app.post("/khalti-api", async (req, res) => {
+//   try {
+//     const payload = req.body;
+//     const khaltiResponse = await axios.post(
+//       "https://a.khalti.com/api/v2/epayment/initiate/",
+//       payload,
+//       {
+//         headers: {
+//           Authorization: `Key 11cc7f03699b4416b19b074d24d776ce`,
+//         },
+//       },
+//     );
+//     res.json({
+//       success: true,
+//       data: khaltiResponse?.data,
+//     });
+//   } catch (error) {
+//     console.error("Error initiating payment with Khalti:");
+//     res.status(500).json({
+//       success: false,
+//       message: "Something went wrong while initiating payment with Khalti",
+//       error: error.message,
+//     });
+//   }
+// });
 
 //PAGINATION
 app.get("/api/foods", (req, res) => {
   // Pagination parameters
   const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
-  const limit = parseInt(req.query.limit) || 10; // Default limit to 10 if not provided
+  const limit = parseInt(req.query.limit) || 30; // Default limit to 40 if not provided
   const offset = (page - 1) * limit; // Calculate offset
 
   // Acquire a connection from the pool
