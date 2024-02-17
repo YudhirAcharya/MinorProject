@@ -24,6 +24,10 @@ router.route("/ordersDeliverer").get(delivererController.getOrders);
 router
   .route("/ordersDeliverer")
   .post(delivererController.updateAndMoveToRecommendation);
+
+router
+  .route("/updateordersDelivererdCount")
+  .post(delivererController.updateDeliveredCount);
 // router
 //   .route("/ordeToRecommendationTable")
 //   .post(delivererController.moveToRecommendationTable);
