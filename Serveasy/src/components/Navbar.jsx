@@ -46,12 +46,7 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        <NavLink
-          to="/signing"
-          className="border-2 text-[30px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer"
-        >
-          JoinUS
-        </NavLink>
+
         <div
           to="/Cart"
           onClick={showCart}

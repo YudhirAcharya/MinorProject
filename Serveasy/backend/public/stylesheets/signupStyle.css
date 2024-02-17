@@ -11,7 +11,7 @@ body {
   height: 100vh;
   width: 100%;
   place-items: center;
-  background-color: #ffcc3c;
+  background: linear-gradient(to right, #ffcc3c 25%, #ff0080 100%);
 }
 ::selection {
   background: #ff80bf;

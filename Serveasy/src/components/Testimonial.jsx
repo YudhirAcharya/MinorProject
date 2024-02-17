@@ -47,7 +47,7 @@ const Testimonial = () => {
                     <BiSolidQuoteAltRight />
                   </span>
                 </div>
-                <p className="text-textColor text-[1rem] px-2 py-4">
+                <p className="text-textColor font-semibold text-[1rem] px-2 py-4">
                   {value.desc}
                 </p>
                 <div className="details">

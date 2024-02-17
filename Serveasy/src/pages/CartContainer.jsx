@@ -112,7 +112,7 @@ const CartContainer = () => {
               <motion.button
                 whileTap={{ scale: 0.8 }}
                 type="button"
-                className="w-1/3 p-2 rounded-full  bg-primary text-textColor text-lg my-2 hover:shadow-lg font-semibold  mx-[35%]"
+                className="w-1/3 p-2 rounded-full  bg-primary text-textColor text-lg my-1 hover:shadow-lg font-semibold  mx-[35%]"
               >
                 Check Out
               </motion.button>

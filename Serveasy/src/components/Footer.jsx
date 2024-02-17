@@ -67,7 +67,7 @@ const Footer = () => {
               </li>
               <li className="my-4 list-none">Email: serveasy@gmail.com</li>
               <li className="my-4 list-none">
-                <a href="tel:9800000000">Phone: +977 9800000000</a>
+                <a href="tel:9800000000">Phone: +977 9800000001</a>
               </li>
             </ul>
             <div className="flex space-x-4 justify-center">
