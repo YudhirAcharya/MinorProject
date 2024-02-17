@@ -516,3 +516,56 @@ exports.updateAndMoveToRecommendationAndChangeStatus = (req, res) => {
     });
   });
 };
+
+exports.updateDeliveredCount = (req, res) => {
+  const pool = req.pool;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error("Error getting connection from pool:", err);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    // Extract delivery data from the request body
+    const deliveryData = req.body;
+
+    // Extract delivery IDs with status = 1
+    const deliveredDeliveryIds = deliveryData
+      .filter((item) => item.status === 1)
+      .map((item) => item.delivery_id);
+
+    if (deliveredDeliveryIds.length === 0) {
+      // No deliveries with status = 1, return without updating
+      connection.release();
+      return res.status(200).send("No deliveries with status = 1");
+    }
+
+    // Construct SQL query to update delivered count in orders table for each delivery ID
+    const sql = `
+      UPDATE orders o
+      SET o.delivered_count = o.delivered_count + 1
+      WHERE o.orders_id IN (
+          SELECT oi.orders_id
+          FROM ordered_items oi
+          WHERE oi.order_id IN (
+              SELECT d.order_id
+              FROM delivery d
+              WHERE d.delivery_id = ?
+          )
+      )`;
+
+    // Execute the query for each delivered delivery ID
+    deliveredDeliveryIds.forEach((deliveryId) => {
+      connection.query(sql, [deliveryId], (err, results) => {
+        if (err) {
+          console.error("Error executing query:", err);
+          connection.release();
+          return res.status(500).send("Internal Server Error");
+        }
+      });
+    });
+
+    // Release the connection back to the pool after all queries are executed
+    connection.release();
+    res.status(200).send("Delivered count updated successfully");
+  });
+};

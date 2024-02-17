@@ -29,14 +29,14 @@ const Landing = () => {
             {/* <SearchBar /> */}
 
             <NavLink
-              to="http://127.0.0.1:3001/users/userLogin"
+              to="http://127.0.0.1:3001/userLogin"
               className="border-2 text-[25px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer"
             >
               Login
               {/* <IoLogInOutline /> */}
             </NavLink>
             <NavLink
-              to="http://127.0.0.1:3001/users/userRegister"
+              to="http://127.0.0.1:3001/userRegister"
               className="border-2 text-[25px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer"
             >
               Register
