@@ -31,6 +31,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
+
       {/* <LoginUser /> */}
       <Hero />
       <Category />

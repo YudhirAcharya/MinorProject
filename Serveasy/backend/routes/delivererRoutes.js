@@ -23,7 +23,7 @@ router.route("/ordersDeliverer").get(delivererController.getOrders);
 //   .post(requireAuth, delivererController.updateOrderStatus);
 router
   .route("/ordersDeliverer")
-  .post(delivererController.updateAndMoveToRecommendation);
+  .post(delivererController.updateAndMoveToRecommendationAndChangeStatus);
 
 router.route("/delivererLogin").get((req, res) => {
   res.render("deliverer/delivererLogin", {});

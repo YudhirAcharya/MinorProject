@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Toaster } from "react-hot-toast";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { GiShoppingCart } from "react-icons/gi";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -11,26 +12,6 @@ import CartAmountToggle from "../components/CartAmountToggle";
 import { useCartContext } from "../context/cartContext";
 const API = "http://127.0.0.1:3001/foods/";
 const Product = () => {
-  // const [qty, setQty] = useState(0);
-  // const { state } = useLocation();
-  // const { img, name, price, cuisine, ingredients } = state;
-  // const [buy, setBuy] = React.useState({});
-
-  // const handlePurchase = (evt) => {
-  //   evt.preventDefault();
-  //   setBuy((prevState) => ({
-  //     ...prevState,
-  //     orderId: Math.floor(Math.random() * 100000) + 1,
-  //     userId: Math.floor(Math.random() * 1000) + 1,
-  //     foodName: name,
-  //     quantity: qty,
-  //     totalprice: price * qty,
-  //   }));
-  //   setQty(0);
-  // };
-  // useEffect(() => {
-  //   console.log(buy);
-  // }, [buy]);
   const { addToCart } = useCartContext();
   const [amount, setAmount] = useState(1);
   const setDecrease = () => {
@@ -62,6 +43,18 @@ const Product = () => {
   return (
     <>
       <Navbar />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <PageNavigation title={TranslatedRecipeName} />
       <section className="flex flex-col justify-between lg:flex-row pt-5 px-4 gap-12 bg-white">
         <div className="flex flex-col gap-2 lg:w-3/4">
@@ -101,8 +94,18 @@ const Product = () => {
               />
             </div>
             <NavLink
-              to="/user-home"
-              onClick={() =>
+              // to="/user-home"
+              onClick={() => {
+                toast.success("🍕 Foods added to cart", {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+                });
                 addToCart(
                   FoodID,
                   TranslatedRecipeName,
@@ -110,8 +113,8 @@ const Product = () => {
                   price,
                   amount,
                   singleProduct
-                )
-              }
+                );
+              }}
             >
               <button className="flex items-center gap-4 justify-center bg-warning py-2 w-full text-lightColor rounded-lg shadow mt-5 hover:bg-primary hover:text-textColor border-none">
                 <GiShoppingCart className="text-[38px] " />
@@ -136,7 +139,6 @@ const Product = () => {
         </div>
       </section>
       <Footer />
-      <Toaster />
     </>
   );
 };
