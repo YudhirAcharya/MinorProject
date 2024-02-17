@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 const HomeChef = () => {
   const [orders, setOrders] = useState([]);
   const [timers, setTimers] = useState({});
@@ -29,7 +30,7 @@ const HomeChef = () => {
       styles: { halign: "left" },
       columnStyles: { 0: { halign: "right" } },
     });
-
+    console.log(doc instanceof jsPDF);
     // Download the PDF file
     doc.save("orders.pdf");
     window.open(doc.output("bloburl"), "_blank");
