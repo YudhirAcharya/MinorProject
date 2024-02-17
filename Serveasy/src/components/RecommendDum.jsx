@@ -14,7 +14,7 @@ function RecommendDum() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch user orders
+        
         const ordersResponse = await axios.get(
           "http://127.0.0.1:3001/users/recommendationData"
         );
@@ -35,12 +35,12 @@ function RecommendDum() {
 
         setOrders(userOrders);
 
-        // Extract recipe names for recommendations
+        
         const recipeNames = userOrders.map(
           (order) => order.recipe_name
         );
 
-        // Fetch recommendations based on recipe names
+        
         const recommendationsResponse = await axios.post(
           "http://127.0.0.1:5000/recommend_multi",
           { recipe_names: recipeNames }

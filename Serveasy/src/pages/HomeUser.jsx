@@ -4,7 +4,7 @@ import AfterSelectionProducts from "../components/AfterSelectionProducts";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const currentUser_id = "u_fjZn9UjnYY9Y";
+const currentUser_id = "u_fjZn9UjwdwdnYY9Y"; //u_fjZn9UjnYY9Y
 const apiUrl =
   "http://127.0.0.1:3001/users/recommendationData";
 
