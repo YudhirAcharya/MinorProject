@@ -66,7 +66,7 @@ exports.registerUser = (req, res) => {
                     });
                     res
                       .status(201)
-                      .json({ status: "success", user_id: stored_user_id });
+                      .json({ status: "success", user_id: user_id });
                   } else {
                     // console.log(err);
                     res.json({
