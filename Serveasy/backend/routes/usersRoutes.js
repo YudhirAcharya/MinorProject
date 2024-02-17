@@ -15,16 +15,19 @@ router.route("/registerOrder").post(userController.registerOrder);
 router.route("/recommendationData").get(userController.giveRecommendationData);
 router.route("/:id").get(userController.getUserOrderInfo);
 router.route("/reviews").post(userController.PostAReviewAndRating);
+router.route("/userOrders").post(userController.getUserOrders);
 
-router.route("/userLogin").get((req, res) => {
-  res.render("user/userLogin", {});
-});
+//these three routes were not working
+// router.route("/userLogin").get((req, res) => {
+//   res.render("user/userLogin", {});
+// });
 
-router.route("/userRegister").get((req, res) => {
-  res.render("user/userRegister", {});
-});
+// router.route("/userRegister").get((req, res) => {
+//   res.render("user/userRegister", {});
+// });
 
-router.route("/userHome").get(requireAuth, (req, res) => {
-  res.redirect("http://localhost:5173/user-home");
-});
+// router.route("/userHome").get(requireAuth, (req, res) => {
+//   res.redirect("http://localhost:5173/user-home");
+// });
+
 module.exports = router;

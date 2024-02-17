@@ -64,7 +64,9 @@ exports.registerUser = (req, res) => {
                       httpOnly: true,
                       maxAge: maxAge * 1000,
                     });
-                    res.status(201).json({ status: "success" });
+                    res
+                      .status(201)
+                      .json({ status: "success", user_id: stored_user_id });
                   } else {
                     // console.log(err);
                     res.json({
@@ -120,7 +122,7 @@ exports.loginUser = (req, res) => {
                 httpOnly: true,
                 maxAge: maxAge * 1000,
               });
-              res.json({ status: "success" });
+              res.json({ status: "success", user_id: stored_user_id });
             } else {
               return res
                 .status(401)
@@ -403,5 +405,35 @@ exports.PostAReviewAndRating = (req, res) => {
         },
       );
     });
+  });
+};
+
+exports.getUserOrders = (req, res) => {
+  const pool = req.pool;
+  const { user_id } = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    // console.log(`connected as id ${connection.threadId}`);
+
+    connection.query(
+      "Select * from ordered_items where user_id=?",
+      [user_id],
+      (err, rows) => {
+        connection.release();
+
+        if (!err) {
+          res.status(200).json({
+            status: "success",
+            results: rows.length,
+            data: {
+              rows,
+            },
+            // data,
+          });
+        } else {
+          console.log(err);
+        }
+      },
+    );
   });
 };

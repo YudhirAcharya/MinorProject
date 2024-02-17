@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const { requireAuth } = require("./middleware/userAuthMiddleware");
 const path = require("path");
 
 const chefRoutes = require("./routes/chefRoutes");
@@ -63,6 +64,15 @@ app.use(
   },
   usersRoutes,
 );
+app.get("/userLogin", (req, res) => {
+  res.render("user/userLogin");
+});
+app.get("/userRegister", (req, res) => {
+  res.render("user/userRegister");
+});
+app.get("/userHome", requireAuth, (req, res) => {
+  res.redirect("http://localhost:5173/user-home");
+});
 app.use(
   "/chef",
   (req, res, next) => {
