@@ -71,6 +71,7 @@ exports.khaltiPayment = async (req, res) => {
         data: responseData,
       });
     } else {
+      console.error("Error in Khalti payment:", error);
       // Sending a JSON response indicating that something went wrong
       res.status(500).json({
         success: false,
