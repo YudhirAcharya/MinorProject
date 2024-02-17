@@ -408,6 +408,28 @@ exports.PostAReviewAndRating = (req, res) => {
   });
 };
 
+exports.getReviews = (req, res) => {
+  const pool = req.pool;
+  pool.getConnection((err, connection) => {
+    if (err) throw err;
+    // console.log(`connected as id ${connection.threadId}`);
+
+    connection.query(
+      "Select * from rate_review where food_id=?",
+      [req.params.foodID],
+      (err, rows) => {
+        connection.release();
+
+        if (!err) {
+          res.send(rows);
+        } else {
+          console.log(err);
+        }
+      },
+    );
+  });
+};
+
 exports.getUserOrders = (req, res) => {
   const pool = req.pool;
   const { user_id } = req.body;
