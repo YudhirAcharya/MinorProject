@@ -14,6 +14,7 @@ router.route("/logout").get(userController.logoutUser);
 router.route("/registerOrder").post(userController.registerOrder);
 router.route("/recommendationData").get(userController.giveRecommendationData);
 router.route("/:id").get(userController.getUserOrderInfo);
+router.route("/reviews").post(userController.PostAReviewAndRating);
 
 //these three routes were not working
 // router.route("/userLogin").get((req, res) => {

@@ -1,7 +1,7 @@
 // import { useEffect, useState } from "react";
 
 import propTypes from "prop-types";
-import { AiOutlineStar, AiFillStar, AiOutlineShopping } from "react-icons/ai";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 // import Product from "../pages/Product";
 import { NavLink } from "react-router-dom";
 // import { useCartContext } from "../context/cartContext";
@@ -39,7 +39,7 @@ const ProductCard = (item) => {
   // } = singleProduct;
 
   return (
-    <div>
+    <div className="mb-auto">
       <div className="border border-gray-200 hover:border-gray-400 transition-transform rounded-lg relative">
         <NavLink to={`/product/${id}`}>
           <img

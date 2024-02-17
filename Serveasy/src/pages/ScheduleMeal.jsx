@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
+import dayjs from "dayjs";
 const ScheduleMeal = () => {
   const navigate = useNavigate();
   const { cart, totalAmount, deliveryFee } = useCartContext();
@@ -31,7 +32,7 @@ const ScheduleMeal = () => {
     cart.map((item) => ({
       ...item,
       address: "",
-      scheduledDate: null,
+      // scheduledDate: null,
     }))
   );
 
@@ -44,10 +45,14 @@ const ScheduleMeal = () => {
   };
 
   const handleDateTimeChange = (index, newValue) => {
-    setCartItems((prevCartItems) =>
-      prevCartItems.map((item, i) =>
-        i === index ? { ...item, scheduledDate: newValue.$d } : item
-      )
+    console.log(newValue);
+    const milliseconds = dayjs(newValue).valueOf();
+    setCartItems(
+      (prevCartItems) =>
+        prevCartItems.map((item, i) =>
+          i === index ? { ...item, delivery_time: milliseconds } : item
+        )
+      // console.log(milliseconds)
     );
   };
 
@@ -73,7 +78,7 @@ const ScheduleMeal = () => {
     const newCart = cartItems.map((item) => ({
       ...item,
       address: item.address,
-      scheduledDate: item.scheduledDate,
+      delivery_time: item.delivery_time,
     }));
     const foods = newCart;
 
@@ -143,7 +148,7 @@ const ScheduleMeal = () => {
   return (
     <>
       <Navbar />
-      <section className="h-screen w-full py-12 sm:py-16 lg:py-20">
+      <section className="h-screen w-full my-8 py-12 sm:py-16 lg:py-20">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center">
             <h1 className="text-2xl font-semibold text-gray-900">
@@ -210,7 +215,7 @@ const ScheduleMeal = () => {
                   </p>
                 </div>
 
-                <div className="mt-6 text-center">
+                <div className="my-6 text-center">
                   {confirm ? (
                     <button
                       type="button"

@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 require("dotenv").config();
 const comparePassword = require("./../utils/comparePassword");
+const uuid = require("uuid");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const maxAge = 3 * 24 * 60 * 60;
@@ -285,5 +286,209 @@ exports.getUserOrderInfo = (req, res) => {
         }
       },
     );
+  });
+};
+
+exports.PostAReviewAndRating = (req, res) => {
+  const pool = req.pool;
+  const { user_id, food_name, rating, review } = req.body;
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error("Error getting database connection:", err);
+      return res
+        .status(500)
+        .json({ status: "error", error: "Internal Server Error" });
+    }
+
+    connection.beginTransaction((err) => {
+      if (err) {
+        connection.release();
+        console.error("Error starting transaction:", err);
+        return res
+          .status(500)
+          .json({ status: "error", error: "Transaction start failed" });
+      }
+
+      // Get the food_id based on the food_name from the ordered_items table
+      connection.query(
+        "SELECT FoodID FROM food WHERE TranslatedRecipeName = ?",
+        [food_name],
+        (err, results) => {
+          if (err) {
+            res.status(500).json({
+              error: "Internal server error while selecting from food",
+            });
+            return;
+          }
+
+          if (results.length === 0) {
+            res.status(400).json({ error: "Food item not found" });
+            return;
+          }
+
+          const food_id = results[0].FoodID;
+          // console.log(food_id);
+
+          // Check if the user has bought the food item
+          connection.query(
+            "SELECT * FROM ordered_items WHERE user_id = ? AND food_name = ?",
+            [user_id, food_name],
+            (err, results) => {
+              if (err) {
+                res
+                  .status(500)
+                  .json({ error: "Internal server error while selecting" });
+                return;
+              }
+
+              if (results.length === 0) {
+                res
+                  .status(400)
+                  .json({ error: "User has not purchased this food item" });
+                return;
+              }
+
+              // Generate a random review_id
+              const review_id = uuid.v4();
+              // Insert the review into the database
+              connection.query(
+                "INSERT INTO rate_review (review_id, user_id, food_id, food_name, rating, review) VALUES (?, ?, ?, ?, ?, ?)",
+                [review_id, user_id, food_id, food_name, rating, review],
+                (err, result) => {
+                  if (err) {
+                    res
+                      .status(500)
+                      .json({ error: "Internal server error while inserting" });
+                    console.log(err);
+                    return;
+                  }
+
+                  res
+                    .status(201)
+                    .json({ message: "Review added successfully" });
+                },
+              );
+            },
+          );
+        },
+      );
+    });
+  });
+};
+
+exports.PostAReviewAndRating = (req, res) => {
+  const pool = req.pool;
+  const { user_id, food_name, rating, review } = req.body;
+
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error("Error getting database connection:", err);
+      return res
+        .status(500)
+        .json({ status: "error", error: "Internal Server Error" });
+    }
+
+    connection.beginTransaction((err) => {
+      if (err) {
+        connection.release();
+        console.error("Error starting transaction:", err);
+        return res
+          .status(500)
+          .json({ status: "error", error: "Transaction start failed" });
+      }
+
+      // Get the food_id based on the food_name from the ordered_items table
+      connection.query(
+        "SELECT FoodID FROM food WHERE TranslatedRecipeName = ?",
+        [food_name],
+        (err, results) => {
+          if (err) {
+            connection.rollback(() => {
+              connection.release();
+              console.error("Error fetching food ID:", err);
+              return res.status(500).json({ error: "Internal server error" });
+            });
+            return;
+          }
+
+          if (results.length === 0) {
+            connection.rollback(() => {
+              connection.release();
+              res.status(400).json({ error: "Food item not found" });
+            });
+            return;
+          }
+
+          const food_id = results[0].FoodID;
+
+          // Check if the user has bought the food item
+          connection.query(
+            "SELECT * FROM ordered_items WHERE user_id = ? AND food_name = ?",
+            [user_id, food_name],
+            (err, results) => {
+              if (err) {
+                connection.rollback(() => {
+                  connection.release();
+                  console.error("Error checking purchase:", err);
+                  return res
+                    .status(500)
+                    .json({ error: "Internal server error" });
+                });
+                return;
+              }
+
+              if (results.length === 0) {
+                connection.rollback(() => {
+                  connection.release();
+                  res
+                    .status(400)
+                    .json({ error: "User has not purchased this food item" });
+                });
+                return;
+              }
+
+              // Generate a random review_id
+              const review_id = uuid.v4();
+
+              // Insert the review into the database
+              connection.query(
+                "INSERT INTO rate_review (review_id, user_id, food_id, food_name, rating, review) VALUES (?, ?, ?, ?, ?, ?)",
+                [review_id, user_id, food_id, food_name, rating, review],
+                (err, result) => {
+                  if (err) {
+                    connection.rollback(() => {
+                      connection.release();
+                      console.error("Error inserting review:", err);
+                      return res
+                        .status(500)
+                        .json({ error: "Internal server error" });
+                    });
+                    return;
+                  }
+
+                  connection.commit((err) => {
+                    if (err) {
+                      connection.rollback(() => {
+                        connection.release();
+                        console.error("Error committing transaction:", err);
+                        return res
+                          .status(500)
+                          .json({ error: "Internal server error" });
+                      });
+                      return;
+                    }
+
+                    connection.release();
+                    res
+                      .status(201)
+                      .json({ message: "Review added successfully" });
+                  });
+                },
+              );
+            },
+          );
+        },
+      );
+    });
   });
 };

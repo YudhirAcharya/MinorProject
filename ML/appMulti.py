@@ -5,10 +5,13 @@ import numpy as np
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 CORS(app)
 
-# Load the cosine similarity matrix 
+
+
+
 with open('./cosine_similarity_matrix.pkl', 'rb') as file:
     cosine_sim_matrix = pickle.load(file)
 
@@ -33,6 +36,7 @@ df['keywords'] = df['Cleaned-Ingredients'] + df['Cuisine']
 
 data_frame = df[['FoodID',	'TranslatedRecipeName', 'keywords']]
 
+                  
 data_frame['keywords'] = data_frame['keywords'].apply(lambda x:" ".join(x))
 
 data_frame['keywords'] = data_frame['keywords'].apply(lambda x: x.replace(',', ' '))
@@ -107,27 +111,50 @@ except FileNotFoundError:
     with open('cosine_similarity_matrix.pkl', 'rb') as file:
         cosine_sim_matrix = pickle.load(file)
 
-def recommend_recipes(food_list):
-    recommendations_list = []
-    for food in food_list:
-        food_index = data_frame[data_frame['TranslatedRecipeName'] == food].index[0]
-        distances = cosine_sim_matrix[food_index]
-        food_list_indices = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:5]
-        recommendations = [{'index': i[0], 'name': data_frame.iloc[i[0]].TranslatedRecipeName} for i in food_list_indices]
-        recommendations_list.append({'recipe_name': food, 'recommendations': recommendations})
-    return recommendations_list
 
-@app.route('/recommendmulti', methods=['POST'])
+def recommend_recipes(food_list):
+    all_recommendations = []
+    recommended_indices = set()
+
+    for food in food_list:
+       
+        if food in data_frame['TranslatedRecipeName'].values:
+            food_index = data_frame[data_frame['TranslatedRecipeName'] == food].index[0]
+            distances = cosine_sim_matrix[food_index]
+            food_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:5]
+
+            recommendations = [{'index': i[0], 'name': data_frame.iloc[i[0]].TranslatedRecipeName} for i in food_list]
+            all_recommendations.extend(recommendations)
+
+   
+    all_recommendations = sorted(all_recommendations, key=lambda x: x['index'], reverse=True)
+    unique_recommendations = []
+
+    for recommendation in all_recommendations:
+        if recommendation['index'] not in recommended_indices:
+            unique_recommendations.append(recommendation)
+            recommended_indices.add(recommendation['index'])
+
+    # top 15 unique recommendations
+    unique_recommendations = unique_recommendations[:30]
+    return unique_recommendations
+
+
+
+
+@app.route('/recommend_multi', methods=['POST'])
 def recommend():
     data = request.get_json()
-    recipe_names = data.get('recipe_names', [])
+    recipe_names = data.get('recipe_names', None)
 
-    if recipe_names:
+    if recipe_names is not None and len(recipe_names) > 0:
+        # If fewer than 5 food names are provided, use all available names
+        recipe_names = recipe_names[:5]
         recommendations = recommend_recipes(recipe_names)
         return jsonify({'recommendations': recommendations})
     else:
-        return jsonify({'error': 'Invalid request. Please provide at least one recipe name'}), 400
-
+        return jsonify({'error': 'Invalid request or missing recipe_names (should be a list of at least 1 food name)'}), 400
+    
 if __name__ == '__main__':
     app.run(debug=True)
-#run flask as: python app.py
+#run flask as: python appMulti.py

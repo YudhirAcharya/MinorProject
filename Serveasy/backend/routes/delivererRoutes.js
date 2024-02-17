@@ -40,6 +40,10 @@ router.route("/delivererRegister").get((req, res) => {
   res.render("deliverer/delivererRegister", {});
 });
 
+// router
+//   .route("/updateordersDelivererdCount")
+//   .post(delivererController.updateDeliveredCount);
+
 router.route("/delivererHome").get(requireAuth, (req, res) => {
   res.render("deliverer/delivererHome", {});
 });
