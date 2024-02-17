@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 const Promotion = () => {
   return (
     <section>
@@ -20,9 +21,11 @@ const Promotion = () => {
             </div>
 
             <div className="bg-none border-none outline-none flex">
-              <button className="text-sm py-[16px] px-[30px] text-center relative text-white bg-warning uppercase font-bold rounded-lg cursor-pointer ml-[20px] hover:bg-primary hover:text-textColor">
-                Order Now
-              </button>
+              <NavLink to="http://127.0.0.1:3001/userLogin">
+                <button className=" text-sm py-[16px] px-[30px] text-center relative text-white bg-warning uppercase font-bold rounded-lg cursor-pointer ml-[20px] hover:bg-primary hover:text-textColor">
+                  Order Now
+                </button>
+              </NavLink>
             </div>
           </div>
         </div>

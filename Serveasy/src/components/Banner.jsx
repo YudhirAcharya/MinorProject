@@ -1,10 +1,10 @@
 // import React from "react";
-
-import { FaFacebook } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
-import { FaPlay } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+// import { FaFacebook } from "react-icons/fa";
+// import { FaInstagram } from "react-icons/fa";
+// import { FaGithub } from "react-icons/fa";
+// import { FaTwitter } from "react-icons/fa";
+// import { FaPlay } from "react-icons/fa";
 // const banners = [
 //   {
 //     id: 1,
@@ -43,13 +43,17 @@ const Banner = () => {
               <p className="font-Q lg:text-lg xl:text-xl 2xl:text-xl  md:text-md sm:text-sm tracking-wides">
                 Get the best meals from the best chefs in town
               </p>
+
               <div className="flex gap-10  justify-center font-bold font-Q">
                 <button className=" hover:scale-102 duration-200 text-white px-8 py-4 rounded-full  cursor-pointer transition-all  bg-tertiary border-none hover:bg-primary">
-                  Learn More
+                  <a href="/components/HowItWorksSection">Learn More</a>
                 </button>
-                <button className=" hover:scale-102 duration-200 text-white px-8 py-4 rounded-full  cursor-pointer transition-all  bg-cartNumBg border-none hover:bg-warning">
-                  Order Now
-                </button>
+
+                <NavLink to="http://127.0.0.1:3001/userLogin">
+                  <button className=" hover:scale-102 duration-200 text-white px-8 py-4 rounded-full  cursor-pointer transition-all  bg-cartNumBg border-none hover:bg-warning">
+                    Order Now
+                  </button>
+                </NavLink>
               </div>
             </div>
             {/* Image section */}
@@ -90,7 +94,7 @@ const Banner = () => {
           </div>
         </div>
       </div>
-      <div className="p-4 flex justify-between align-items-center flex-row-reverse ">
+      {/* <div className="p-4 flex justify-between align-items-center flex-row-reverse ">
         <div className=" flex  justify-between text-4xl gap-8 ">
           <button className="hover:text-primary">
             <FaFacebook />
@@ -111,7 +115,7 @@ const Banner = () => {
             <FaPlay className="fa fa-play w-30 h-30 rounded-full flex items-center justify-center text-gray-700 hover:shadow-md cursor-pointer bg-white shadow-0 transition-shadow duration-200 hover:text-primary" />
           </button>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

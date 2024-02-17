@@ -166,7 +166,7 @@ export const customer = [
 
     desc: "Great food! Fresh, quick, friendly, delicious, affordable! Very flexible with orders. Great service! Great portions! If you want great seafood, this place will not disappoint you. Definitely.",
     name: "Rasalina Decruz",
-    post: "Developer",
+    post: "Model",
     ratenum: 5,
   },
 ];

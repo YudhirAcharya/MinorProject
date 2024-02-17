@@ -10,10 +10,16 @@ import { useProductContext } from "../context/productContext";
 import PageNavigation from "../components/PageNavigation";
 import CartAmountToggle from "../components/CartAmountToggle";
 import { useCartContext } from "../context/cartContext";
+import ReviewAndRating from "../components/ReviewAndRating";
+import ViewReviewRating from "../components/ViewReviewRating";
 const API = "http://127.0.0.1:3001/foods/";
 const Product = () => {
   const { addToCart } = useCartContext();
   const [amount, setAmount] = useState(1);
+  const [showReviews, setShowReviews] = useState(false);
+  const handleViewReviews = async () => {
+    setShowReviews(true);
+  };
   const setDecrease = () => {
     amount > 1 ? setAmount(amount - 1) : setAmount(1);
   };
@@ -32,6 +38,8 @@ const Product = () => {
     imageurl,
     price,
   } = singleProduct;
+  let food_name = TranslatedRecipeName;
+  let foodID = FoodID;
   useEffect(() => {
     // console.log(`${API}/${FoodID}`);
     getSingleProduct(`${API}${FoodID}`);
@@ -138,6 +146,25 @@ const Product = () => {
           </div>
         </div>
       </section>
+      <div className="grid grid-cols-1 gap-4 mx-4 my-10 md:grid-cols-3">
+        <div className="md:col-span-1 lg:col-span-1">
+          <ReviewAndRating name={food_name} />
+        </div>
+
+        <div className="md:col-span-2 lg:col-span-2">
+          {showReviews ? (
+            <ViewReviewRating FoodID={foodID} />
+          ) : (
+            <button
+              className="p-3 bg-primary font-semibold text-textColor flex justify-center items-center mx-auto my-[30%]"
+              onClick={handleViewReviews}
+            >
+              Show Reviews
+            </button>
+          )}
+        </div>
+      </div>
+
       <Footer />
     </>
   );
