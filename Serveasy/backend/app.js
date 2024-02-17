@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const foodsRoutes = require("./routes/foodsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
-const { requireAuth } = require("./middleware/userAuthMiddleware");
+const requireAuth = require("./middleware/userAuthMiddleware");
 const path = require("path");
 
 const chefRoutes = require("./routes/chefRoutes");

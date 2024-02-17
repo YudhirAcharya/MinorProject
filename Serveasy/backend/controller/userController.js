@@ -524,3 +524,17 @@ exports.getUserOrders = (req, res) => {
     );
   });
 };
+exports.checkUser = (req, res) => {
+  // check current user
+  const { jwt: token } = req.body;
+  if (token) {
+    jwt.verify(
+      token,
+      process.env.ACCESS_TOKEN_SECRET_USER,
+      (err, decodedToken) => {
+        if (err) throw err;
+        res.json(decodedToken);
+      },
+    );
+  }
+};
