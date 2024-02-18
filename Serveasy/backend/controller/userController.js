@@ -517,68 +517,68 @@ exports.getReviews = (req, res) => {
   });
 };
 
-// exports.getUserOrders = (req, res) => {
-//   const pool = req.pool;
+exports.getUserOrders = (req, res) => {
+  const pool = req.pool;
 
-//   pool.getConnection((getConnectionErr, connection) => {
-//     if (getConnectionErr) {
-//       console.error("Error getting connection from pool:", getConnectionErr);
-//       return res.status(500).json({
-//         status: "error",
-//         message: "Internal server error",
-//       });
-//     }
+  pool.getConnection((getConnectionErr, connection) => {
+    if (getConnectionErr) {
+      console.error("Error getting connection from pool:", getConnectionErr);
+      return res.status(500).json({
+        status: "error",
+        message: "Internal server error",
+      });
+    }
 
-//     connection.query(
-//       "SELECT o.orders_id, o.created_at, o.overall_status, oi.order_id, oi.food_name, oi.ingredients, oi.user_id, oi.quantity, oi.c_status, oi.d_status, oi.delivery_time, oi.address FROM orders AS o JOIN ordered_items AS oi ON o.orders_id = oi.orders_id WHERE o.user_id = ?",
-//       [req.params.id],
-//       (queryErr, rows) => {
-//         connection.release();
+    connection.query(
+      "SELECT o.orders_id, o.created_at, o.overall_status, oi.order_id, oi.food_name, oi.ingredients, oi.user_id, oi.quantity, oi.c_status, oi.d_status, oi.delivery_time, oi.address FROM orders AS o JOIN ordered_items AS oi ON o.orders_id = oi.orders_id WHERE o.user_id = ?",
+      [req.params.id],
+      (queryErr, rows) => {
+        connection.release();
 
-//         if (queryErr) {
-//           console.error("Error executing query:", queryErr);
-//           return res.status(500).json({
-//             status: "error",
-//             message: "Database query error",
-//           });
-//         }
+        if (queryErr) {
+          console.error("Error executing query:", queryErr);
+          return res.status(500).json({
+            status: "error",
+            message: "Database query error",
+          });
+        }
 
-//         // Manipulating the data to create the desired structure
-//         const orders = {};
-//         rows.forEach((row) => {
-//           if (!orders[row.orders_id]) {
-//             // Initialize the orders object with the order details
-//             orders[row.orders_id] = {
-//               orders_id: row.orders_id,
-//               created_at: row.created_at,
-//               overall_status: row.overall_status,
-//               ordered_items: [], // Initialize ordered_items array
-//             };
-//           }
+        // Manipulating the data to create the desired structure
+        const orders = {};
+        rows.forEach((row) => {
+          if (!orders[row.orders_id]) {
+            // Initialize the orders object with the order details
+            orders[row.orders_id] = {
+              orders_id: row.orders_id,
+              created_at: row.created_at,
+              overall_status: row.overall_status,
+              ordered_items: [], // Initialize ordered_items array
+            };
+          }
 
-//           // Add the ordered_item details to the ordered_items array
-//           orders[row.orders_id].ordered_items.push({
-//             order_id: row.order_id,
-//             food_name: row.food_name,
-//             ingredients: row.ingredients,
-//             user_id: row.user_id,
-//             quantity: row.quantity,
-//             c_status: row.c_status,
-//             d_status: row.d_status,
-//             delivery_time: row.delivery_time,
-//             address: row.address,
-//           });
-//         });
+          // Add the ordered_item details to the ordered_items array
+          orders[row.orders_id].ordered_items.push({
+            order_id: row.order_id,
+            food_name: row.food_name,
+            ingredients: row.ingredients,
+            user_id: row.user_id,
+            quantity: row.quantity,
+            c_status: row.c_status,
+            d_status: row.d_status,
+            delivery_time: row.delivery_time,
+            address: row.address,
+          });
+        });
 
-//         res.status(200).json({
-//           status: "success",
-//           results: Object.keys(orders).length,
-//           data: orders,
-//         });
-//       },
-//     );
-//   });
-// };
+        res.status(200).json({
+          status: "success",
+          results: Object.keys(orders).length,
+          data: orders,
+        });
+      },
+    );
+  });
+};
 
 exports.getUserOrders = (req, res) => {
   const pool = req.pool;

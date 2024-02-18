@@ -5,7 +5,7 @@ const Footer = () => {
   const Year = new Date().getFullYear();
   return (
     <footer className="container min-w-full shadow-none rounded-none">
-      <div className=" fixed-bottom mt-300 min-h-[500px] bg-primary  overflow-hidden z-[1]">
+      <div className=" fixed-bottom mt-300 min-h-[450px] bg-primary  overflow-hidden z-[1]">
         <svg
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
@@ -19,10 +19,10 @@ const Footer = () => {
         </svg>
         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-15 text-[18px] px-4">
           <div className="flex flex-col">
-            <h2 className="text-3xl text-grey-500 my-4 font-semibold text-black py-2 uppercase">
-              Footer
+            <h2 className="text-[22px] list-none mb-4 mt-8  font-semibold text-black py-2 uppercase">
+              About Us:
             </h2>
-            <p>
+            <p className="font-[300]">
               Serveasy is a multifaceted web app seamlessly blending meal
               recommendations and e-commerce, offering users personalized dining
               suggestions while incorporating a scheduling system, reviews, and
@@ -30,47 +30,50 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex flex-col ">
+            <h2 className="text-[22px] mb-4 mt-8  list-none font-semibold text-black py-2 uppercase">
+              Account Available:
+            </h2>
             <ul>
-              <li className="text-[22px] list-none font-semibold text-black py-2 uppercase">
-                Links
-              </li>
               <li className="my-4 list-none ">
                 <NavLink
-                  to="/Order"
+                  to="/userLogin"
                   className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"
                 >
-                  Order
+                  User
                 </NavLink>
               </li>
               <li className="my-4 list-none">
                 <NavLink
-                  to="/Account"
+                  to="/chef/chefLogin"
                   className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"
                 >
-                  Account
+                  Chef
                 </NavLink>
               </li>
-              <li className="my-4 list-none">
+              <li className="mb-4 mt-8 list-none">
                 <NavLink
-                  to="/Setting"
+                  to="/delivery/delivererLogin"
                   className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"
                 >
-                  Settings
+                  Deliverer
                 </NavLink>
               </li>
             </ul>
           </div>
           <div className="flex flex-col ">
+            <h2 className="text-[22px] mb-4 mt-8   list-none font-semibold text-black py-2 uppercase">
+              Contacts
+            </h2>
             <ul>
-              <li className="text-[22px] list-none font-semibold text-black py-2 uppercase">
-                Information
-              </li>
               <li className="my-4 list-none">Email: serveasy@gmail.com</li>
-              <li className="my-4 list-none">
-                <a href="tel:9800000000">Phone: +977 9800000001</a>
+              <li className="my-4 list-none ">
+                <a href="tel:9800000000" className="text-headingColor">
+                  Phone: +977 9800000001
+                </a>
               </li>
             </ul>
-            <div className="flex space-x-4 justify-center">
+            <h3>Follow us on:</h3>
+            <div className="flex space-x-7 justify-center">
               <a
                 href=""
                 className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out "
@@ -98,37 +101,19 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex flex-col ">
+            <h2 className="text-[22px] mb-4 mt-8  list-none font-semibold text-black py-2 uppercase">
+              Developers
+            </h2>
             <ul>
-              <li className="text-[22px] list-none font-semibold text-black py-2 uppercase">
-                General
-              </li>
-              <li className="my-4 list-none">About Us</li>
-              <li className="my-4 list-none">Foods</li>
-              <li className="my-4 list-none">Contacts</li>
+              <li className="my-4 list-none">Binayak Pradhan</li>
+              <li className="my-4 list-none">Swornima Shrestha</li>
+              <li className="my-4 list-none">Sauharda Khadka</li>
+              <li className="my-4 list-none">Yudhir Acharya</li>
             </ul>
           </div>
-          {/* <div className="mt-10 flex">
-            <div className="h-full flex items-center justify-center mb-5">
-              <form action="" className="w-96 relative">
-                <input
-                  type="email"
-                  className="w-full text-gray-800 p-4 h-10 rounded-full focus:outline-none focus:border border-warning"
-                />
-                <button
-                  className="bg-primary-400 px-8 py-2 rounded-full text-white absolute top-0 right-0"
-                  type="Submit"
-                >
-                  Submit
-                </button>
-              </form>
-            </div>
-          </div> */}
         </div>
-        <h6 className="text-center w-50 h-20 mb-1">
+        <h6 className="text-center w-50 h-0 mt-2">
           &copy; Copy rights reserved {Year}
-        </h6>
-        <h6 className="text-center w-50 h-20 mb-1">
-          &copy; Made by Binayak, Swornima, Sauharda & Yudhir
         </h6>
       </div>
     </footer>
