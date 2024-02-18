@@ -517,31 +517,69 @@ exports.getReviews = (req, res) => {
   });
 };
 
+// exports.getUserOrders = (req, res) => {
+//   const pool = req.pool;
+//   const { user_id } = req.body;
+//   pool.getConnection((err, connection) => {
+//     if (err) throw err;
+//     // console.log(`connected as id ${connection.threadId}`);
+
+//     connection.query(
+//       "Select or.*,o.* from ordered_items or,orders o where user_id=?",
+//       [user_id],
+//       (err, rows) => {
+//         connection.release();
+
+//         if (!err) {
+//           res.status(200).json({
+//             status: "success",
+//             results: rows.length,
+//             data: {
+//               rows,
+//             },
+//             // data,
+//           });
+//         } else {
+//           console.log(err);
+//         }
+//       },
+//     );
+//   });
+// };
+
 exports.getUserOrders = (req, res) => {
   const pool = req.pool;
-  const { user_id } = req.body;
-  pool.getConnection((err, connection) => {
-    if (err) throw err;
-    // console.log(`connected as id ${connection.threadId}`);
+
+  pool.getConnection((getConnectionErr, connection) => {
+    if (getConnectionErr) {
+      console.error("Error getting connection from pool:", getConnectionErr);
+      return res.status(500).json({
+        status: "error",
+        message: "Internal server error",
+      });
+    }
 
     connection.query(
-      "Select * from ordered_items where user_id=?",
-      [user_id],
-      (err, rows) => {
+      "SELECT oi.*, o.* FROM ordered_items as oi JOIN orders as o ON oi.orders_id = o.orders_id WHERE  o.user_id = ?",
+      [req.params.id],
+      (queryErr, rows) => {
         connection.release();
 
-        if (!err) {
-          res.status(200).json({
-            status: "success",
-            results: rows.length,
-            data: {
-              rows,
-            },
-            // data,
+        if (queryErr) {
+          console.error("Error executing query:", queryErr);
+          return res.status(500).json({
+            status: "error",
+            message: "Database query error",
           });
-        } else {
-          console.log(err);
         }
+
+        res.status(200).json({
+          status: "success",
+          results: rows.length,
+          data: {
+            rows,
+          },
+        });
       },
     );
   });

@@ -16,7 +16,7 @@ router.route("/registerOrder").post(userController.registerOrder);
 router.route("/recommendationData").get(userController.giveRecommendationData);
 router.route("/:id").get(userController.getUserOrderInfo);
 router.route("/reviews").post(userController.PostAReviewAndRating);
-router.route("/userOrders").post(userController.getUserOrders);
+router.route("/userOrders/:id").get(userController.getUserOrders);
 router.route("/getReviews/:foodID").get(userController.getReviews);
 
 //these three routes were not working
