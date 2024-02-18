@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { Button } from "rsuite";
+
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const user_id = "u_fjZn9UjnYY9Y";
@@ -55,7 +55,7 @@ const OrderHistory = () => {
           </h2>
 
           {orders.map((order, i) => (
-            <div className="space-y-20" key={i}>
+            <div className="my-[6rem]" key={i}>
               <div>
                 <h3 className="sr-only">
                   Order placed on <time>{order.created_at}</time>
@@ -76,9 +76,13 @@ const OrderHistory = () => {
                       <dd className="sm:mt-1">{order.orders_id}</dd>
                     </div>
                     <div className="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
-                      <dt>Purchase</dt>
+                      <dt>Overall Purchase Status</dt>
                       <dd className="sm:mt-1">
-                        {order.overall_status ? "Completed" : "Pending"}
+                        {order.overall_status ? (
+                          <span className="text-green-600">Completed</span>
+                        ) : (
+                          <span className="text-red-600">Pending</span>
+                        )}
                       </dd>
                     </div>
                   </dl>
@@ -103,7 +107,7 @@ const OrderHistory = () => {
                       </th>
                       <th
                         scope="col"
-                        className="hidden w-1/5 pr-8 py-3 font-normal sm:table-cell"
+                        className="hidden w-1/5 pr-1 py-3 font-normal sm:table-cell"
                       >
                         Quantity
                       </th>
@@ -147,7 +151,7 @@ const OrderHistory = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="hidden py-6 pr-8 sm:table-cell">
+                        <td className="hidden py-6 pr-1 sm:table-cell">
                           {ord.quantity}
                         </td>
                         <td className="hidden py-6 pr-8 sm:table-cell">
@@ -157,7 +161,7 @@ const OrderHistory = () => {
                             </span>
                           ) : (
                             <span className="p-2 text-lightColor bg-red-400 rounded">
-                              Preparation on process
+                              Preparing
                             </span>
                           )}
                         </td>
@@ -168,12 +172,12 @@ const OrderHistory = () => {
                             </span>
                           ) : (
                             <span className="p-2 text-lightColor bg-red-400 rounded">
-                              Delivery on the way
+                              On the way
                             </span>
                           )}
                         </td>
                         <td className="py-6 font-medium text-right whitespace-nowrap">
-                          <NavLink to={`/Product`}>
+                          <NavLink to={`/Product/${ord.FoodID}`}>
                             <a href="#" className="text-primary">
                               View{" "}
                               <span className="hidden lg:inline">Product</span>
