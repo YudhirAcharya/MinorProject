@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { GiShoppingCart } from "react-icons/gi";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { BiSolidPurchaseTag } from "react-icons/bi";
+
 import { useParams, NavLink } from "react-router-dom";
 import { useProductContext } from "../context/productContext";
 import PageNavigation from "../components/PageNavigation";

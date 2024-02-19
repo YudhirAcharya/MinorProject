@@ -1,17 +1,13 @@
-import { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import propTypes from "prop-types";
 import { AiOutlineStar, AiFillStar, AiOutlineShopping } from "react-icons/ai";
 // import Product from "../pages/Product";
-import { useParams } from "react-router-dom";
+
 import { NavLink } from "react-router-dom";
 import { useCartContext } from "../context/cartContext";
-import { useProductContext } from "../context/productContext";
-const API = "http://127.0.0.1:3001/foods/";
+
 const ProductCard = (singleProduct) => {
   // const navigate = useNavigate();
-  const { id, img, name, TotalTimeInMins, price, CleanedIngredients } =
-    singleProduct;
+  const { id, img, name, price } = singleProduct;
   const { addToCart } = useCartContext();
   const amount = 1;
   // console.log(singleProduct);
