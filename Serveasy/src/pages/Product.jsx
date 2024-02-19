@@ -88,7 +88,7 @@ const Product = () => {
             {`Time required to make: ` + TotalTimeInMins + ` minutes`}
           </h6>
           <p className="text-textColor font-normal">{`The ingredients used are:`}</p>
-          <p className="text-textColor font-normal">{`${CleanedIngredients}.`}</p>
+          <p className="text-textColor text-[14px] font-normal">{`${CleanedIngredients}.`}</p>
           <h6 className="text-4xl font-semibold text-warning mt-3">
             {`Rs. ` + price}
           </h6>
@@ -128,18 +128,6 @@ const Product = () => {
                 <GiShoppingCart className="text-[38px] " />
                 <span className="font-semibold py-3 px-2 rounded-xl h-full">
                   Add to Cart
-                </span>
-              </button>
-            </NavLink>
-            <NavLink to="/Checkout">
-              <button
-                className="flex items-center gap-4 justify-center bg-warning py-2 w-full text-lightColor rounded-lg shadow mt-5 hover:bg-primary hover:text-textColor border-none"
-                // onClick={handlePurchase}
-                // value={buy}
-              >
-                <BiSolidPurchaseTag className="text-[38px] " />
-                <span className="font-semibold py-3 px-2 rounded-xl h-full">
-                  Buy Now
                 </span>
               </button>
             </NavLink>
