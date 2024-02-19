@@ -58,7 +58,8 @@ const OrderHistory = () => {
             <div className="my-[6rem]" key={i}>
               <div>
                 <h3 className="sr-only">
-                  Order placed on <time>{order.created_at}</time>
+                  Order placed on{" "}
+                  <time>{new Date(order.created_at).toDateString()}</time>
                 </h3>
 
                 <div className="bg-lightColor rounded-lg py-6 px-4 sm:px-6 sm:flex sm:items-center sm:justify-between sm:space-x-6 lg:space-x-8">
@@ -66,8 +67,10 @@ const OrderHistory = () => {
                     <div className="flex justify-between sm:block">
                       <dt className="font-medium text-gray-900">Date placed</dt>
                       <dd className="sm:mt-1">
-                        <time dateTime={order.created_at}>
-                          {order.created_at}
+                        <time
+                          dateTime={new Date(order.created_at).toDateString()}
+                        >
+                          {new Date(order.created_at).toDateString()}
                         </time>
                       </dd>
                     </div>
