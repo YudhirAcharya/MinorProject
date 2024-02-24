@@ -11,7 +11,7 @@ import Footer from "../components/Footer";
 // import HomeDelivery from "./HomeDelivery";
 
 import CartContainer from "./CartContainer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useStateValue } from "../context/StateProvider";
 
@@ -23,16 +23,75 @@ import Recommend from "../components/Recommend";
 // import ProductCard from "../components/ProductCard";
 // import Product from "./Product";
 
+// const Home = () => {
+//   const [{ cartShow }, dispatch] = useStateValue();
+
+//   useEffect(() => {}, [cartShow]);
+//   const [userExists, setUserExists] = useState(false);
+//   useEffect(() => {
+//     // Function to extract URL parameter by name
+//     const getUrlParameter = (name, url) => {
+//       url = window.location.href;
+//       console.log(url);
+//       const userId = url.split("userId=")[1];
+//       console.log(userId);
+//     };
+
+//     // Get userId parameter from the URL
+//     // const userId = getUrlParameter('userId');
+
+//     // Store userId in local storage
+//     // localStorage.setItem("userId", userId);
+//   }, []);
+//   return (
+//     <div>
+//       <Navbar />
+
+//       {/* <LoginUser /> */}
+//       <Hero />
+//       <Category />
+//       <div className="flex justify-center items-center mx-0 my-0 mt-3">
+//         <div className=" w-4/5 ">
+//           <Recommend />
+//         </div>
+//       </div>
+
+//       <FeatureSection />
+//       <Footer />
+//       {cartShow && <CartContainer />}
+//     </div>
+//   );
+// };
+
+// export default Home;
+
 const Home = () => {
   const [{ cartShow }, dispatch] = useStateValue();
+  const [userExists, setUserExists] = useState(false);
 
-  useEffect(() => {}, [cartShow]);
+  useEffect(() => {
+    // Function to extract URL parameter by name
+    const getUrlParameter = (name, url) => {
+      if (!url) url = window.location.href;
+      const params = new URLSearchParams(new URL(url).search);
+      return params.get(name);
+    };
+
+    // Get userId parameter from the URL
+    const userId = getUrlParameter("userId");
+
+    // Log current URL and extracted userId
+    // console.log("Current URL:", window.location.href);
+    // console.log("Extracted userId:", userId);
+
+    // Store userId in local storage
+    localStorage.setItem("userId", []);
+    localStorage.setItem("userId", userId);
+  }, []);
 
   return (
     <div>
       <Navbar />
-
-      {/* <LoginUser /> */}
       <Hero />
       <Category />
       <div className="flex justify-center items-center mx-0 my-0 mt-3">
@@ -40,7 +99,6 @@ const Home = () => {
           <Recommend />
         </div>
       </div>
-
       <FeatureSection />
       <Footer />
       {cartShow && <CartContainer />}

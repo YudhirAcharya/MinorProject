@@ -46,7 +46,6 @@ const fetch = require("node-fetch");
 exports.khaltiPayment = async (req, res) => {
   try {
     const payload = req.body;
-
     // Making a POST request to Khalti's API endpoint
     const khaltiResponse = await fetch(
       "https://a.khalti.com/api/v2/epayment/initiate/",

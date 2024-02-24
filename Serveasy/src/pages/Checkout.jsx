@@ -48,7 +48,7 @@ const Checkout = () => {
     setConfirm(!confirm);
 
     // Get user ID from logged-in user (replace with your method)
-    const userId = `random`; // Replace with your implementation
+    const userId = localStorage.getItem("userId"); // Replace with your implementation
 
     // Generate random orders_id using uuid
     const ordersId = `o_${uuid()}`;
@@ -106,7 +106,7 @@ const Checkout = () => {
   const handlePayment = async (orderData, totalAmount, deliveryFee) => {
     console.log(orderData, totalAmount, deliveryFee);
     const payload = {
-      return_url: "http://localhost:5173/user-home",
+      return_url: `http://localhost:5173/user-home?userId=${orderData.user_id}`,
       website_url: "http://localhost:3001",
       amount: (totalAmount + deliveryFee) * 10,
       purchase_order_id: orderData.orders_id,
@@ -125,6 +125,10 @@ const Checkout = () => {
     console.log(response);
     if (response) {
       window.location.href = `${response?.data?.data?.payment_url}`;
+      localStorage.setItem(
+        "userId",
+        orderData.user_id.split("/?status=Completed")[0]
+      );
     }
     if (response.status === 200 && response.data.success) {
       navigate("/success");

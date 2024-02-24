@@ -4,13 +4,10 @@ import AfterSelectionProducts from "../components/AfterSelectionProducts";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const currentUser_id = "u_fjZn9UjnYY9Y"; //u_fjZn9UjnYY9Y
-const apiUrl =
-  "http://127.0.0.1:3001/users/recommendationData";
+const currentUser_id = "u_fjZn9UjwdwdnYY9Y"; //u_fjZn9UjnYY9Y
+const apiUrl = "http://127.0.0.1:3001/users/recommendationData";
 
 const HomeUser = () => {
-  const [userExists, setUserExists] = useState(false);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,10 +20,7 @@ const HomeUser = () => {
 
         setUserExists(userExistsInData);
       } catch (error) {
-        console.error(
-          "Error fetching recommendation data:",
-          error
-        );
+        console.error("Error fetching recommendation data:", error);
       }
     };
 
