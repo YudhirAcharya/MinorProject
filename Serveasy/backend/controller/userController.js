@@ -399,7 +399,7 @@ exports.PostAReviewAndRating = (req, res) => {
           .json({ status: "error", error: "Transaction start failed" });
       }
 
-      // Get the food_id based on the food_name from the ordered_items table
+      // Get the food_id based on the food_name from the food table
       connection.query(
         "SELECT FoodID FROM food WHERE TranslatedRecipeName = ?",
         [food_name],
@@ -423,9 +423,9 @@ exports.PostAReviewAndRating = (req, res) => {
 
           const food_id = results[0].FoodID;
 
-          // Check if the user has bought the food item
+          // Check if the user has bought the food item and if c_status and d_status are both 1
           connection.query(
-            "SELECT * FROM ordered_items WHERE user_id = ? AND food_name = ?",
+            "SELECT * FROM ordered_items WHERE user_id = ? AND food_name = ? AND c_status = 1 AND d_status = 1",
             [user_id, food_name],
             (err, results) => {
               if (err) {
@@ -442,9 +442,10 @@ exports.PostAReviewAndRating = (req, res) => {
               if (results.length === 0) {
                 connection.rollback(() => {
                   connection.release();
-                  res
-                    .status(400)
-                    .json({ error: "User has not purchased this food item" });
+                  res.status(400).json({
+                    error:
+                      "User has not purchased or confirmed delivery of this food item",
+                  });
                 });
                 return;
               }
@@ -452,7 +453,7 @@ exports.PostAReviewAndRating = (req, res) => {
               // Generate a random review_id
               const review_id = uuid.v4();
 
-              // Insert the review into the database
+              // Insert the review into the rate_review table
               connection.query(
                 "INSERT INTO rate_review (review_id, user_id, food_id, food_name, rating, review) VALUES (?, ?, ?, ?, ?, ?)",
                 [review_id, user_id, food_id, food_name, rating, review],
@@ -468,23 +469,50 @@ exports.PostAReviewAndRating = (req, res) => {
                     return;
                   }
 
-                  connection.commit((err) => {
-                    if (err) {
-                      connection.rollback(() => {
-                        connection.release();
-                        console.error("Error committing transaction:", err);
-                        return res
-                          .status(500)
-                          .json({ error: "Internal server error" });
-                      });
-                      return;
-                    }
+                  // Update dummy_recommendation table if the record exists
+                  connection.query(
+                    "UPDATE dummy_recommendation SET stars = ?, text = ? WHERE user_id = ? AND recipeID= ?",
+                    [rating, review, user_id, food_id],
+                    (err, result) => {
+                      if (err) {
+                        connection.rollback(() => {
+                          connection.release();
+                          console.error(
+                            "Error updating dummy_recommendation:",
+                            err,
+                          );
+                          return res
+                            .status(500)
+                            .json({ error: "Internal server error" });
+                        });
+                        return;
+                      }
+                      // If no rows were affected, it means the record doesn't exist, do nothing
+                      if (result.affectedRows === 0) {
+                        // No existing record found, do nothing
+                      }
 
-                    connection.release();
-                    res
-                      .status(201)
-                      .json({ message: "Review added successfully" });
-                  });
+                      // Commit the transaction
+                      connection.commit((err) => {
+                        if (err) {
+                          connection.rollback(() => {
+                            connection.release();
+                            console.error("Error committing transaction:", err);
+                            return res
+                              .status(500)
+                              .json({ error: "Internal server error" });
+                          });
+                          return;
+                        }
+
+                        // Release the connection after the transaction is completed
+                        connection.release();
+                        res
+                          .status(201)
+                          .json({ message: "Review added successfully" });
+                      });
+                    },
+                  );
                 },
               );
             },

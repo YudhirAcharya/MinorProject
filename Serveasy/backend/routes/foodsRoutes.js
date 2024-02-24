@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 const express = require("express");
 const foodController = require("./../controller/foodController");
-const requireAuth = require("../middleware/userAuthMiddleware");
+// const requireAuth = require("../middleware/userAuthMiddleware");
 const router = express.Router();
 
 router.route("/").get(foodController.getAllFoods);

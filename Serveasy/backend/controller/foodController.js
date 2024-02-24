@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-
-// const pool = require("./../app");
+require("dotenv").config();
+const pool = require("./../app");
 
 exports.getAllFoods = (req, res) => {
   const pool = req.pool;
