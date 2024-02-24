@@ -71,12 +71,9 @@ app.get("/userRegister", (req, res) => {
   res.render("user/userRegister");
 });
 app.get("/userHome", requireAuth, (req, res) => {
-<<<<<<< HEAD
   const userId = req.query.userId;
   res.redirect(`http://localhost:5173/user-home?userId=${userId}`);
-=======
-  res.redirect("http://localhost:5173/userhome2");
->>>>>>> 4b0b8c5c048cc019858766b69c37398444f77930
+  // res.redirect("http://localhost:5173/userhome2");
 });
 app.use(
   "/chef",
