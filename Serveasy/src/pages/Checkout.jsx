@@ -48,7 +48,7 @@ const Checkout = () => {
     setConfirm(!confirm);
 
     // Get user ID from logged-in user (replace with your method)
-    const userId = localStorage.getItem("userId"); // Replace with your implementation
+    let userId = localStorage.getItem("userId"); // Replace with your implementation
 
     // Generate random orders_id using uuid
     const ordersId = `o_${uuid()}`;
@@ -125,10 +125,6 @@ const Checkout = () => {
     console.log(response);
     if (response) {
       window.location.href = `${response?.data?.data?.payment_url}`;
-      localStorage.setItem(
-        "userId",
-        orderData.user_id.split("/?status=Completed")[0]
-      );
     }
     if (response.status === 200 && response.data.success) {
       navigate("/success");

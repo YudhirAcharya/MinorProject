@@ -10,40 +10,42 @@ const Hero = () => {
             src="\public\images\pexels-pixabay-326281.jpg"
             alt="hero image"
           />
-          <div className="absolute w-auto sm:ml-16 ml-8 top-[10%] left-[30%] sm:space-y-2">
-            <h2 className="text-5xl text-white  hidden sm:block  ">
+          <div className="absolute w-auto sm:ml-16 ml-8 top-[10%] left-[30%] sm:space-y-2 px-8">
+            <h2 className="text-2xl sm:text-3xl md:text-6xl pt-2 text-white font-bold ">
               The best food delivery service in the city
             </h2>
 
-            <p className="text-4xl ml-16 text-white pt-10 hidden sm:block  ">
+            <p className="text-2xl sm:text-3xl md:text-6xl pt-2 text-white font-bold  ">
               Starting At:
             </p>
-            <div className="text-6xl ml-24 text-primary  font-bold  pt-2 hidden sm:block">
+            <div className="text-2xl sm:text-3xl md:text-6xl pt-2 text-primary font-bold">
               Rs 399
             </div>
-            <div className=" ml-24 bg-warning hover:bg-primary hover:text-black text-white rounded-full w-fit flex items-center gap-4 px-4 py-2 text-[25px] cursor-pointer">
+            <div className="bg-warning hover:bg-primary hover:text-textColor text-white rounded-full w-fit flex items-center gap-4 px-4 py-2 text-[14px] sm:px-6 sm:py-3 cursor-pointer">
               Order Now <BsArrowRight />
             </div>
           </div>
         </div>
         <div className="relative">
           <img
-            className="w-full h-full object-cover rounded-lg opacity-65"
+            className="w-full h-full object-cover rounded-lg opacity-85"
             src="https://images.squarespace-cdn.com/content/v1/5d5d24dcf6e1930001a125c3/1571903583310-HZEUEOGLT6HRIYEGD81B/HERO+Web-18.jpg"
             alt="hero image 2"
           />
           <div className="absolute max-w-[470px] sm:ml-16 ml-8 top-[10%] sm:space-y-1">
-            <h2 className="text-2xl hidden sm:text-3xl font-bold text-gray-800">
+            <h2 className="text-2xl hidden sm:text-3xl font-bold text-white">
               The best food facility
             </h2>
-            <p className="text-2xl sm:text-3xl md-text-8xl pt-2 text-gray-800">
+            <p className="text-2xl sm:text-3xl md:text-4xl pt-2 text-white font-bold">
               Best Sushi
             </p>
-            <p className="text-secondary text-xl pt-2 sm:pt-8">Starting At</p>
+            <p className="text-primary font-semibold text-xl pt-2 sm:pt-8">
+              Starting At
+            </p>
             <div className="font-medium text-red-800 text-xl sm:text-2xl sm:pb-8 pb-4">
               Rs199
             </div>
-            <div className="bg-warning hover:bg-secondary text-white rounded-full w-fit flex items-center gap-4 px-4 py-2 text-[14px] sm:px-6 sm:py-3 cursor-pointer">
+            <div className="bg-warning hover:bg-primary hover:text-textColor text-white rounded-full w-fit flex items-center gap-4 px-4 py-2 text-[14px] sm:px-6 sm:py-3 cursor-pointer">
               Order Now <BsArrowRight />
             </div>
           </div>
@@ -58,14 +60,14 @@ const Hero = () => {
             <h2 className="text-2xl hidden sm:text-3xl font-bold text-gray-800">
               The best food facility
             </h2>
-            <p className="text-2xl sm:text-3xl md-text-8xl pt-2text-gray-800">
+            <p className="text-2xl sm:text-3xl md-text-4xl pt-2 text-white">
               Best Sushi
             </p>
-            <p className="text-secondary text-xl pt-2 sm:pt-8">Starting At</p>
-            <div className="font-medium text-red-800 text-xl sm:text-2xl sm:pb-8 pb-4">
+            <p className="text-white text-xl pt-2 sm:pt-8">Starting At</p>
+            <div className="font-medium text-primary text-xl sm:text-2xl sm:pb-8 pb-4">
               Rs199
             </div>
-            <div className="bg-warning hover:bg-secondary text-white rounded-full w-fit flex items-center gap-4 px-4 py-2 text-[14px] sm:px-6 sm:py-3 cursor-pointer">
+            <div className="bg-warning hover:bg-primary hover:text-textColor text-white rounded-full w-fit flex items-center gap-4 px-4 py-2 text-[14px] sm:px-6 sm:py-3 cursor-pointer">
               Order Now <BsArrowRight />
             </div>
           </div>

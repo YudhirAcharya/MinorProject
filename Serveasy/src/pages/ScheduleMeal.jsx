@@ -60,7 +60,7 @@ const ScheduleMeal = () => {
     e.preventDefault();
     setConfirm(!confirm);
 
-    const userId = `random`;
+    let userId = localStorage.getItem("userId");
 
     // Generate random orders_id using uuid
     const ordersId = `o_${uuid()}`;

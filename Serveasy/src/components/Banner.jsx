@@ -45,9 +45,11 @@ const Banner = () => {
               </p>
 
               <div className="flex gap-10  justify-center font-bold font-Q">
-                <button className=" hover:scale-102 duration-200 text-white px-8 py-4 rounded-full  cursor-pointer transition-all  bg-tertiary border-none hover:bg-primary">
-                  <a href="/components/HowItWorksSection">Learn More</a>
-                </button>
+                <a href="/components/HowItWorksSection">
+                  <button className=" hover:scale-102 duration-200 text-white px-8 py-4 rounded-full  cursor-pointer transition-all  bg-tertiary border-none hover:bg-primary">
+                    Learn More
+                  </button>
+                </a>
 
                 <NavLink to="http://127.0.0.1:3001/userLogin">
                   <button className=" hover:scale-102 duration-200 text-white px-8 py-4 rounded-full  cursor-pointer transition-all  bg-cartNumBg border-none hover:bg-warning">

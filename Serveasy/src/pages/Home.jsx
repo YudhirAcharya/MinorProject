@@ -86,7 +86,9 @@ const Home = () => {
 
     // Store userId in local storage
     localStorage.setItem("userId", []);
-    localStorage.setItem("userId", userId);
+    let cleanUserId = userId && userId.replace(/\/\?status=Completed$/, "");
+    localStorage.setItem("userId", cleanUserId);
+    // localStorage.setItem("userId", userId);
   }, []);
 
   return (
