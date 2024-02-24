@@ -60,7 +60,7 @@ const Navbar = () => {
           )}
         </div>
         <NavLink
-          to="/Account"
+          to="/OrderHistory"
           className="text-[2rem] hover:bg-warning hover:text-lightColor mx-5 border-2 p-2 rounded-full border-warning"
         >
           <FaCircleUser />

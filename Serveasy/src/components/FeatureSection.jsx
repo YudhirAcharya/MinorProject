@@ -37,9 +37,7 @@ const FeatureSection = () => {
     <div className="container flex-col shadow-none py-3  px-6 rounded-none min-w-full">
       <div className="lg:flex justify-between items-center">
         <div>
-          <h3 className="font-medium text-2xl">
-            Most Selling Foods:
-          </h3>
+          <h3 className="font-medium text-2xl">Most Selling Foods:</h3>
           <p className="text-gray-600 mt-2">
             Most trending meals in the market.
           </p>
@@ -85,9 +83,7 @@ const FeatureSection = () => {
       <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 pt-8 gap-2">
         <div className="flex lg:flex-col items-center vsm:flex-row md:flex-col">
           <h3 className="text-[1.3rem]">Price:</h3>
-          <p className="font-semibold text-[1rem]">
-            Rs.{price}
-          </p>
+          <p className="font-semibold text-[1rem]">Rs.{price}</p>
           <input
             type="range"
             name="price"
@@ -123,8 +119,9 @@ const FeatureSection = () => {
                 img={product.imageurl}
                 name={product.TranslatedRecipeName}
                 price={product.price}
+                TotalTimeInMins={product.TotalTimeInMins}
                 cuisine={product.Cuisine}
-                ingredients={product.CleanedIngredients}
+                CleanedIngredients={product.CleanedIngredients}
               />
             ))}
       </div>

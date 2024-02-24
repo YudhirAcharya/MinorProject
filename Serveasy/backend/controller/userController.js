@@ -558,7 +558,7 @@ exports.getUserOrders = (req, res) => {
     }
 
     connection.query(
-      "SELECT o.orders_id, o.created_at, o.overall_status, oi.order_id, oi.food_name, f.imageurl, oi.ingredients, oi.user_id, oi.quantity, oi.c_status, oi.d_status, oi.delivery_time, oi.address FROM orders AS o JOIN ordered_items AS oi ON o.orders_id = oi.orders_id JOIN food AS f ON oi.food_name = f.TranslatedRecipeName WHERE o.user_id = ?",
+      "SELECT o.orders_id, o.created_at, o.overall_status, oi.order_id, oi.food_name, f.imageurl, f.FoodID, oi.ingredients, oi.user_id, oi.quantity, oi.c_status, oi.d_status, oi.delivery_time, oi.address FROM orders AS o JOIN ordered_items AS oi ON o.orders_id = oi.orders_id JOIN food AS f ON oi.food_name = f.TranslatedRecipeName WHERE o.user_id = ?",
       [req.params.id],
       (queryErr, rows) => {
         connection.release();
@@ -588,6 +588,7 @@ exports.getUserOrders = (req, res) => {
           orders[row.orders_id].ordered_items.push({
             order_id: row.order_id,
             food_name: row.food_name,
+            FoodID: row.FoodID,
             imageurl: row.imageurl,
             ingredients: row.ingredients,
             user_id: row.user_id,
