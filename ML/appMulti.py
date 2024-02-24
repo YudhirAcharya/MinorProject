@@ -1,21 +1,20 @@
 #pip install flask flask-cors
+
 import pickle
 import pandas as pd
 import numpy as np
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-
 app = Flask(__name__)
 CORS(app)
-
-
 
 
 with open('./cosine_similarity_matrix.pkl', 'rb') as file:
     cosine_sim_matrix = pickle.load(file)
 
 df = pd.read_csv(r'D:\MinorProject\ML\indian food dataset.csv')
+
 # data_frame = df[['FoodID', 'TranslatedRecipeName','keywords']]
 
 import re
@@ -37,9 +36,12 @@ df['keywords'] = df['Cleaned-Ingredients'] + df['Cuisine']
 data_frame = df[['FoodID',	'TranslatedRecipeName', 'keywords']]
 
                   
-data_frame['keywords'] = data_frame['keywords'].apply(lambda x:" ".join(x))
+data_frame.loc[:, 'keywords'] = data_frame['keywords'].apply(lambda x: " ".join(x))
 
-data_frame['keywords'] = data_frame['keywords'].apply(lambda x: x.replace(',', ' '))
+
+data_frame.loc[:, 'keywords'] = data_frame['keywords'].apply(lambda x: x.replace(',', ' '))
+
+
 
 
 from nltk.stem.porter import PorterStemmer
@@ -51,11 +53,13 @@ def stem(text):
     y.append(ps.stem(i))
   return " ".join(y)
 
-data_frame['keywords'] = data_frame['keywords'].apply(stem)
+data_frame.loc[:, 'keywords'] = data_frame['keywords'].apply(stem)
 
 def preprocess_keywords(keyword_string):
     return keyword_string.split()
-data_frame['preprocessed_keywords'] = data_frame['keywords'].apply(preprocess_keywords)
+data_frame.loc[:, 'preprocessed_keywords'] = data_frame['keywords'].apply(preprocess_keywords)
+
+
 
 
 class SimpleCountVectorizer:
@@ -135,8 +139,8 @@ def recommend_recipes(food_list):
             unique_recommendations.append(recommendation)
             recommended_indices.add(recommendation['index'])
 
-    # top 15 unique recommendations
-    unique_recommendations = unique_recommendations[:30]
+    # top unique recommendations
+    unique_recommendations = unique_recommendations[:100]
     return unique_recommendations
 
 

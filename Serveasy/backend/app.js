@@ -71,7 +71,7 @@ app.get("/userRegister", (req, res) => {
   res.render("user/userRegister");
 });
 app.get("/userHome", requireAuth, (req, res) => {
-  res.redirect("http://localhost:5173/user-home");
+  res.redirect("http://localhost:5173/userhome2");
 });
 app.use(
   "/chef",
