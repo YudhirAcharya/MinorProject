@@ -45,8 +45,14 @@ const OrderHistory = () => {
               Check the status of recent orders, see if meals are prepared and
               delivered.
             </p>
-
-            <button className="bg-red-800 text-white p-2 mt-4">Logout</button>
+            <NavLink
+              to="/" // Replace "/" with your actual landing page path
+              onClick={() => localStorage.clear()}
+            >
+              <button className="bg-red-800 text-white p-2 mt-4 rounded-full">
+                Logout
+              </button>
+            </NavLink>
           </div>
 
           <section
