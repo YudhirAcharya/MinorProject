@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import FeatureSection from "./FeatureSection";
-
+import { useCartContext } from "../context/cartContext";
 const AfterSelectionProducts = () => {
+  const { addToCart } = useCartContext();
   const [isSectionHidden, setIsSectionHidden] =
     useState(false);
   const [foods, setFoods] = useState([]);
@@ -199,7 +200,7 @@ const AfterSelectionProducts = () => {
                 }
               >
                 <div
-                  className={`h-full p-4 border-2 border-yellow-400 rounded overflow-hidden ${selectedFoods.includes(food.TranslatedRecipeName) ? "border-3 border-green-400" : ""}`}
+                  className={`h-full p-4 border-2 border-yellow-400 rounded overflow-hidden ${selectedFoods.includes(food.TranslatedRecipeName) ? " border-3 border-green-400" : ""}`}
                 >
                   <h3 className="text-lg font-bold mb-2 truncate">
                     {food.TranslatedRecipeName}
@@ -285,7 +286,7 @@ const AfterSelectionProducts = () => {
                               className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-4 relative ${selectedCuisines.includes(matchingFood.Cuisine) ? "bg-blue-100" : ""}`}
                             >
                               <div
-                                className={`h-full p-4 border-2 border-yellow-400 rounded overflow-hidden ${selectedFoods.includes(matchingFood.TranslatedRecipeName) ? "border-2 border-green-400" : ""}`}
+                                className={`h-full p-4 border-2 border-yellow-400 rounded overflow-hidden ${selectedFoods.includes(matchingFood.TranslatedRecipeName) ? "border-2 border-green-400" : " "}`}
                               >
                                 <h3 className="text-lg font-bold mb-2 truncate">
                                   {
@@ -307,7 +308,11 @@ const AfterSelectionProducts = () => {
                                     className="w-full h-48 object-cover rounded"
                                   />
                                 </Link>
-                                <button className="absolute bottom-4 right-4  bg-red-900 bg-opacity-90 text-white rounded-lg  text-md mr-2  flex pt-1 pb-[3px] pr-1 pl-1">
+
+                                <button
+                                  className="absolute bottom-4 right-4  bg-red-900 bg-opacity-90 text-white rounded-lg  text-md mr-2  flex pt-1 pb-[3px] pr-1 pl-1"
+                                  onClick={""}
+                                >
                                   <img
                                     style={{
                                       width: "30px",

@@ -8,21 +8,6 @@ const currentUser_id = "u_fjZn9UjwdwdnYY9Y"; //u_fjZn9UjnYY9Y
 const apiUrl = "http://127.0.0.1:3001/users/recommendationData";
 
 const HomeUser = () => {
-  const [userExists, setUserExists] = useState(false);
-  useEffect(() => {
-    // Function to extract URL parameter by name
-    const getUrlParameter = (name, url) => {
-      if (!url) url = window.location.href;
-      const userId = url.split("userId=")[1];
-      console.log(userId);
-    };
-
-    // Get userId parameter from the URL
-    // const userId = getUrlParameter('userId');
-
-    // Store userId in local storage
-    localStorage.setItem("userId", userId);
-  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
