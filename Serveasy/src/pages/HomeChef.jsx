@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import jsPDF from "jspdf";
+import { NavLink } from "react-router-dom";
 import "jspdf-autotable";
 const HomeChef = () => {
   const [orders, setOrders] = useState([]);
@@ -215,9 +216,14 @@ const HomeChef = () => {
               Following are the orders of different customers.
             </span>
           </div>
-          <div>
-            <button className="bg-red-800 p-2 text-white">Logout</button>
-          </div>
+          <NavLink
+            to="/" // Replace "/" with your actual landing page path
+            onClick={() => localStorage.clear()}
+          >
+            <button className="bg-red-800 text-white p-2 rounded-full">
+              Logout
+            </button>
+          </NavLink>
           <div className="flex items-center justify-between">
             <div className="ml-10 space-x-8 lg:ml-40">
               <button

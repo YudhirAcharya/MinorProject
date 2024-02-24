@@ -1,5 +1,6 @@
 // import React from "react";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import Navbar from "../components/Navbar";
 // import { Link, NavLink } from "react-router-dom";
 import Footer from "../components/Footer";
@@ -101,7 +102,14 @@ const HomeDelivery = () => {
             <h3 className="text-xs">All delivery requests</h3>
           </div>
           <div className="my-2">
-            <button className="bg-warning text-lightColor p-2">Logout</button>
+            <NavLink
+              to="/" // Replace "/" with your actual landing page path
+              onClick={() => localStorage.clear()}
+            >
+              <button className="bg-red-800 text-white p-2 rounded-full">
+                Logout
+              </button>
+            </NavLink>
           </div>
           <div>
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
