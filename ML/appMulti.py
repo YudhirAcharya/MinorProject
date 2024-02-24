@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import requests
 
 app = Flask(__name__)
 CORS(app)
@@ -13,8 +14,12 @@ CORS(app)
 with open('./cosine_similarity_matrix.pkl', 'rb') as file:
     cosine_sim_matrix = pickle.load(file)
 
-df = pd.read_csv(r'D:\MinorProject\ML\indian food dataset.csv')
 
+#df = pd.read_csv(r'D:\MinorProject\ML\indian food dataset.csv')
+data_url = 'http://127.0.0.1:3001/foods'
+response = requests.get(data_url)
+data = response.json()
+df = pd.DataFrame(data)
 # data_frame = df[['FoodID', 'TranslatedRecipeName','keywords']]
 
 import re
@@ -22,23 +27,21 @@ def clean_ingredients(ingredient):
     cleaned_ingredient = re.sub(r'[\s\(\)]', '', ingredient) 
     return cleaned_ingredient
 
-df['Cleaned-Ingredients'] = df['Cleaned-Ingredients'].apply(lambda x: ','.join([clean_ingredients(ingredient) for ingredient in x.split(',')]))
+df = pd.DataFrame(data['data']['rows'])
 
-df['Cleaned-Ingredients'] = df['Cleaned-Ingredients'].apply(lambda x: x.split())
+df['CleanedIngredients'] = df['CleanedIngredients'].apply(lambda x: ','.join([clean_ingredients(ingredient) for ingredient in x.split(',')]))
+
+df['CleanedIngredients'] = df['CleanedIngredients'].apply(lambda x: x.split())
+
 
 df['Cuisine'] = df['Cuisine'].apply(lambda x: ','.join([clean_ingredients(ingredient) for ingredient in x.split(',')]))
-
 df['Cuisine'] = df['Cuisine'].apply(lambda x: x.split())
 
-df['keywords'] = df['Cleaned-Ingredients'] + df['Cuisine']
+df['keywords'] = df['CleanedIngredients'] + df['Cuisine']
 
+data_frame = df[['FoodID', 'TranslatedRecipeName', 'keywords']]
 
-data_frame = df[['FoodID',	'TranslatedRecipeName', 'keywords']]
-
-                  
 data_frame.loc[:, 'keywords'] = data_frame['keywords'].apply(lambda x: " ".join(x))
-
-
 data_frame.loc[:, 'keywords'] = data_frame['keywords'].apply(lambda x: x.replace(',', ' '))
 
 
