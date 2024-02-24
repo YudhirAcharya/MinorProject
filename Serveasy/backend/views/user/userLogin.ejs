@@ -70,7 +70,10 @@
             .then((response) => response.json())
             .then((data) => {
               if (data.status === "success") {
-                window.location.href = "http://127.0.0.1:3001/userHome";
+                // window.location.href = "http://127.0.0.1:3001/userHome";
+
+                window.location.href =
+                  "http://127.0.0.1:3001/userHome?userId=" + data.user_id;
               }
 
               if (data.status === "error") {
