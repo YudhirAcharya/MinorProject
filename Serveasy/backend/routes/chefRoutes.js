@@ -23,12 +23,13 @@ router.route("/ordersChef").post(chefController.updateChefStatus);
 router.route("/chefLogin").get((req, res) => {
   res.render("chef/chefLogin", {});
 });
+router.route("/chefHome").get(requireAuth, (req, res) => {
+  res.redirect(`http://localhost:5173/chef-home`);
+  // res.redirect("http://localhost:5173/userhome2");
+});
 
 router.route("/chefRegister").get((req, res) => {
   res.render("chef/chefRegister", {});
 });
 
-router.route("/chefHome").get(requireAuth, (req, res) => {
-  res.render("chef/chefHome", {});
-});
 module.exports = router;
