@@ -119,7 +119,8 @@ exports.loginUser = (req, res) => {
             if (passwordsMatch) {
               const token = createToken(stored_user_id, email);
               res.cookie("jwt", token, {
-                httpOnly: true,
+                // domain: "localhost",
+                sameSite: "none",
                 maxAge: maxAge * 1000,
               });
               res.json({ status: "success", user_id: stored_user_id });
