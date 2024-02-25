@@ -22,7 +22,7 @@ const Landing = () => {
             <img
               src="./public/logos/logo_linear.png"
               alt="Serveasy logo"
-              className="w-[200px] mx-5 h-auto"
+              className="vsm:w-[200px] mx-5 h-auto vvsm:w-[50px]"
             />
           </Link>
           <div className="flex flex-row gap-5 mx-0 my-0">
@@ -30,14 +30,14 @@ const Landing = () => {
 
             <NavLink
               to="/AccountSelection"
-              className="border-2 md:text-[25px] md:mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px]"
+              className="border-2 md:text-[25px] md:mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px] vvsm:text-[10px]"
             >
               Login
               {/* <IoLogInOutline /> */}
             </NavLink>
             <NavLink
               to="/AccountRegister"
-              className="border-2 md:text-[25px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px]"
+              className="border-2 md:text-[25px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px] vvsm:text-[10px]"
             >
               Register
             </NavLink>
