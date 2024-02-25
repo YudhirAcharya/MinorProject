@@ -28,9 +28,23 @@ import AccountSelection from "./pages/AccountSelection";
 import AccountRegister from "./pages/AccountRegister";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
-
+import Cookies from "js-cookie";
 function App() {
   const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const getUrlParameter = (name, url) => {
+      if (!url) url = window.location.href;
+      const params = new URLSearchParams(new URL(url).search);
+      return params.get(name);
+    };
+
+    const userId = getUrlParameter("userId");
+
+    localStorage.setItem("userId", []);
+    let cleanUserId = userId && userId.replace(/\/\?status=Completed$/, "");
+    Cookies.set("userId", userId);
+    localStorage.setItem("userId", cleanUserId);
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {

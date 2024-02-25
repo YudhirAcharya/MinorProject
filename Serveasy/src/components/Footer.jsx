@@ -36,7 +36,7 @@ const Footer = () => {
             <ul>
               <li className="my-4 list-none ">
                 <NavLink
-                  to="/userLogin"
+                  to="http://127.0.0.1:3001/userLogin"
                   className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"
                 >
                   User
@@ -44,7 +44,7 @@ const Footer = () => {
               </li>
               <li className="my-4 list-none">
                 <NavLink
-                  to="/chef/chefLogin"
+                  to="http://127.0.0.1:3001/chef/chefLogin"
                   className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"
                 >
                   Chef
@@ -52,7 +52,7 @@ const Footer = () => {
               </li>
               <li className="mb-4 list-none">
                 <NavLink
-                  to="/delivery/delivererLogin"
+                  to="http://127.0.0.1:3001/deliverer/delivererLogin"
                   className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"
                 >
                   Deliverer
