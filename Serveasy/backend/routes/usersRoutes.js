@@ -9,7 +9,7 @@ router.route("/register").post(userController.registerUser);
 router.route("/getUserId").post(userController.checkUser);
 router.route("/login").post(userController.loginUser);
 // router.route("/logout").get(requireAuth, userController.logoutUser);
-router.route("/logout").get(userController.logoutUser);
+// router.route("/logout").get(userController.logoutUser);
 // router.route("/home").get(requireAuth, userController.redirectUserHome);
 // router.route("/home").get(requireAuth, userController.redirectUserHome);
 router.route("/registerOrder").post(userController.registerOrder);
