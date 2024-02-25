@@ -47,18 +47,15 @@ function App() {
     const getUrlParameter = (name, url) => {
       if (!url) url = window.location.href;
       const params = new URLSearchParams(new URL(url).search);
+      console.log(params);
       return params.get(name);
     };
-
     const userId = getUrlParameter("userId");
-
+    console.log(userId);
     localStorage.setItem("userId", []);
     let cleanUserId = userId && userId.replace(/\/\?status=Completed$/, "");
     localStorage.setItem("userId", cleanUserId);
     setCleanUserId(cleanUserId);
-    // if (!cleanUserId) {
-    //   navigate("/");
-    // }
   }, []);
   useEffect(() => {
     const fetchData = async () => {
