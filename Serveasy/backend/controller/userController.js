@@ -143,8 +143,9 @@ exports.loginUser = (req, res) => {
 
 exports.logoutUser = (req, res) => {
   res.cookie("jwt", "", { maxAge: 0 });
-  // res.redirect("/");
-  res.status(200).json({ success: "Redirecting to Landing Page" });
+  res.redirect("http://localhost:5173/");
+  // // res.redirect("/");
+  // res.status(200).json({ success: "Redirecting to Landing Page" });
 };
 exports.redirectUserHome = (req, res) => {
   //res.redirect("http://localhost:5173/home"); // Redirect to the home page
