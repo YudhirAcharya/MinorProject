@@ -22,7 +22,7 @@ const Footer = () => {
             <h2 className="text-[22px] list-none mb-4 mt-8  font-semibold text-black py-2 uppercase">
               About Us:
             </h2>
-            <p className="font-[300]">
+            <p className="font-[300] ">
               Serveasy is a multifaceted web app seamlessly blending meal
               recommendations and e-commerce, offering users personalized dining
               suggestions while incorporating a scheduling system, reviews, and
@@ -50,7 +50,7 @@ const Footer = () => {
                   Chef
                 </NavLink>
               </li>
-              <li className="mb-4 mt-8 list-none">
+              <li className="mb-4 list-none">
                 <NavLink
                   to="/delivery/delivererLogin"
                   className="text-white hover:text-warning transform hover:scale-105 transition-all duration-150 ease-in-out"

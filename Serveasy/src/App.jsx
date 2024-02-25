@@ -24,6 +24,8 @@ import HomeUser from "./pages/HomeUser";
 import ASPFilter from "./components/ASPFilter";
 import ASPRecommend from "./components/ASPRecommend";
 import OrderHistory from "./pages/OrderHistory";
+import AccountSelection from "./pages/AccountSelection";
+import AccountRegister from "./pages/AccountRegister";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
 
@@ -67,7 +69,14 @@ function App() {
             <Route path="/login-user" element={<LoginUser />}></Route>
             <Route path="/delivery-home" element={<HomeDelivery />}></Route>
             <Route path="/signing" element={<Signing />}></Route>
-
+            <Route
+              path="/AccountSelection"
+              element={<AccountSelection />}
+            ></Route>
+            <Route
+              path="/AccountRegister"
+              element={<AccountRegister />}
+            ></Route>
             <Route path="*" element={<Error />}></Route>
             <Route path="/product/:FoodID" element={<Product />}></Route>
             <Route
