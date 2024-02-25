@@ -31,16 +31,18 @@ const OrderHistory = () => {
 
     fetchOrders();
   }, [user_id]);
-
+  const handleLogout = async () => {
+    localStorage.clear();
+    const response = await fetch("http://127.0.0.1:3001/users/logout", {
+      method: "GET",
+    });
+  };
   return (
     <>
       <Navbar />
       <div className="flex flex-col">
         <div className="mx-auto mt-8">
-          <NavLink
-            to="/" // Replace "/" with your actual landing page path
-            onClick={() => localStorage.clear()}
-          >
+          <NavLink to="/" onClick={handleLogout}>
             <button className="bg-red-800 font-semibold text-white py-3 px-12 mb-4 rounded-full hover:bg-primary hover:text-textColor">
               Logout
             </button>

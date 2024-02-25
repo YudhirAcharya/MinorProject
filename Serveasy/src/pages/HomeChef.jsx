@@ -5,6 +5,7 @@ import { FaCloudDownloadAlt } from "react-icons/fa";
 import jsPDF from "jspdf";
 import { NavLink } from "react-router-dom";
 import "jspdf-autotable";
+
 const HomeChef = () => {
   const [orders, setOrders] = useState([]);
   const [timers, setTimers] = useState({});
@@ -150,25 +151,6 @@ const HomeChef = () => {
     }
   };
 
-  // const clearTimer = () => {
-  //   orders.forEach((order) => {
-  //     const isTwoHoursBefore =
-  //       getTimeRemaining(new Date(order.delivery_time)).total <=
-  //       2 * 60 * 60 * 1000;
-
-  //     if (isTwoHoursBefore) {
-  //       const id = setInterval(() => {
-  //         startTimer(order.order_id, new Date(order.delivery_time));
-  //       }, 1000);
-
-  //       setTimers((prevTimers) => ({
-  //         ...prevTimers,
-  //         [order.order_id]: "02:00:00",
-  //         [order.order_id + "_intervalId"]: id,
-  //       }));
-  //     }
-  //   });
-  // };
   const clearTimer = () => {
     console.log("clearTimer called");
     orders.forEach((order) => {
@@ -205,6 +187,12 @@ const HomeChef = () => {
   useEffect(() => {
     clearTimer();
   }, [orders]);
+  const handleLogout = async () => {
+    localStorage.clear();
+    const response = await fetch("http://127.0.0.1:3001/chef/logout", {
+      method: "GET",
+    });
+  };
   return (
     <>
       <>
@@ -231,10 +219,7 @@ const HomeChef = () => {
             </div>
           </div>
           <div>
-            <NavLink
-              to="/" // Replace "/" with your actual landing page path
-              onClick={() => localStorage.clear()}
-            >
+            <NavLink to="/" onClick={handleLogout}>
               <button className="bg-red-800 font-semibold text-white py-3 px-12 mb-4 rounded-full hover:bg-primary hover:text-textColor">
                 Logout
               </button>
@@ -287,18 +272,6 @@ const HomeChef = () => {
                           </td>
                           <td className="border-b border-gray-200 bg-white px-5 py-5 ">
                             <p className="whitespace-no-wrap text-textColor font-semibold text-[1rem]">
-                              {/* {curTime.getDay() * 24 * 60 +
-                              curTime.getHours() * 60 +
-                              curTime.getMinutes() +
-                              item.delivery_time -
-                              (new Date().getHours() * 60 +
-                                new Date().getMinutes() +
-                                new Date().getDay() * 24 * 60) >
-                            30
-                              ? item.delivery_time
-                              : timer} */}
-                              {/* {timer} */}
-                              {/* {item.delivery_time} */}
                               {orderStatus[item.order_id] === undefined ||
                               orderStatus[item.order_id]
                                 ? timers[item.order_id]

@@ -41,6 +41,7 @@ import AccountRegister from "./pages/AccountRegister";
 // });
 function App() {
   const [loading, setLoading] = useState(true);
+  const [cleanUserId, setCleanUserId] = useState("");
   // const navigate = useNavigate();
   useEffect(() => {
     const getUrlParameter = (name, url) => {
@@ -54,6 +55,7 @@ function App() {
     localStorage.setItem("userId", []);
     let cleanUserId = userId && userId.replace(/\/\?status=Completed$/, "");
     localStorage.setItem("userId", cleanUserId);
+    setCleanUserId(cleanUserId);
     // if (!cleanUserId) {
     //   navigate("/");
     // }
@@ -73,6 +75,8 @@ function App() {
     // }, 4000);
     fetchData();
   }, []);
+  const id = localStorage.getItem("userId");
+  console.log(id);
   return (
     <>
       {loading ? (
@@ -83,36 +87,59 @@ function App() {
       ) : (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Landing />}></Route>
+            <>
+              <Route path="/" element={<Landing />}></Route>
+              <Route
+                path="/AccountSelection"
+                element={<AccountSelection />}
+              ></Route>
+              <Route
+                path="/AccountRegister"
+                element={<AccountRegister />}
+              ></Route>
+            </>
 
-            <Route path="/OrderHistory" element={<OrderHistory />}></Route>
-            <Route path="/user-home" element={<Home />}></Route>
-            <Route path="/chef-home" element={<HomeChef />}></Route>
-            <Route path="/userhome2" element={<HomeUser />}></Route>
+            {id.includes("y1u8721usAdf232") ? (
+              <>
+                <Route path="/OrderHistory" element={<OrderHistory />}></Route>
+                <Route path="/user-home" element={<Home />}></Route>
 
-            <Route path="/ASPFilter" element={<ASPFilter />} />
-            <Route path="/ASPRecommend" element={<ASPRecommend />} />
+                <Route path="/userhome2" element={<HomeUser />}></Route>
 
-            <Route path="/login-user" element={<LoginUser />}></Route>
-            <Route path="/delivery-home" element={<HomeDelivery />}></Route>
-            <Route path="/signing" element={<Signing />}></Route>
-            <Route
-              path="/AccountSelection"
-              element={<AccountSelection />}
-            ></Route>
-            <Route
-              path="/AccountRegister"
-              element={<AccountRegister />}
-            ></Route>
-            <Route path="*" element={<Error />}></Route>
-            <Route path="/product/:FoodID" element={<Product />}></Route>
-            <Route
-              path="components/CartContainer"
-              element={<CartContainer />}
-            ></Route>
-            <Route path="/Checkout" element={<Checkout />}></Route>
-            <Route path="/ScheduleMeal" element={<ScheduleMeal />}></Route>
-            <Route path="/Landing" element={<Landing />}></Route>
+                <Route path="/ASPFilter" element={<ASPFilter />} />
+                <Route path="/ASPRecommend" element={<ASPRecommend />} />
+
+                <Route path="/login-user" element={<LoginUser />}></Route>
+
+                <Route path="/signing" element={<Signing />}></Route>
+
+                <Route path="*" element={<Error />}></Route>
+                <Route path="/product/:FoodID" element={<Product />}></Route>
+                <Route
+                  path="components/CartContainer"
+                  element={<CartContainer />}
+                ></Route>
+                <Route path="/Checkout" element={<Checkout />}></Route>
+                <Route path="/ScheduleMeal" element={<ScheduleMeal />}></Route>
+                {/* <Route path="/Landing" element={<Landing />}></Route> */}
+              </>
+            ) : id.includes("asuafhba798osfijd") ? (
+              <Route path="/chef-home" element={<HomeChef />}></Route>
+            ) : id.includes("zsu872jaasjdnfnaso") ? (
+              <Route path="/delivery-home" element={<HomeDelivery />}></Route>
+            ) : (
+              <>
+                <Route path="/" element={<Landing />}></Route>
+                <Route
+                  path="/AccountSelection"
+                  element={<AccountSelection />}
+                ></Route>
+                <Route
+                  path="/AccountRegister"
+                  element={<AccountRegister />}
+                ></Route>
+              </>
+            )}
           </Routes>
         </BrowserRouter>
       )}
