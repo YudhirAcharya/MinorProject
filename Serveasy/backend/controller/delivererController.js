@@ -63,7 +63,7 @@ exports.registerDeliverer = (req, res) => {
                       httpOnly: true,
                       maxAge: maxAge * 1000,
                     });
-                    res.status(201).json({ status: "success" });
+                    res.status(201).json({ status: "success", user_id: d_id });
                   } else {
                     // console.log(err);
                     res.json({
@@ -120,7 +120,7 @@ exports.loginDeliverer = (req, res) => {
                 httpOnly: true,
                 maxAge: maxAge * 1000,
               });
-              res.json({ status: "success" });
+              res.json({ status: "success", user_id: stored_Deliverer_id });
             } else {
               return res
                 .status(401)
