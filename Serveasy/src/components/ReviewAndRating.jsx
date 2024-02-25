@@ -3,13 +3,14 @@ import { useState } from "react";
 import StarRatingComponent from "react-star-rating-component";
 const ReviewAndRating = ({ name }) => {
   const food_name = name;
+  let user_id = localStorage.getItem("userId");
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
   // console.log(food_name);
 
   const handleReviewSubmit = async () => {
     const reviewData = {
-      user_id: "random",
+      user_id: user_id,
       food_name: food_name,
       review: review,
       rating: rating,

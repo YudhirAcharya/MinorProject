@@ -29,47 +29,18 @@ const Landing = () => {
             {/* <SearchBar /> */}
 
             <NavLink
-              to="http://127.0.0.1:3001/userLogin"
-              className="border-2 text-[25px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer"
+              to="/AccountSelection"
+              className="border-2 md:text-[25px] md:mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px]"
             >
               Login
               {/* <IoLogInOutline /> */}
             </NavLink>
             <NavLink
-              to="http://127.0.0.1:3001/userRegister"
-              className="border-2 text-[25px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer"
+              to="/AccountRegister"
+              className="border-2 md:text-[25px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px]"
             >
               Register
             </NavLink>
-          </div>
-          <div className="sm:hidden flex flex-1 justify-end items-center">
-            <img
-              src={
-                toggle
-                  ? "./public/icons/close_icon.png"
-                  : "./public/icons/menu_icon.png"
-              }
-              alt="menu"
-              className="w-[40px] mr-6 cursor-pointer"
-              // onClick={toggleMenu}
-            />
-
-            <div
-              className={`${
-                toggle ? "flex" : "hidden"
-              } absolute mt-[270px] py-6 bg-primaryColor px-6 border-2`}
-            >
-              <ul className="list-none flex flex-col sm:even:hidden justify-end items-center flex-1">
-                {navLinks.map((nav) => (
-                  <li
-                    key={nav.id}
-                    className="cursor-pointer text-[22px] mr-6 hover:text-warning"
-                  >
-                    <NavLink to={`${nav.id}`}>{nav.title}</NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </nav>
       </>

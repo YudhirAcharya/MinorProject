@@ -51,7 +51,7 @@ const Banner = () => {
                   </button>
                 </a>
 
-                <NavLink to="http://127.0.0.1:3001/userLogin">
+                <NavLink to="http://127.0.0.1:3001/userRegister">
                   <button className=" hover:scale-102 duration-200 text-white px-8 py-4 rounded-full  cursor-pointer transition-all  bg-cartNumBg border-none hover:bg-warning">
                     Order Now
                   </button>
