@@ -1,8 +1,8 @@
 // import React from "react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import Navbar from "../components/Navbar";
-// import { Link, NavLink } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
 const HomeDelivery = () => {
@@ -94,19 +94,25 @@ const HomeDelivery = () => {
 
   return (
     <div>
-      <Navbar />
+      <>
+        <nav className="bg-primary navbar w-full flex justify-between items-center">
+          <Link to="/">
+            <img
+              src="./public/logos/logo_linear.png"
+              alt="Serveasy logo"
+              className="w-[200px] mx-5 h-auto"
+            />
+          </Link>
+        </nav>
+      </>
       <div className="w-[screen] mx-4 my-8">
         <div className=" grid grid-cols-1 items-center justify-between pb-6 mx-8">
-          <div>
-            <h2 className="text-gray-600 font-semibold">Delivery</h2>
-            <h3 className="text-xs">All delivery requests</h3>
-          </div>
           <div className="my-2">
             <NavLink
               to="/" // Replace "/" with your actual landing page path
               onClick={() => localStorage.clear()}
             >
-              <button className="bg-red-800 text-white p-2 rounded-full">
+              <button className="bg-red-800 font-semibold text-white py-3 px-12 mb-4 rounded-full hover:bg-primary hover:text-textColor">
                 Logout
               </button>
             </NavLink>

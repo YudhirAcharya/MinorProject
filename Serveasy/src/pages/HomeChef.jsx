@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import jsPDF from "jspdf";
@@ -207,23 +207,29 @@ const HomeChef = () => {
   }, [orders]);
   return (
     <>
-      <Navbar />
+      <>
+        <nav className="bg-primary navbar w-full flex justify-between items-center">
+          <Link to="/">
+            <img
+              src="./public/logos/logo_linear.png"
+              alt="Serveasy logo"
+              className="w-[200px] mx-5 h-auto"
+            />
+          </Link>
+        </nav>
+      </>
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-8">
         <div className="flex items-center justify-between pb-6">
           <div>
-            <h2 className="font-semibold text-gray-700">Food Orders</h2>
-            <span className="text-xs text-gray-500">
-              Following are the orders of different customers.
-            </span>
+            <NavLink
+              to="/" // Replace "/" with your actual landing page path
+              onClick={() => localStorage.clear()}
+            >
+              <button className="bg-red-800 font-semibold text-white py-3 px-12 mb-4 rounded-full hover:bg-primary hover:text-textColor">
+                Logout
+              </button>
+            </NavLink>
           </div>
-          <NavLink
-            to="/" // Replace "/" with your actual landing page path
-            onClick={() => localStorage.clear()}
-          >
-            <button className="bg-red-800 text-white p-2 rounded-full">
-              Logout
-            </button>
-          </NavLink>
           <div className="flex items-center justify-between">
             <div className="ml-10 space-x-8 lg:ml-40">
               <button
