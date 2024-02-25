@@ -75,6 +75,10 @@ app.get("/userHome", requireAuth, (req, res) => {
   res.redirect(`http://localhost:5173/user-home?userId=${userId}`);
   // res.redirect("http://localhost:5173/userhome2");
 });
+app.post("/userLogout", (req, res) => {
+  res.cookie("jwt", "", { maxAge: 0 });
+  res.redirect("http://localhost:5173/");
+});
 app.use(
   "/chef",
   (req, res, next) => {
