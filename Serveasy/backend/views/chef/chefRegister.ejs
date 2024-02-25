@@ -86,7 +86,8 @@
           const phoneNumber = document.getElementById("phoneNumberInput").value;
           const email = document.getElementById("emailInput").value;
           const password = document.getElementById("passwordInput").value;
-          const userId = Math.random().toString(16).slice(2);
+          const userId =
+            Math.random().toString(16).slice(2) + "asuafhba798osfijd";
           // You can now proceed to use these values, for example, making a POST request to your server
           // Example:
 
@@ -109,7 +110,10 @@
               if (data) {
                 // Redirect to the home page
                 if (data.status === "success") {
-                  window.location.href = "http://127.0.0.1:3001/chef/chefHome";
+                  // window.location.href = "http://127.0.0.1:3001/chef/chefHome";
+                  window.location.href =
+                    "http://127.0.0.1:3001/chef/chefHome?userId=" +
+                    data.user_id;
                 }
 
                 if (data.status === "error") {

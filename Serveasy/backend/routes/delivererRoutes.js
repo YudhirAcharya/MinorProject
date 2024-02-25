@@ -38,6 +38,7 @@ router.route("/delivererRegister").get((req, res) => {
 //   .post(delivererController.updateDeliveredCount);
 
 router.route("/delivererHome").get(requireAuth, (req, res) => {
-  res.redirect(`http://localhost:5173/delivery-home`);
+  const userId = req.query.userId;
+  res.redirect(`http://localhost:5173/delivery-home?userId=${userId}`);
 });
 module.exports = router;

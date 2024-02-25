@@ -24,7 +24,9 @@ router.route("/chefLogin").get((req, res) => {
   res.render("chef/chefLogin", {});
 });
 router.route("/chefHome").get(requireAuth, (req, res) => {
-  res.redirect(`http://localhost:5173/chef-home`);
+  // res.redirect(`http://localhost:5173/chef-home`);
+  const userId = req.query.userId;
+  res.redirect(`http://localhost:5173/chef-home?userId=${userId}`);
   // res.redirect("http://localhost:5173/userhome2");
 });
 
