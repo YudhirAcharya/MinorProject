@@ -101,15 +101,16 @@ const Checkout = () => {
     }
 
     console.log("Order data:", newOrderData);
+    const res = await fetch(`http://127.0.0.1:3001/users/:${userId}`, {
+      method: "GET",
+    });
+    const data = await res.json();
+    console.log(data);
   };
 
   const handlePayment = async (orderData, totalAmount, deliveryFee) => {
     console.log(orderData, totalAmount, deliveryFee);
-    const res = await fetch("http://127.0.0.1:3001/users", {
-      method: "GET",
-    });
-    const dataArray = await res.json();
-    console.log(dataArray);
+
     const payload = {
       return_url: `http://localhost:5173/user-home?userId=${orderData.user_id}`,
       website_url: "http://localhost:3001",

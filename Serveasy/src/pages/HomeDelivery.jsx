@@ -119,7 +119,12 @@ const HomeDelivery = () => {
   };
   const totalOrders = orders.length;
   const lastPage = Math.ceil(totalOrders / ordersPerPage);
-
+  const handleLogout = async () => {
+    localStorage.clear();
+    const response = await fetch("http://127.0.0.1:3001/deliverer/logout", {
+      method: "GET",
+    });
+  };
   return (
     <div>
       <>
@@ -145,10 +150,7 @@ const HomeDelivery = () => {
               </button>
             </div>
             <div>
-              <NavLink
-                to="/" // Replace "/" with your actual landing page path
-                onClick={() => localStorage.clear()}
-              >
+              <NavLink to="/" onClick={handleLogout}>
                 <button className="bg-red-800 font-semibold text-white py-3 px-12 mb-4 rounded-full hover:bg-primary hover:text-textColor">
                   Logout
                 </button>
