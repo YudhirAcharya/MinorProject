@@ -1,7 +1,9 @@
 // import React from "react";
 import { useEffect, useState } from "react";
+import { FaCloudDownloadAlt } from "react-icons/fa";
+import jsPDF from "jspdf";
 import { NavLink } from "react-router-dom";
-
+import "jspdf-autotable";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
@@ -9,6 +11,32 @@ const HomeDelivery = () => {
   const [orders, setOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const ordersPerPage = 7;
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    doc.setFontSize(12);
+
+    // Add table headers
+    const headers = [["Quantity", "User Name", "Order", "Scheduled", "Status"]];
+    const data = orders.map((order) => [
+      order.quantity,
+      order.user_id,
+      order.food_name,
+      new Date(Date.now() + order.delivery_time * 60000).toLocaleString(),
+      orderStatus ? "Pending" : "Done",
+    ]);
+
+    doc.autoTable({
+      head: headers,
+      body: data,
+      startY: 20,
+      styles: { halign: "left" },
+      columnStyles: { 0: { halign: "right" } },
+    });
+    console.log(doc instanceof jsPDF);
+    // Download the PDF file
+    doc.save("orders.pdf");
+    window.open(doc.output("bloburl"), "_blank");
+  };
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -107,15 +135,25 @@ const HomeDelivery = () => {
       </>
       <div className="w-[screen] mx-4 my-8">
         <div className=" grid grid-cols-1 items-center justify-between pb-6 mx-8">
-          <div className="my-2">
-            <NavLink
-              to="/" // Replace "/" with your actual landing page path
-              onClick={() => localStorage.clear()}
-            >
-              <button className="bg-red-800 font-semibold text-white py-3 px-12 mb-4 rounded-full hover:bg-primary hover:text-textColor">
-                Logout
+          <div className="flex items-center justify-between">
+            <div className=" space-x-8 ">
+              <button
+                className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white focus:outline-none focus:ring"
+                onClick={generatePDF}
+              >
+                PDF <FaCloudDownloadAlt />
               </button>
-            </NavLink>
+            </div>
+            <div>
+              <NavLink
+                to="/" // Replace "/" with your actual landing page path
+                onClick={() => localStorage.clear()}
+              >
+                <button className="bg-red-800 font-semibold text-white py-3 px-12 mb-4 rounded-full hover:bg-primary hover:text-textColor">
+                  Logout
+                </button>
+              </NavLink>
+            </div>
           </div>
           <div>
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">

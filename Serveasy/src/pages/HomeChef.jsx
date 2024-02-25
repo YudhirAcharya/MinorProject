@@ -220,6 +220,16 @@ const HomeChef = () => {
       </>
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-8">
         <div className="flex items-center justify-between pb-6">
+          <div className="flex items-center justify-between">
+            <div className=" space-x-8 ">
+              <button
+                className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white focus:outline-none focus:ring"
+                onClick={generatePDF}
+              >
+                PDF <FaCloudDownloadAlt />
+              </button>
+            </div>
+          </div>
           <div>
             <NavLink
               to="/" // Replace "/" with your actual landing page path
@@ -229,16 +239,6 @@ const HomeChef = () => {
                 Logout
               </button>
             </NavLink>
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="ml-10 space-x-8 lg:ml-40">
-              <button
-                className="flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white focus:outline-none focus:ring"
-                onClick={generatePDF}
-              >
-                PDF <FaCloudDownloadAlt />
-              </button>
-            </div>
           </div>
         </div>
         <div className="overflow-y-hidden rounded-lg border">
