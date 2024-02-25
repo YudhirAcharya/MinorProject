@@ -22,15 +22,6 @@
         <div class="title">Register as Chef</div>
         <div class="input-box underline">
           <input
-            id="userIdInput"
-            type="text"
-            placeholder="Enter Your User ID"
-            required
-          />
-          <div class="underline"></div>
-        </div>
-        <div class="input-box underline">
-          <input
             id="fullNameInput"
             type="text"
             placeholder="Enter Your Full Name"
@@ -90,13 +81,12 @@
           event.preventDefault(); // Prevent the default form submission
 
           // Get the values from the input fields
-          const userId = document.getElementById("userIdInput").value;
           const fullName = document.getElementById("fullNameInput").value;
           const username = document.getElementById("usernameInput").value;
           const phoneNumber = document.getElementById("phoneNumberInput").value;
           const email = document.getElementById("emailInput").value;
           const password = document.getElementById("passwordInput").value;
-
+          const userId = Math.random().toString(16).slice(2);
           // You can now proceed to use these values, for example, making a POST request to your server
           // Example:
 
