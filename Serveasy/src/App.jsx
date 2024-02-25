@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import "./App.css";
 // import About from "./pages/About";
 
@@ -9,7 +10,7 @@ import Signing from "./pages/Signing";
 import donuts from "./animations/donuts.json";
 import Lottie from "lottie-react";
 // import Footer from "./components/Footer";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Product from "./pages/Product";
 import Landing from "./pages/Landing";
 // import HomeChef from "./pages/HomeChef";
@@ -28,9 +29,19 @@ import AccountSelection from "./pages/AccountSelection";
 import AccountRegister from "./pages/AccountRegister";
 // import SignIn from "./pages/SignIn";
 // import Signup from "./pages/Signup";
-import Cookies from "js-cookie";
+
+// import { Provider } from "react-redux";
+// import { configureStore } from "@reduxjs/toolkit";
+// import authReducer from "./reducer/authReducer"; // Import your authentication reducer
+// import PrivateRoute from "./utils/PrivateRoute";
+// const store = configureStore({
+//   reducer: {
+//     auth: authReducer,
+//   },
+// });
 function App() {
   const [loading, setLoading] = useState(true);
+  // const navigate = useNavigate();
   useEffect(() => {
     const getUrlParameter = (name, url) => {
       if (!url) url = window.location.href;
@@ -42,8 +53,10 @@ function App() {
 
     localStorage.setItem("userId", []);
     let cleanUserId = userId && userId.replace(/\/\?status=Completed$/, "");
-    Cookies.set("userId", userId);
     localStorage.setItem("userId", cleanUserId);
+    // if (!cleanUserId) {
+    //   navigate("/");
+    // }
   }, []);
   useEffect(() => {
     const fetchData = async () => {
@@ -108,5 +121,3 @@ function App() {
 }
 
 export default App;
-
-//route index to tell it's starting page
