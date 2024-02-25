@@ -36,7 +36,17 @@ const OrderHistory = () => {
     <>
       <Navbar />
       <div className="flex flex-col">
-        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:pb-24 lg:px-8 overflow-y-scroll example ">
+        <div className="mx-auto mt-8">
+          <NavLink
+            to="/" // Replace "/" with your actual landing page path
+            onClick={() => localStorage.clear()}
+          >
+            <button className="bg-red-800 font-semibold text-white py-3 px-12 mb-4 rounded-full hover:bg-primary hover:text-textColor">
+              Logout
+            </button>
+          </NavLink>
+        </div>
+        <div className="max-w-7xl mx-auto pt-8 pb-16 px-4 sm:px-6 lg:pb-24 lg:px-8 overflow-y-scroll example shadow-xl">
           <div className="max-w-xl">
             <h1 className="text-2xl font-extrabold tracking-tight text-textColor sm:text-3xl">
               Order history
@@ -45,14 +55,6 @@ const OrderHistory = () => {
               Check the status of recent orders, see if meals are prepared and
               delivered.
             </p>
-            <NavLink
-              to="/" // Replace "/" with your actual landing page path
-              onClick={() => localStorage.clear()}
-            >
-              <button className="bg-red-800 text-white p-2 mt-4 rounded-full">
-                Logout
-              </button>
-            </NavLink>
           </div>
 
           <section

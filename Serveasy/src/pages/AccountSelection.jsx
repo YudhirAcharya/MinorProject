@@ -1,4 +1,3 @@
-import React from "react";
 import { FaUser } from "react-icons/fa";
 import { LuChefHat } from "react-icons/lu";
 import { MdDeliveryDining } from "react-icons/md";
@@ -48,7 +47,7 @@ const AccountSelection = () => {
           >
             <li>
               <NavLink to="http://127.0.0.1:3001/userLogin">
-                <div className="py-10 px-6 bg-textColor text-center rounded-lg xl:px-10 xl:text-left cursor-pointer text-white account-type user">
+                <div className="py-10 px-6 bg-warning text-center rounded-lg xl:px-10 xl:text-left cursor-pointer text-white account-type user">
                   <div className="space-y-6 xl:space-y-10">
                     <FaUser className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 text-white icon" />
                     <div className="space-y-2 flex items-center justify-center">
@@ -67,7 +66,7 @@ const AccountSelection = () => {
             </li>
             <li>
               <NavLink to="http://127.0.0.1:3001/chef/chefLogin">
-                <div className="py-10 px-6 bg-textColor text-center rounded-lg xl:px-10 xl:text-left cursor-pointer text-white account-type chef">
+                <div className="py-10 px-6 bg-warning text-center rounded-lg xl:px-10 xl:text-left cursor-pointer text-white account-type chef">
                   <div className="space-y-6 xl:space-y-10">
                     <LuChefHat className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 text-white icon" />
                     <div className="space-y-2 flex items-center justify-center">
@@ -86,7 +85,7 @@ const AccountSelection = () => {
             </li>
             <li>
               <NavLink to="http://127.0.0.1:3001/deliverer/delivererLogin">
-                <div className="py-10 px-6 bg-textColor text-center rounded-lg xl:px-10 cursor-pointer xl:text-left text-white account-type deliverer">
+                <div className="py-10 px-6 bg-warning text-center rounded-lg xl:px-10 cursor-pointer xl:text-left text-white account-type deliverer">
                   <div className="space-y-6 xl:space-y-10">
                     <MdDeliveryDining className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56 text-white icon" />
                     <div className="space-y-2 flex items-center justify-center">
