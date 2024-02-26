@@ -148,7 +148,7 @@ const ScheduleMeal = () => {
   return (
     <>
       <Navbar />
-      <section className="h-screen w-full my-8 py-12 sm:py-16 lg:py-20">
+      <section className="h-screen w-full py-20 sm:py-20 lg:py-[8rem]">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center">
             <h1 className="text-2xl font-semibold text-gray-900">

@@ -155,7 +155,7 @@ const Checkout = () => {
   return (
     <section>
       <Navbar />
-      <div className="h-[95vh] grid grid-cols-2 p-4 rounded-md">
+      <div className="h-[95vh] pt-[8rem] mb-[10rem] grid grid-cols-2 px-4 rounded-md">
         <div className="lg:col-span-1 col-span-2 bg-lightColor space-y-4 px-6">
           <div className="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
             <div className="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
