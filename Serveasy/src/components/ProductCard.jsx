@@ -32,7 +32,9 @@ const ProductCard = (singleProduct) => {
           </div>
         </div>
         <div className="grid grid-cols-1 gap-2 px-3 py-1">
-          <h3 className="font-medium">{name.split(" Recipe")[0]} </h3>
+          <h3 className="font-medium">
+            {name.length > 25 ? name.substring(0, 25) + "..." : name}{" "}
+          </h3>
           <div className="grid grid-cols-2 gap-1 align-items-center mt-4">
             <h3 className="text-2xl font-medium text-warning ">
               {`Rs.` + price}
