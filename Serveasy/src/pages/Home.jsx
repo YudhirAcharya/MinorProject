@@ -64,8 +64,7 @@ import Recommend from "../components/Recommend";
 const currentUser_id = localStorage.getItem("userId");
 // const currentUser_id = "u_1oKVZvcir01Ja6U1XIczcrh8mbP";
 console.log(currentUser_id);
-const apiUrl =
-  "http://127.0.0.1:3001/users/recommendationData";
+const apiUrl = "http://127.0.0.1:3001/users/recommendationData";
 
 const Home = () => {
   const [{ cartShow }, dispatch] = useStateValue();
@@ -78,18 +77,13 @@ const Home = () => {
         const data = await response.json();
         let array = data.data.rows;
 
-        let userExistsInData = data.data.rows.find(
-          (row) => {
-            return row.user_id.includes(currentUser_id);
-          }
-        );
+        let userExistsInData = data.data.rows.find((row) => {
+          return row.user_id.includes(currentUser_id);
+        });
         console.log(userExistsInData);
         setUserExists(userExistsInData);
       } catch (error) {
-        console.error(
-          "Error fetching recommendation data:",
-          error
-        );
+        console.error("Error fetching recommendation data:", error);
       }
     };
 
@@ -124,8 +118,10 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      {/* <Hero />
-      <Category /> */}
+
+      {/*<Hero />
+      <Category />*/}
+
       {userExists ? (
         <RecommendDum user_id={currentUser_id} />
       ) : (
