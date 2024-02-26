@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ProductCard from "./ProductCard";
 
-const currentUser_id = "u_9iFLIhMa8QaG";
-
-function RecommendDum() {
+function RecommendDum(props) {
+  const currentUser_ID = props.user_id;
   const [orders, setOrders] = useState([]);
   const [recommendations, setRecommendations] = useState(
     []
@@ -14,7 +14,6 @@ function RecommendDum() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
         const ordersResponse = await axios.get(
           "http://127.0.0.1:3001/users/recommendationData"
         );
@@ -29,18 +28,16 @@ function RecommendDum() {
 
         const userOrders = sortedOrders
           .filter(
-            (order) => order.user_id === currentUser_id
+            (order) => order.user_id === currentUser_ID
           )
           .slice(0, 5);
 
         setOrders(userOrders);
 
-        
         const recipeNames = userOrders.map(
           (order) => order.recipe_name
         );
 
-        
         const recommendationsResponse = await axios.post(
           "http://127.0.0.1:5000/recommend_multi",
           { recipe_names: recipeNames }
@@ -116,40 +113,20 @@ function RecommendDum() {
           </h3>
           <div style={cardsContainer}>
             {matchedFoods.map((matchedFood, index) => (
-              <div
-                to={`/products/${matchedFood.FoodID}`}
-                key={index}
-                style={cardStyle}
-              >
-                <Link
-                  to={`/products/${matchedFood.FoodID}`}
-                >
-                  <img
-                    src={matchedFood.imageurl}
-                    alt={matchedFood.TranslatedRecipeName}
-                    style={cardImageStyle}
-                  />
-                </Link>
-                <div style={cardContentStyle}>
-                  <p
-                    style={{
-                      fontSize: "16px",
-                    }}
-                  >
-                    {matchedFood.TranslatedRecipeName}
-                  </p>
-
-                  <button style={priceStyle}>
-                    <img
-                      style={{ width: "30px" }}
-                      src="../public/icons/shopping-bag.png"
-                    ></img>
-                    <span style={{ paddingTop: "4px" }}>
-                      Rs {matchedFood.price}
-                    </span>
-                  </button>
-                </div>
-              </div>
+              <ProductCard
+                key={matchedFood.FoodID}
+                id={matchedFood.FoodID}
+                img={matchedFood.imageurl}
+                name={matchedFood.TranslatedRecipeName}
+                price={matchedFood.price}
+                TotalTimeInMins={
+                  matchedFood.TotalTimeInMins
+                }
+                cuisine={matchedFood.Cuisine}
+                CleanedIngredients={
+                  matchedFood.CleanedIngredients
+                }
+              />
             ))}
           </div>
         </div>
