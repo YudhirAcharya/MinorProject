@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const LandingHero = () => {
   return (
     <section className="relative md:mb-[20rem] vvsm:mb-[15rem]">
-      <div className="absolute inset-0 w-full vvsm:h-[60vh] blur-[2px] md:h-screen bg-cover bg-center">
+      <div className="absolute inset-0 w-full vvsm:h-[60vh] md:h-screen bg-cover bg-center">
         <img
           className="w-full h-full object-cover object-center"
           src="public/images/ld-bg.jpg"
@@ -14,7 +14,7 @@ const LandingHero = () => {
       <div className="relative pt-[15%] flex items-center align-middle justify-center z-10 vsm:mx-[10%] rounded-lg">
         <div
           role="contentinfo"
-          className="w-full lg:w-2/3 h-[80%] text-textColor  py-3 px-[3rem] mx-2"
+          className="w-full lg:w-2/3 h-[80%] text-textColor  py-3 px-[3rem] mx-2 shadow-2xl rounded-2xl"
         >
           <h1 className=" font-semibold  xl:text-4xl 2xl:text-6xl  md:text-3xl sm:text-lg tracking-widest">
             Welcome to{" "}
@@ -25,7 +25,7 @@ const LandingHero = () => {
           <h1 className="font-Q uppercase my-4 font-extrabold leading-loose text-textColor lg:text-4xl xl:text-6xl 2xl:text-6xl  md:text-2xl sm:text-xl">
             are you hungry?
           </h1>
-          <p className="font-Q lg:text-lg xl:text-xl 2xl:text-xl  md:text-md sm:text-sm tracking-wides">
+          <p className="font-Q font-semibold lg:text-lg xl:text-xl 2xl:text-xl  md:text-md sm:text-sm tracking-wides">
             Get the best meals from the best chefs in town
           </p>
           <div className="flex gap-[3rem]  justify-left font-bold font-Q">
@@ -36,7 +36,7 @@ const LandingHero = () => {
             </a>
 
             <NavLink to="http://127.0.0.1:3001/userRegister">
-              <button className=" hover:scale-102 duration-200 text-primary px-8 py-4 transform rounded-md border-4 border-primary border-r-2 font-semibold transition-colors hover:bg-primary hover:text-textColor">
+              <button className=" hover:scale-102 duration-200 text-warning px-8 py-4 transform rounded-md border-4 border-warning border-r-2 font-semibold transition-colors hover:bg-primary hover:text-textColor">
                 Order Now
               </button>
             </NavLink>

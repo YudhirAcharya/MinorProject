@@ -31,14 +31,14 @@ const Landing = () => {
 
             <NavLink
               to="/AccountSelection"
-              className="border-2 md:text-[25px] md:mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px] vvsm:text-[10px]"
+              className="md:text-[25px] md:mr-5 px-5  rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px] vvsm:text-[10px] transition-all duration-300 ease-in-out"
             >
               Login
               {/* <IoLogInOutline /> */}
             </NavLink>
             <NavLink
               to="/AccountRegister"
-              className="border-2 md:text-[25px] mr-5 px-5 border-warning rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px] vvsm:text-[10px]"
+              className=" md:text-[25px] mr-5 px-5  rounded-xl hover:bg-warning hover:text-lightColor cursor-pointer vsm:text-[16px] vvsm:text-[10px] transition-all duration-300 ease-in-out"
             >
               Register
             </NavLink>
