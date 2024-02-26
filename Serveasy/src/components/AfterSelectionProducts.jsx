@@ -107,8 +107,8 @@ const AfterSelectionProducts = () => {
 
   const filteredFoods = foods
     .filter((food) => {
-      if (selectedCuisines.length === 0) return true;
-      return !selectedCuisines.includes(food.Cuisine);
+      if (selectedCuisines.length === 0) return false;
+      return selectedCuisines.includes(food.Cuisine);
     })
     .slice(0, 30);
 
@@ -134,25 +134,27 @@ const AfterSelectionProducts = () => {
       >
         {!isSectionHidden && !showRecommendations && (
           <div className="mb-8">
-            <div className="flex justify-evenly items-center m-3  ">
-              <span className=" text-2xl">
-                {" "}
-                To better know your taste we request you to
-                select some foods below.
-              </span>
-              <button
-                onClick={() => {
-                  handleShowFeatureSection();
+            <div className="border-4 m-3 rounded-md border-amber-300">
+              <div className="flex flex-col items-center mb-4 mx-0 my-0">
+                <span className=" text-2xl p-8 ">
+                  {" "}
+                  To better know your taste we request you
+                  to select some foods below.
+                </span>
+                <button
+                  onClick={() => {
+                    handleShowFeatureSection();
 
-                  handleShowRecomendSection();
-                }}
-                className="bg-gray-500 text-white px-4 py-2 rounded-md"
-              >
-                Do you want to skip to Home?
-              </button>
+                    handleShowRecomendSection();
+                  }}
+                  className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                >
+                  Do you want to skip to Home?
+                </button>
+              </div>
             </div>
-            <div className=" bg-amber-100 p-4 rounded-xl">
-              <h2 className="text-xl font-bold mb-4">
+            <div className=" bg-amber-100 p-4 rounded-xl m-3  content-center">
+              <h2 className="text-xl font-bold mb-3">
                 Cuisine Filter can help with your palate!
               </h2>
               <h2 className="text-lg mb-1 text-left">
@@ -163,11 +165,11 @@ const AfterSelectionProducts = () => {
                 {Array.from(
                   new Set(foods.map((food) => food.Cuisine))
                 )
-                  .slice(0, 10)
+                  .slice(0, 50)
                   .map((cuisine) => (
                     <div
                       key={cuisine}
-                      className={`flex items-center mb-2 w-1/2 sm:w-1/4 ${selectedCuisines.includes(cuisine) ? "bg-amber-200 rounded-lg" : ""}`}
+                      className={`flex items-center mb-2 w-1/2 sm:w-1/4 ${selectedCuisines.includes(cuisine) ? "bg-amber-100 rounded-lg" : ""}`}
                     >
                       <input
                         type="checkbox"
@@ -190,11 +192,11 @@ const AfterSelectionProducts = () => {
                             selectedCuisines.includes(
                               cuisine
                             )
-                              ? "../public/icons/close.png"
-                              : "../public/icons/task.png"
+                              ? "../public/icons/task.png"
+                              : "../public/icons/square.png"
                           }
                           alt={`Checkbox for ${cuisine}`}
-                          className="w-8 h-8"
+                          className="w-6 h-6 p-1"
                         />
                       </label>
                       <span>{cuisine}</span>
@@ -204,12 +206,25 @@ const AfterSelectionProducts = () => {
             </div>
           </div>
         )}
+        {!isFeatureSectionVisible &&
+          !showRecommendations && (
+            <button
+              onClick={() => {
+                handleShowFeatureSection();
+
+                handleShowRecomendSection();
+              }}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md m-2 ml-auto text-2xl"
+            >
+              Go to Home
+            </button>
+          )}
         {!isSectionHidden && !showRecommendations && (
           <div className="flex flex-wrap mx-0 my-0">
             {filteredFoods.map((food) => (
               <div
                 key={food.FoodID}
-                className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-4 relative ${selectedCuisines.includes(food.Cuisine) ? "bg-blue-100" : ""}`}
+                className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-4 relative ${selectedCuisines.includes(food.Cuisine) ? "bg-white" : ""}`}
                 onClick={() =>
                   handleFoodSelection(
                     food.TranslatedRecipeName
@@ -217,7 +232,7 @@ const AfterSelectionProducts = () => {
                 }
               >
                 <div
-                  className={`h-full p-4 border-2  rounded overflow-hidden ${selectedFoods.includes(food.TranslatedRecipeName) ? " border-green-400" : "border-yellow-400"}`}
+                  className={`h-full p-4 border-2  rounded overflow-hidden ${selectedFoods.includes(food.TranslatedRecipeName) ? " border-red-400" : "border-yellow-400"}`}
                 >
                   <h3 className="text-lg font-bold mb-2 truncate">
                     {food.TranslatedRecipeName}
@@ -233,21 +248,9 @@ const AfterSelectionProducts = () => {
                 </div>
               </div>
             ))}
-            {!isFeatureSectionVisible &&
-              !showRecommendations && (
-                <button
-                  onClick={() => {
-                    handleShowFeatureSection();
-
-                    handleShowRecomendSection();
-                  }}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md m-4 ml-auto text-2xl"
-                >
-                  Go to Home
-                </button>
-              )}
           </div>
         )}
+
         <div className="mt-4">
           {/* <button
             onClick={handleShowSelectedFoods}

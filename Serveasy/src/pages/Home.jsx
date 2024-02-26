@@ -131,7 +131,7 @@ const Home = () => {
       ) : (
         <AfterSelectionProducts />
       )}
-      <FeatureSection />
+
       <Footer />
       {cartShow && <CartContainer />}
     </div>
