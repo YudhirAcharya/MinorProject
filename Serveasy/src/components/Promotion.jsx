@@ -22,7 +22,7 @@ const Promotion = () => {
 
             <div className="bg-none border-none outline-none flex">
               <NavLink to="http://127.0.0.1:3001/userRegister">
-                <button className=" text-sm py-[16px] px-[30px] text-center relative text-white bg-warning uppercase font-bold rounded-lg cursor-pointer ml-[20px] hidden sm:block hover:bg-primary hover:text-textColor">
+                <button className=" text-sm py-[16px] px-[30px] text-center relative text-white bg-warning uppercase font-bold rounded-lg cursor-pointer ml-[20px] hover:bg-primary hover:text-textColor">
                   Order Now
                 </button>
               </NavLink>
