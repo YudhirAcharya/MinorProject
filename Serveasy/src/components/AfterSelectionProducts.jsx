@@ -67,6 +67,21 @@ const AfterSelectionProducts = () => {
 
     fetchData();
   }, []);
+  useEffect(() => {
+    // Fetch data from the API
+    fetch("http://127.0.0.1:3001/users/recommendationData")
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract and sort the rows based on stars
+        const sortedFoods = data.data.rows.sort(
+          (a, b) => parseInt(b.stars) - parseInt(a.stars)
+        );
+        setFilteredFoods(sortedFoods);
+      })
+      .catch((error) =>
+        console.error("Error fetching data:", error)
+      );
+  }, []);
 
   const handleCheckboxChange = (cuisine) => {
     setSelectedCuisines((prevSelected) => {

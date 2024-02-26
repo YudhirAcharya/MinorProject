@@ -124,8 +124,8 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <Hero />
-      <Category />
+      {/* <Hero />
+      <Category /> */}
       {userExists ? (
         <RecommendDum user_id={currentUser_id} />
       ) : (

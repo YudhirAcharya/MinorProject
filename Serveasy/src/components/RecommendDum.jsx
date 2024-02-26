@@ -14,10 +14,10 @@ function RecommendDum(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch orders
         const ordersResponse = await axios.get(
           "http://127.0.0.1:3001/users/recommendationData"
         );
-
         const dataRows =
           ordersResponse.data?.data?.rows || [];
         const sortedOrders = Array.isArray(dataRows)
@@ -31,31 +31,27 @@ function RecommendDum(props) {
             (order) => order.user_id === currentUser_ID
           )
           .slice(0, 5);
-
         setOrders(userOrders);
 
         const recipeNames = userOrders.map(
           (order) => order.recipe_name
         );
 
+        // Fetch recommendations
         const recommendationsResponse = await axios.post(
           "http://127.0.0.1:5000/recommend_multi",
           { recipe_names: recipeNames }
         );
-
         setRecommendations(
           recommendationsResponse.data.recommendations
         );
       } catch (error) {
-        console.error(
-          "Error fetching recommendations:",
-          error
-        );
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [currentUser_ID]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,56 +78,51 @@ function RecommendDum(props) {
   );
 
   return (
-    <div>
-      <h2
-        style={{ fontSize: "35px", padding: "10px" }}
-      >{`Hello! ${orders[0]?.user_name || "User"}`}</h2>
-      <div className="flex">
-        <div className="flex-80">
-          <span
-            style={{ fontSize: "20px", marginLeft: "5px" }}
-          >
-            Your last orders were:
-          </span>
-          <div style={orderListStyle}>
-            {orders.map((order) => (
-              <div
-                key={order.delivered_id}
-                style={orderItemStyle}
-              >
-                <strong>{order.recipe_name}</strong>
-              </div>
-            ))}
+    <>
+      <h2 className="greeting bg-amber-400 text-lg">
+        Welcome Back! {orders[0]?.user_name || "User"}
+      </h2>
+      <div className="container pt-2 p-1 mt-2">
+        <div className="flex items-start">
+          <div className="order-title w-1/5 pr-5">
+            <span className="block font-bold mb-2 p-1">
+              Your last orders were:
+            </span>
+            <div className="order-list">
+              {orders.map((order) => (
+                <div
+                  key={order.delivered_id}
+                  className="order-item border bg-amber-100 p-2 shadow-md mb-3 rounded"
+                >
+                  <strong>{order.recipe_name}</strong>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="flex-20">
-          <h3
-            style={{ fontSize: "20px", marginLeft: "30px" }}
-          >
-            Based upon your previous orders we recommend
-            you:{" "}
-          </h3>
-          <div style={cardsContainer}>
-            {matchedFoods.map((matchedFood, index) => (
-              <ProductCard
-                key={matchedFood.FoodID}
-                id={matchedFood.FoodID}
-                img={matchedFood.imageurl}
-                name={matchedFood.TranslatedRecipeName}
-                price={matchedFood.price}
-                TotalTimeInMins={
-                  matchedFood.TotalTimeInMins
-                }
-                cuisine={matchedFood.Cuisine}
-                CleanedIngredients={
-                  matchedFood.CleanedIngredients
-                }
-              />
-            ))}
+
+          <div className="recommendation-section ">
+            <div className="recommendations grid grid-cols-4 gap-4 ">
+              {matchedFoods.map((matchedFood, index) => (
+                <ProductCard
+                  key={matchedFood.FoodID}
+                  id={matchedFood.FoodID}
+                  img={matchedFood.imageurl}
+                  name={matchedFood.TranslatedRecipeName}
+                  price={matchedFood.price}
+                  TotalTimeInMins={
+                    matchedFood.TotalTimeInMins
+                  }
+                  cuisine={matchedFood.Cuisine}
+                  CleanedIngredients={
+                    matchedFood.CleanedIngredients
+                  }
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -157,58 +148,6 @@ const cardsContainer = {
   flexWrap: "wrap",
   gap: "20px",
   justifyContent: "space-around",
-};
-
-const cardStyle = {
-  position: "relative",
-  border: "1px solid #ddd",
-  borderRadius: "8px",
-  overflow: "hidden",
-  width: "212px",
-  height: "272px",
-  border: "2px solid #FDE325",
-  padding: "5px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  width: "200px",
-  zIndex: "1",
-  transition: "transform 0.3s ease-in-out", // Example: Add a smooth transition
-  cursor: "pointer", // Add a pointer cursor on hover
-};
-
-const cardImageStyle = {
-  width: "100%",
-  height: "150px",
-  objectFit: "cover",
-};
-
-const cardContentStyle = {
-  padding: "12px",
-
-  textAlign: "center",
-  position: "relative",
-  overflow: "hidden", // Add this to hide overflow
-  display: "-webkit-box",
-  WebkitBoxOrient: "vertical",
-  WebkitLineClamp: 3, // Limit to 2 lines
-  height: "200px",
-  zIndex: "2",
-  textOverflow: "ellipsis", // Add ellipsis for overflow
-  transition: "background-color 0.3s ease-in-out", // Example: Add a smooth transition
-};
-
-const priceStyle = {
-  position: "absolute",
-  top: "70px", // Position at the top
-  left: "70px",
-  right: "0",
-  color: "white",
-  backgroundColor: "rgba(100, 0, 0, 0.8)",
-  padding: "3px",
-  display: "flex",
-  borderRadius: "10px",
-  borderBottom: "1px solid #ddd", // Use borderBottom instead of borderTop
-  fontSize: "17px",
-  zIndex: 10,
 };
 
 export default RecommendDum;
