@@ -34,7 +34,7 @@ const FeatureSection = () => {
     return <div>...Loading</div>;
   }
   return (
-    <div className="container flex-col shadow-none py-3  px-6 rounded-none min-w-full">
+    <div className="container flex-col shadow-none py-3 mt-[5rem] px-6 rounded-none min-w-full">
       <div className="lg:flex justify-between items-center">
         <div>
           <h3 className="font-medium text-2xl">Our Food Catalog:</h3>

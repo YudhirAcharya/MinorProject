@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const PageNavigation = ({ title }) => {
   return (
     <section>
-      <div className="bg-white pl-4">
+      <div className="bg-white pl-4 pt-[5rem]">
         <div className="flex flex-wrap h-16 py-4 items-center">
           <NavLink to="/user-home">
             <a className="inline-block text-sm text-black font-bold">Home</a>

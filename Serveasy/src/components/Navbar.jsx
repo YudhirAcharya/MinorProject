@@ -22,7 +22,7 @@ const Navbar = () => {
     });
   };
   return (
-    <nav className="bg-primary navbar w-full flex justify-between items-center">
+    <nav className="bg-primary navbar w-full flex justify-between items-center fixed z-[50]">
       <Link to="/">
         <img
           src="./public/logos/logo_linear.png"

@@ -40,7 +40,7 @@ const OrderHistory = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col">
+      <div className="flex flex-col pt-[5rem]">
         <div className="mx-auto mt-8">
           <NavLink to="/" onClick={handleLogout}>
             <button className="bg-red-800 font-semibold text-white py-3 px-12 mb-4 rounded-full hover:bg-primary hover:text-textColor">
