@@ -183,7 +183,7 @@ const Checkout = () => {
                     <input
                       name="add"
                       className="focus:outline-none px-3"
-                      placeholder="Sanepa"
+                      placeholder="e.g: Sanepa"
                       onChange={handleChange}
                     />
                   </label>
@@ -192,7 +192,7 @@ const Checkout = () => {
                     <input
                       name="city"
                       className="focus:outline-none px-3"
-                      placeholder="Lalitpur"
+                      placeholder="e.g: Lalitpur"
                       onChange={handleChange}
                     />
                   </label>
@@ -201,7 +201,7 @@ const Checkout = () => {
                     <input
                       name="province"
                       className="focus:outline-none px-3"
-                      placeholder="Bagmati"
+                      placeholder="e.g: Bagmati"
                       onChange={handleChange}
                     />
                   </label>
