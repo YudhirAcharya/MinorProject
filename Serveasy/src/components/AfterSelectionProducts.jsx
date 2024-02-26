@@ -68,11 +68,9 @@ const AfterSelectionProducts = () => {
     fetchData();
   }, []);
   useEffect(() => {
-    // Fetch data from the API
     fetch("http://127.0.0.1:3001/users/recommendationData")
       .then((response) => response.json())
       .then((data) => {
-        // Extract and sort the rows based on stars
         const sortedFoods = data.data.rows.sort(
           (a, b) => parseInt(b.stars) - parseInt(a.stars)
         );
@@ -134,13 +132,8 @@ const AfterSelectionProducts = () => {
       >
         {!isSectionHidden && !showRecommendations && (
           <div className="mb-8">
-            <div className="border-4 m-3 rounded-md border-amber-300">
+            <div className=" m-3">
               <div className="flex flex-col items-center mb-4 mx-0 my-0">
-                <span className=" text-2xl p-8 ">
-                  {" "}
-                  To better know your taste we request you
-                  to select some foods below.
-                </span>
                 <button
                   onClick={() => {
                     handleShowFeatureSection();
@@ -219,6 +212,11 @@ const AfterSelectionProducts = () => {
               Go to Home
             </button>
           )}
+        <span className=" text-2xl p-8 ">
+          {" "}
+          To better know your taste we request you to select
+          some foods below.
+        </span>
         {!isSectionHidden && !showRecommendations && (
           <div className="flex flex-wrap mx-0 my-0">
             {filteredFoods.map((food) => (
