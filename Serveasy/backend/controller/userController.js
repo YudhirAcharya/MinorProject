@@ -402,30 +402,55 @@ exports.PostAReviewAndRating = (req, res) => {
                         });
                         return;
                       }
+
                       // If no rows were affected, it means the record doesn't exist, do nothing
                       if (result.affectedRows === 0) {
                         // No existing record found, do nothing
                       }
 
-                      // Commit the transaction
-                      connection.commit((err) => {
-                        if (err) {
-                          connection.rollback(() => {
-                            connection.release();
-                            console.error("Error committing transaction:", err);
-                            return res
-                              .status(500)
-                              .json({ error: "Internal server error" });
-                          });
-                          return;
-                        }
+                      // Update recommendation_table based on the review
+                      connection.query(
+                        "UPDATE recommendation_data SET stars = ?, text = ? WHERE user_id = ? AND recipeID = ?",
+                        [rating, review, user_id, food_id],
+                        (err, result) => {
+                          if (err) {
+                            connection.rollback(() => {
+                              connection.release();
+                              console.error(
+                                "Error updating recommendation_table:",
+                                err,
+                              );
+                              return res
+                                .status(500)
+                                .json({ error: "Internal server error" });
+                            });
+                            return;
+                          }
 
-                        // Release the connection after the transaction is completed
-                        connection.release();
-                        res
-                          .status(201)
-                          .json({ message: "Review added successfully" });
-                      });
+                          // Commit the transaction
+                          connection.commit((err) => {
+                            if (err) {
+                              connection.rollback(() => {
+                                connection.release();
+                                console.error(
+                                  "Error committing transaction:",
+                                  err,
+                                );
+                                return res
+                                  .status(500)
+                                  .json({ error: "Internal server error" });
+                              });
+                              return;
+                            }
+
+                            // Release the connection after the transaction is completed
+                            connection.release();
+                            res
+                              .status(201)
+                              .json({ message: "Review added successfully" });
+                          });
+                        },
+                      );
                     },
                   );
                 },
