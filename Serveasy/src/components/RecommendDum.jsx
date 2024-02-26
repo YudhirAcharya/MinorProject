@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "./ProductCard";
+import FeatureSection from "./FeatureSection";
 
 function RecommendDum(props) {
   const currentUser_ID = props.user_id;
@@ -82,7 +83,7 @@ function RecommendDum(props) {
       <h2 className="greeting bg-amber-400 text-lg">
         Welcome Back! {orders[0]?.user_name || "User"}
       </h2>
-      <div className="container pt-2 p-1 mt-2">
+      <div className="container pt-2 p-1 mt-2 mb-4">
         <div className="flex items-start">
           <div className="order-title w-1/5 pr-5">
             <span className="block font-bold mb-2 p-1">
@@ -122,6 +123,7 @@ function RecommendDum(props) {
           </div>
         </div>
       </div>
+      <FeatureSection />
     </>
   );
 }
