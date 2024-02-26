@@ -31,7 +31,7 @@ const ReviewAndRating = ({ name }) => {
       setReview("");
       setRating(0);
     } catch (err) {
-      alert("You haven't even bought this!!!");
+      alert("You haven't ate this yet!!!");
     }
   };
   return (
