@@ -232,7 +232,7 @@ const HomeChef = () => {
               <thead>
                 <tr className="bg-primary text-left text-xs font-semibold uppercase tracking-widest text-white">
                   <th className="px-5 py-3">Quantity</th>
-                  <th className="px-5 py-3">User Name</th>
+                  <th className="px-5 py-3">User ID</th>
                   <th className="px-5 py-3">Order</th>
                   <th className="px-5 py-3">Scheduled</th>
                   <th className="px-5 py-3">Status</th>
