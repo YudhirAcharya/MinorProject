@@ -10,6 +10,7 @@ import Testimonial from "../components/Testimonial";
 import { navLinks } from "../constants";
 
 import { useState } from "react";
+import LandingHero from "../components/LandingHero";
 
 const Landing = () => {
   const [toggle, setToggle] = useState(false);
@@ -44,7 +45,8 @@ const Landing = () => {
           </div>
         </nav>
       </>
-      <Banner />
+      <LandingHero />
+      {/* <Banner /> */}
       <Promotion />
       <HowItWorksSection />
       <Testimonial />
