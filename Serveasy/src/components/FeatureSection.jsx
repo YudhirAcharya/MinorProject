@@ -91,7 +91,7 @@ const FeatureSection = () => {
             onChange={updateFilterValues}
           />
           <button
-            className="bg-secondary text-lightColor mt-1 p-3"
+            className="bg-warning text-lightColor mt-1 p-3"
             onClick={clearFilters}
           >
             Clear Filters
