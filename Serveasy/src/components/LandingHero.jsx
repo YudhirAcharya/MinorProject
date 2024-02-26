@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const LandingHero = () => {
   return (
-    <section className="relative md:mb-[30rem] vvsm:mb-[15rem]">
+    <section className="relative md:mb-[20rem] vvsm:mb-[15rem]">
       <div className="absolute inset-0 w-full vvsm:h-[60vh] blur-[2px] md:h-screen bg-cover bg-center">
         <img
           className="w-full h-full object-cover object-center"
