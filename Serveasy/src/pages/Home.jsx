@@ -118,14 +118,16 @@ const Home = () => {
   return (
     <div>
       <Navbar />
+
       {/*<Hero />
       <Category />*/}
+
       {userExists ? (
         <RecommendDum user_id={currentUser_id} />
       ) : (
         <AfterSelectionProducts />
       )}
-      <FeatureSection />
+
       <Footer />
       {cartShow && <CartContainer />}
     </div>
