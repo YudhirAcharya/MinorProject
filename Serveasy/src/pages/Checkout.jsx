@@ -134,9 +134,9 @@ const Checkout = () => {
       purchase_order_id: orderData.orders_id,
       purchase_order_name: orderData.user_id,
       customer_info: {
-        name: "Ashim Upadhaya",
-        email: "example@gmail.com",
-        phone: "9811496763",
+        name: "...",
+        email: " ",
+        phone: " ",
       },
     };
     const response = await axios.post(
