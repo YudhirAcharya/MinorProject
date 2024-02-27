@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-
+import { CiTimer } from "react-icons/ci";
 import * as React from "react";
 import dayjs from "dayjs";
 // import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
@@ -72,6 +72,9 @@ const ScheduleItems = ({
                     onChange={handleDateTimeChange}
                     value={today}
                   />
+                  {/* <button className="p-1 bg-primary text-white">
+                    <CiTimer />
+                  </button> */}
                 </Stack>
               </div>
             </div>
