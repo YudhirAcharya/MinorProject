@@ -139,7 +139,7 @@ def recommend_recipes(food_list):
         if food in data_frame['TranslatedRecipeName'].values:
             food_index = data_frame[data_frame['TranslatedRecipeName'] == food].index[0]
             distances = cosine_sim_matrix[food_index]
-            food_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:5]
+            food_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
 
             recommendations = [{'index': i[0], 'name': data_frame.iloc[i[0]].TranslatedRecipeName} for i in food_list]
             all_recommendations.extend(recommendations)
