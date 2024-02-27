@@ -1,21 +1,25 @@
 #pip install flask flask-cors
+
 import pickle
 import pandas as pd
 import numpy as np
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
-
+import requests
+import os
 app = Flask(__name__)
 CORS(app)
 
 
+# with open('./cosine_similarity_matrix.pkl', 'rb') as file:
+#     cosine_sim_matrix = pickle.load(file)
 
 
-with open('./cosine_similarity_matrix.pkl', 'rb') as file:
-    cosine_sim_matrix = pickle.load(file)
-
-df = pd.read_csv(r'D:\MinorProject\ML\indian food dataset.csv')
+#df = pd.read_csv(r'D:\MinorProject\ML\indian food dataset.csv')
+data_url = 'http://127.0.0.1:3001/foods'
+response = requests.get(data_url)
+data = response.json()
+df = pd.DataFrame(data)
 # data_frame = df[['FoodID', 'TranslatedRecipeName','keywords']]
 
 import re
@@ -23,23 +27,22 @@ def clean_ingredients(ingredient):
     cleaned_ingredient = re.sub(r'[\s\(\)]', '', ingredient) 
     return cleaned_ingredient
 
-df['Cleaned-Ingredients'] = df['Cleaned-Ingredients'].apply(lambda x: ','.join([clean_ingredients(ingredient) for ingredient in x.split(',')]))
+df = pd.DataFrame(data['data']['rows'])
 
-df['Cleaned-Ingredients'] = df['Cleaned-Ingredients'].apply(lambda x: x.split())
+df['CleanedIngredients'] = df['CleanedIngredients'].apply(lambda x: ','.join([clean_ingredients(ingredient) for ingredient in x.split(',')]))
+
+df['CleanedIngredients'] = df['CleanedIngredients'].apply(lambda x: x.split())
+
 
 df['Cuisine'] = df['Cuisine'].apply(lambda x: ','.join([clean_ingredients(ingredient) for ingredient in x.split(',')]))
-
 df['Cuisine'] = df['Cuisine'].apply(lambda x: x.split())
 
-df['keywords'] = df['Cleaned-Ingredients'] + df['Cuisine']
+df['keywords'] = df['CleanedIngredients'] + df['Cuisine']
 
+data_frame = df[['FoodID', 'TranslatedRecipeName', 'keywords']]
 
-data_frame = df[['FoodID',	'TranslatedRecipeName', 'keywords']]
-
-                  
-data_frame['keywords'] = data_frame['keywords'].apply(lambda x:" ".join(x))
-
-data_frame['keywords'] = data_frame['keywords'].apply(lambda x: x.replace(',', ' '))
+data_frame.loc[:, 'keywords'] = data_frame['keywords'].apply(lambda x: " ".join(x))
+data_frame.loc[:, 'keywords'] = data_frame['keywords'].apply(lambda x: x.replace(',', ' '))
 
 
 from nltk.stem.porter import PorterStemmer
@@ -51,12 +54,11 @@ def stem(text):
     y.append(ps.stem(i))
   return " ".join(y)
 
-data_frame['keywords'] = data_frame['keywords'].apply(stem)
+data_frame.loc[:, 'keywords'] = data_frame['keywords'].apply(stem)
 
 def preprocess_keywords(keyword_string):
     return keyword_string.split()
-data_frame['preprocessed_keywords'] = data_frame['keywords'].apply(preprocess_keywords)
-
+data_frame.loc[:, 'preprocessed_keywords'] = data_frame['keywords'].apply(preprocess_keywords)
 
 class SimpleCountVectorizer:
     def __init__(self):
@@ -73,6 +75,7 @@ class SimpleCountVectorizer:
                 matrix[i, self.vocabulary_[token]] += 1
 
         return matrix
+    
 
 vectorizer = SimpleCountVectorizer()
 keywords_matrix = vectorizer.fit_transform(data_frame['preprocessed_keywords'])
@@ -89,6 +92,7 @@ def cosine_similarity(vector_a, vector_b):
 
 
 def cosine_similarity_model():
+    print('running model')
     num_recipes = len(data_frame)
     cosine_sim_matrix = np.zeros((num_recipes, num_recipes))
     for i in range(num_recipes):
@@ -98,19 +102,29 @@ def cosine_similarity_model():
     with open('cosine_similarity_matrix.pkl', 'wb') as file:
         pickle.dump(cosine_sim_matrix, file)
     
-      
 
-try:
-    with open('cosine_similarity_matrix.pkl', 'rb') as file:
+filename = "cosine_similarity_matrix.pkl"
+if os.path.exists(filename):
+    with open(filename, 'rb') as file:
         cosine_sim_matrix = pickle.load(file)
-    print("Cosine similarity matrix loaded from file.")
-except FileNotFoundError:
-    # If the file does not exist, compute the cosine similarity matrix
+    print('pickle file loaded successfully')
+else:
     cosine_similarity_model()
-    # Load the matrix from file after computing
-    with open('cosine_similarity_matrix.pkl', 'rb') as file:
-        cosine_sim_matrix = pickle.load(file)
 
+# try:
+#     file_path = os.path.join(os.getcwd(), 'cosine_similarity_matrix.pkl')
+#     with open(file_path, 'rb') as file:
+#         cosine_sim_matrix = pickle.load(file)
+#     print("Cosine similarity matrix loaded from file.")
+# except FileNotFoundError:
+#     print("Cosine similarity matrix file not found. Computing the matrix...")
+#     # If the file does not exist, compute the cosine similarity matrix
+#     cosine_similarity_model()
+#     # Load the matrix from file after computing
+#     with open(file_path, 'rb') as file:
+#         cosine_sim_matrix = pickle.load(file)
+# except Exception as e:
+#     print(f"An error occurred while loading the cosine similarity matrix: {e}")
 
 def recommend_recipes(food_list):
     all_recommendations = []
@@ -135,8 +149,8 @@ def recommend_recipes(food_list):
             unique_recommendations.append(recommendation)
             recommended_indices.add(recommendation['index'])
 
-    # top 15 unique recommendations
-    unique_recommendations = unique_recommendations[:30]
+    # top unique recommendations
+    unique_recommendations = unique_recommendations[:100]
     return unique_recommendations
 
 

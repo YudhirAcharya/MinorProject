@@ -47,13 +47,15 @@ const ScheduleMeal = () => {
   const handleDateTimeChange = (index, newValue) => {
     console.log(newValue);
     const milliseconds = dayjs(newValue).valueOf();
-    setCartItems(
-      (prevCartItems) =>
-        prevCartItems.map((item, i) =>
-          i === index ? { ...item, delivery_time: milliseconds } : item
-        )
-      // console.log(milliseconds)
-    );
+    milliseconds - Date.now() < 2 * 60 * 60 * 1000
+      ? alert("Preparation time must be at least 2 hours")
+      : setCartItems(
+          (prevCartItems) =>
+            prevCartItems.map((item, i) =>
+              i === index ? { ...item, delivery_time: milliseconds } : item
+            )
+          // console.log(milliseconds)
+        );
   };
 
   const handleConfirm = async (e) => {

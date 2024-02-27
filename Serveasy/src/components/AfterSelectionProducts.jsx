@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { RiSkipRightLine } from "react-icons/ri";
+import { MdOutlineDoneOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 import FeatureSection from "./FeatureSection";
 import { useCartContext } from "../context/cartContext";
@@ -92,6 +94,10 @@ const AfterSelectionProducts = () => {
   };
 
   const handleFoodSelection = (foodName) => {
+    if (selectedFoods.length >= 5) {
+      return; // Prevent selection
+    }
+
     setSelectedFoods((prevSelected) => {
       if (prevSelected.includes(foodName)) {
         return prevSelected.filter(
@@ -128,29 +134,42 @@ const AfterSelectionProducts = () => {
   return (
     <>
       <div
-        className={`flex flex-col ${isSectionHidden ? "hidden" : ""}`}
+        className={`flex flex-col pt-[10rem] ${isSectionHidden ? "hidden" : ""}`}
       >
         {!isSectionHidden && !showRecommendations && (
           <div className="mb-8">
             <div className=" m-3">
-              <div className="flex flex-col items-center mb-4 mx-0 my-0">
+              <div className="flex items-center justify-between mb-4 mx-5 my-0">
                 <button
                   onClick={() => {
                     handleShowFeatureSection();
 
                     handleShowRecomendSection();
                   }}
-                  className="bg-gray-500 text-white px-4 py-2 rounded-md"
+                  className="bg-warning shadow-lg text-white px-8 flex hover:text-textColor items-center gap-2 py-2 rounded-md text-2xl"
                 >
-                  Do you want to skip to Home?
+                  Skip <RiSkipRightLine />
                 </button>
+                {!isFeatureSectionVisible &&
+                  !showRecommendations && (
+                    <button
+                      onClick={() => {
+                        handleShowFeatureSection();
+
+                        handleShowRecomendSection();
+                      }}
+                      className="bg-primary flex items-center gap-2 hover:text-textColor text-white px-8 py-2 rounded-md text-2xl shadow-lg"
+                    >
+                      Done <MdOutlineDoneOutline />
+                    </button>
+                  )}
               </div>
             </div>
-            <div className=" bg-amber-100 p-4 rounded-xl m-3  content-center">
+            <div className=" bg-amber-100 px-10 py-8 rounded-xl m-3  content-center shadow-lg">
               <h2 className="text-xl font-bold mb-3">
                 Cuisine Filter can help with your palate!
               </h2>
-              <h2 className="text-lg mb-1 text-left">
+              <h2 className="text-lg my-2 text-left">
                 Choose the cusines whether you want it or
                 not:
               </h2>
@@ -199,57 +218,47 @@ const AfterSelectionProducts = () => {
             </div>
           </div>
         )}
-        {!isFeatureSectionVisible &&
-          !showRecommendations && (
-            <button
-              onClick={() => {
-                handleShowFeatureSection();
 
-                handleShowRecomendSection();
-              }}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md m-2 ml-auto text-2xl"
-            >
-              Go to Home
-            </button>
-          )}
-        <span className=" text-2xl p-8 ">
-          {" "}
-          To better know your taste we request you to select
-          some foods below.
-        </span>
         {!isSectionHidden && !showRecommendations && (
-          <div className="flex flex-wrap mx-0 my-0">
-            {filteredFoods.map((food) => (
-              <div
-                key={food.FoodID}
-                className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-4 relative ${selectedCuisines.includes(food.Cuisine) ? "bg-white" : ""}`}
-                onClick={() =>
-                  handleFoodSelection(
-                    food.TranslatedRecipeName
-                  )
-                }
-              >
+          <>
+            <span className=" text-2xl p-8 mx-auto">
+              {" "}
+              To better know your taste we request you to
+              select upto 5 foods below:
+            </span>
+            <div className="flex flex-wrap mx-4 my-0 shadow-sm">
+              {filteredFoods.map((food) => (
                 <div
-                  className={`h-full p-4 border-2  rounded overflow-hidden ${selectedFoods.includes(food.TranslatedRecipeName) ? " border-red-400" : "border-yellow-400"}`}
+                  key={food.FoodID}
+                  className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-4 relative ${selectedCuisines.includes(food.Cuisine) ? "bg-white" : ""}`}
+                  onClick={() =>
+                    handleFoodSelection(
+                      food.TranslatedRecipeName
+                    )
+                  }
                 >
-                  <h3 className="text-lg font-bold mb-2 truncate">
-                    {food.TranslatedRecipeName}
-                  </h3>
-                  <p className="text-gray-600 mb-2 text-sm">
-                    Cuisine: {food.Cuisine}
-                  </p>
-                  <img
-                    src={food.imageurl}
-                    alt={`Photo of ${food.TranslatedRecipeName}`}
-                    className="w-full h-48 object-cover rounded"
-                  />
+                  <div
+                    className={`h-full p-4 border-2  rounded-lg overflow-hidden ${selectedFoods.includes(food.TranslatedRecipeName) ? " border-green-600" : "border-red-500"}`}
+                  >
+                    <h3 className="text-lg font-bold mb-2 truncate">
+                      {food.TranslatedRecipeName}
+                    </h3>
+                    <p className="text-gray-600 font-normal mb-2 text-sm">
+                      Cuisine: {food.Cuisine}
+                    </p>
+                    <img
+                      src={food.imageurl}
+                      alt={`Photo of ${food.TranslatedRecipeName}`}
+                      className="w-full h-40 object-cover rounded-xl"
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </>
         )}
 
-        <div className="mt-4">
+        <div>
           {/* <button
             onClick={handleShowSelectedFoods}
             className="bg-blue-600 text-white px-4 py-2 rounded-md mr-4"
@@ -278,11 +287,11 @@ const AfterSelectionProducts = () => {
             </div>
           )}
 
-          <div>
+          <div className="mx-4 shadow-md">
             {recommendations.length > 0 &&
               showRecommendations && (
                 <div>
-                  <h2 className="text-2xl font-bold mb-1 text-start ml-12">
+                  <h2 className="text-2xl font-bold mb-1 text-start ml-12 tracking-widest">
                     For you:
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-auto p-5">

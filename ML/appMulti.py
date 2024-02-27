@@ -7,6 +7,8 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
 import os
+
+# initiate flask
 app = Flask(__name__)
 CORS(app)
 
@@ -20,6 +22,7 @@ data_url = 'http://127.0.0.1:3001/foods'
 response = requests.get(data_url)
 data = response.json()
 df = pd.DataFrame(data)
+
 # data_frame = df[['FoodID', 'TranslatedRecipeName','keywords']]
 
 import re
@@ -75,6 +78,7 @@ class SimpleCountVectorizer:
                 matrix[i, self.vocabulary_[token]] += 1
 
         return matrix
+    
 
 vectorizer = SimpleCountVectorizer()
 keywords_matrix = vectorizer.fit_transform(data_frame['preprocessed_keywords'])
@@ -125,6 +129,7 @@ else:
 # except Exception as e:
 #     print(f"An error occurred while loading the cosine similarity matrix: {e}")
 
+
 def recommend_recipes(food_list):
     all_recommendations = []
     recommended_indices = set()
@@ -151,6 +156,38 @@ def recommend_recipes(food_list):
     # top unique recommendations
     unique_recommendations = unique_recommendations[:100]
     return unique_recommendations
+
+
+
+
+# def recommend_recipes(food_list):
+#     aggregated_recommendations = {}
+
+#     for food in food_list:
+#         if food in data_frame['TranslatedRecipeName'].values:
+#             food_index = data_frame[data_frame['TranslatedRecipeName'] == food].index[0]
+#             distances = cosine_sim_matrix[food_index]
+#             food_list = list(enumerate(distances))
+#             recommendations = [{'index': i[0], 'similarity_score': i[1]} for i in food_list]
+
+#             for recommendation in recommendations:
+#                 index = recommendation['index']
+#                 score = recommendation['similarity_score']
+#                 if index not in aggregated_recommendations:
+#                     aggregated_recommendations[index] = {'sum': 0, 'count': 0}
+
+#                 aggregated_recommendations[index]['sum'] += score
+#                 aggregated_recommendations[index]['count'] += 1
+
+#     # Calculate average similarity scores
+#     average_recommendations = [{'index': idx, 'average_score': agg['sum'] / agg['count']} for idx, agg in aggregated_recommendations.items()]
+
+#     # Sort the recommendations by average score
+#     sorted_average_recommendations = sorted(average_recommendations, key=lambda x: x['average_score'], reverse=True)
+
+#     # Select the top 100 unique recommendations
+#     unique_recommendations = [{'index': i['index'], 'name': data_frame.iloc[i['index']].TranslatedRecipeName} for i in sorted_average_recommendations[:100]]
+#     return unique_recommendations
 
 
 
