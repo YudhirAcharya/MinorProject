@@ -8,15 +8,25 @@ import { useCartContext } from "../context/cartContext";
 import ProductCard from "./ProductCard";
 const AfterSelectionProducts = () => {
   const { addToCart } = useCartContext();
-  const [isSectionHidden, setIsSectionHidden] = useState(false);
+  const [isSectionHidden, setIsSectionHidden] =
+    useState(false);
   const [foods, setFoods] = useState([]);
-  const [selectedCuisines, setSelectedCuisines] = useState([]);
-  const [isFeatureSectionVisible, setIsFeatureSectionVisible] = useState(false);
+  const [selectedCuisines, setSelectedCuisines] = useState(
+    []
+  );
+  const [
+    isFeatureSectionVisible,
+    setIsFeatureSectionVisible,
+  ] = useState(false);
 
   const [selectedFoods, setSelectedFoods] = useState([]);
-  const [showSelectedFoods, setShowSelectedFoods] = useState(false);
-  const [recommendations, setRecommendations] = useState([]);
-  const [showRecommendations, setShowRecommendations] = useState(false);
+  const [showSelectedFoods, setShowSelectedFoods] =
+    useState(false);
+  const [recommendations, setRecommendations] = useState(
+    []
+  );
+  const [showRecommendations, setShowRecommendations] =
+    useState(false);
 
   const handleSkipButtonClick = () => {
     setIsSectionHidden(true);
@@ -28,13 +38,18 @@ const AfterSelectionProducts = () => {
         const response = await axios.post(
           "http://127.0.0.1:5000/recommend_multi",
           {
-            recipe_names: foodNames.filter((name) => name.trim() !== ""),
+            recipe_names: foodNames.filter(
+              (name) => name.trim() !== ""
+            ),
           }
         );
 
         setRecommendations(response.data.recommendations);
       } catch (error) {
-        console.error("Error fetching recommendations:", error);
+        console.error(
+          "Error fetching recommendations:",
+          error
+        );
       }
     };
     fetchRecommendations();
@@ -42,7 +57,9 @@ const AfterSelectionProducts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:3001/foods");
+        const response = await fetch(
+          "http://127.0.0.1:3001/foods"
+        );
         const data = await response.json();
         setFoods(data.data.rows);
       } catch (error) {
@@ -61,7 +78,9 @@ const AfterSelectionProducts = () => {
         );
         setFilteredFoods(sortedFoods);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) =>
+        console.error("Error fetching data:", error)
+      );
   }, []);
 
   const handleCheckboxChange = (cuisine) => {
@@ -75,9 +94,15 @@ const AfterSelectionProducts = () => {
   };
 
   const handleFoodSelection = (foodName) => {
+    if (selectedFoods.length >= 5) {
+      return; // Prevent selection
+    }
+
     setSelectedFoods((prevSelected) => {
       if (prevSelected.includes(foodName)) {
-        return prevSelected.filter((food) => food !== foodName);
+        return prevSelected.filter(
+          (food) => food !== foodName
+        );
       } else {
         return [...prevSelected, foodName];
       }
@@ -125,18 +150,19 @@ const AfterSelectionProducts = () => {
                 >
                   Skip <RiSkipRightLine />
                 </button>
-                {!isFeatureSectionVisible && !showRecommendations && (
-                  <button
-                    onClick={() => {
-                      handleShowFeatureSection();
+                {!isFeatureSectionVisible &&
+                  !showRecommendations && (
+                    <button
+                      onClick={() => {
+                        handleShowFeatureSection();
 
-                      handleShowRecomendSection();
-                    }}
-                    className="bg-primary flex items-center gap-2 hover:text-textColor text-white px-8 py-2 rounded-md text-2xl shadow-lg"
-                  >
-                    Done <MdOutlineDoneOutline />
-                  </button>
-                )}
+                        handleShowRecomendSection();
+                      }}
+                      className="bg-primary flex items-center gap-2 hover:text-textColor text-white px-8 py-2 rounded-md text-2xl shadow-lg"
+                    >
+                      Done <MdOutlineDoneOutline />
+                    </button>
+                  )}
               </div>
             </div>
             <div className=" bg-amber-100 px-10 py-8 rounded-xl m-3  content-center shadow-lg">
@@ -144,10 +170,13 @@ const AfterSelectionProducts = () => {
                 Cuisine Filter can help with your palate!
               </h2>
               <h2 className="text-lg my-2 text-left">
-                Choose the cusines whether you want it or not:
+                Choose the cusines whether you want it or
+                not:
               </h2>
               <div className="flex flex-wrap">
-                {Array.from(new Set(foods.map((food) => food.Cuisine)))
+                {Array.from(
+                  new Set(foods.map((food) => food.Cuisine))
+                )
                   .slice(0, 50)
                   .map((cuisine) => (
                     <div
@@ -157,8 +186,12 @@ const AfterSelectionProducts = () => {
                       <input
                         type="checkbox"
                         value={cuisine}
-                        checked={selectedCuisines.includes(cuisine)}
-                        onChange={() => handleCheckboxChange(cuisine)}
+                        checked={selectedCuisines.includes(
+                          cuisine
+                        )}
+                        onChange={() =>
+                          handleCheckboxChange(cuisine)
+                        }
                         id={`checkbox-${cuisine}`}
                         className="sr-only"
                       />
@@ -168,7 +201,9 @@ const AfterSelectionProducts = () => {
                       >
                         <img
                           src={
-                            selectedCuisines.includes(cuisine)
+                            selectedCuisines.includes(
+                              cuisine
+                            )
                               ? "../public/icons/task.png"
                               : "../public/icons/square.png"
                           }
@@ -188,15 +223,19 @@ const AfterSelectionProducts = () => {
           <>
             <span className=" text-2xl p-8 mx-auto">
               {" "}
-              To better know your taste we request you to select some foods
-              below:
+              To better know your taste we request you to
+              select upto 5 foods below:
             </span>
             <div className="flex flex-wrap mx-4 my-0 shadow-sm">
               {filteredFoods.map((food) => (
                 <div
                   key={food.FoodID}
                   className={`w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-4 mb-4 relative ${selectedCuisines.includes(food.Cuisine) ? "bg-white" : ""}`}
-                  onClick={() => handleFoodSelection(food.TranslatedRecipeName)}
+                  onClick={() =>
+                    handleFoodSelection(
+                      food.TranslatedRecipeName
+                    )
+                  }
                 >
                   <div
                     className={`h-full p-4 border-2  rounded-lg overflow-hidden ${selectedFoods.includes(food.TranslatedRecipeName) ? " border-green-600" : "border-red-500"}`}
@@ -235,48 +274,62 @@ const AfterSelectionProducts = () => {
 
           {showSelectedFoods && (
             <div>
-              <h2 className="text-2xl font-bold mb-2">Foods you chose:</h2>
+              <h2 className="text-2xl font-bold mb-2">
+                Foods you chose:
+              </h2>
               <ul>
-                {selectedFoods.map((selectedFood, index) => (
-                  <li key={index}>{selectedFood}</li>
-                ))}
+                {selectedFoods.map(
+                  (selectedFood, index) => (
+                    <li key={index}>{selectedFood}</li>
+                  )
+                )}
               </ul>
             </div>
           )}
 
           <div className="mx-4 shadow-md">
-            {recommendations.length > 0 && showRecommendations && (
-              <div>
-                <h2 className="text-2xl font-bold mb-1 text-start ml-12 tracking-widest">
-                  For you:
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-auto p-5">
-                  {recommendations.map((recommendation, index) => {
-                    const matchingFood = foods.find(
-                      (food) =>
-                        food.TranslatedRecipeName === recommendation.name
-                    );
+            {recommendations.length > 0 &&
+              showRecommendations && (
+                <div>
+                  <h2 className="text-2xl font-bold mb-1 text-start ml-12 tracking-widest">
+                    For you:
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-auto p-5">
+                    {recommendations.map(
+                      (recommendation, index) => {
+                        const matchingFood = foods.find(
+                          (food) =>
+                            food.TranslatedRecipeName ===
+                            recommendation.name
+                        );
 
-                    if (matchingFood) {
-                      return (
-                        <ProductCard
-                          key={matchingFood.FoodID}
-                          id={matchingFood.FoodID}
-                          img={matchingFood.imageurl}
-                          name={matchingFood.TranslatedRecipeName}
-                          price={matchingFood.price}
-                          TotalTimeInMins={matchingFood.TotalTimeInMins}
-                          cuisine={matchingFood.Cuisine}
-                          CleanedIngredients={matchingFood.CleanedIngredients}
-                        />
-                      );
-                    } else {
-                      return null;
-                    }
-                  })}
+                        if (matchingFood) {
+                          return (
+                            <ProductCard
+                              key={matchingFood.FoodID}
+                              id={matchingFood.FoodID}
+                              img={matchingFood.imageurl}
+                              name={
+                                matchingFood.TranslatedRecipeName
+                              }
+                              price={matchingFood.price}
+                              TotalTimeInMins={
+                                matchingFood.TotalTimeInMins
+                              }
+                              cuisine={matchingFood.Cuisine}
+                              CleanedIngredients={
+                                matchingFood.CleanedIngredients
+                              }
+                            />
+                          );
+                        } else {
+                          return null;
+                        }
+                      }
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}{" "}
+              )}{" "}
           </div>
         </div>
       </div>

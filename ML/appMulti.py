@@ -7,6 +7,8 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
 import os
+
+# initiate flask
 app = Flask(__name__)
 CORS(app)
 
@@ -20,6 +22,7 @@ data_url = 'http://127.0.0.1:3001/foods'
 response = requests.get(data_url)
 data = response.json()
 df = pd.DataFrame(data)
+
 # data_frame = df[['FoodID', 'TranslatedRecipeName','keywords']]
 
 import re
