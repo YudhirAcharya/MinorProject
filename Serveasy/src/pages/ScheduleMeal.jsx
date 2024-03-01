@@ -122,19 +122,19 @@ const ScheduleMeal = () => {
   };
   const handlePayment = async (orderData, totalAmount, deliveryFee) => {
     console.log(orderData, totalAmount, deliveryFee);
+    let userId = localStorage.getItem("userId");
     const payload = {
-      return_url: "http://localhost:5173/user-home",
+      return_url: `http://localhost:5173/user-home?userId=${userId}`,
       website_url: "http://localhost:3001",
       amount: (totalAmount + deliveryFee) * 10,
       purchase_order_id: orderData.orders_id,
       purchase_order_name: orderData.user_id,
       customer_info: {
-        name: "Ashim Upadhaya",
-        email: "example@gmail.com",
-        phone: "9811496763",
+        name: "...",
+        email: " ",
+        phone: " ",
       },
     };
-
     const response = await axios.post(
       "http://localhost:3001/khalti-api",
       payload

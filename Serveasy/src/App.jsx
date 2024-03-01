@@ -53,7 +53,11 @@ function App() {
     const userId = getUrlParameter("userId");
     console.log(userId);
     localStorage.setItem("userId", []);
-    let cleanUserId = userId && userId.replace(/\/\?status=Completed$/, "");
+    // let cleanUserId = userId && userId.replace(/\/\?status=Completed$/, "");
+    let cleanUserId =
+      userId && userId.includes("?status=Completed")
+        ? userId.replace("?status=Completed", "")
+        : userId;
     localStorage.setItem("userId", cleanUserId);
     setCleanUserId(cleanUserId);
   }, []);
