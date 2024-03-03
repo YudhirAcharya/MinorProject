@@ -144,9 +144,15 @@ const ScheduleMeal = () => {
       window.location.href = `${response?.data?.data?.payment_url}`;
     }
     if (response.status === 200 && response.data.success) {
-      navigate("/success");
+      navigate(`/user-home?userId=${userId}`, {
+        replace: true,
+        state: { userId },
+      });
     } else {
-      navigate(`http://localhost:5173/user-home?userId=${userId}`);
+      navigate(`/user-home?userId=${userId}`, {
+        replace: true,
+        state: { userId },
+      });
     }
   };
   return (
