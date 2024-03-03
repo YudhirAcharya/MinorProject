@@ -149,6 +149,8 @@ const Checkout = () => {
     }
     if (response.status === 200 && response.data.success) {
       navigate("/success");
+    } else {
+      navigate(`http://localhost:5173/user-home?userId=${userId}`);
     }
   };
 
