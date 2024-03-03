@@ -119,6 +119,10 @@ const HomeDelivery = () => {
   };
   const totalOrders = orders.length;
   const lastPage = Math.ceil(totalOrders / ordersPerPage);
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+
   const handleLogout = async () => {
     localStorage.clear();
     const response = await fetch("http://127.0.0.1:3001/deliverer/logout", {
@@ -182,52 +186,57 @@ const HomeDelivery = () => {
                   </thead>
                   <tbody>
                     {orders &&
-                      orders.map((item, index) => (
-                        <tr key={index}>
-                          <td className="px-5 py-3 border-b border-gray-200 bg-white">
-                            <div className="flex items-center">
-                              <div className="ml-3">
-                                <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
-                                  {item.phone_number}
-                                </p>
+                      orders
+                        .slice(
+                          (currentPage - 1) * ordersPerPage,
+                          currentPage * ordersPerPage
+                        )
+                        .map((item, index) => (
+                          <tr key={index}>
+                            <td className="px-5 py-3 border-b border-gray-200 bg-white">
+                              <div className="flex items-center">
+                                <div className="ml-3">
+                                  <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
+                                    {item.phone_number}
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          </td>
-                          <td className="px-5 py-3 border-b border-gray-200 bg-white">
-                            <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
-                              {item.address}
-                            </p>
-                          </td>
-                          <td className="px-5 py-3 border-b border-gray-200 bg-white">
-                            <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
-                              {item.user_id}
-                            </p>
-                          </td>
-                          <td className="px-5 py-3 border-b border-gray-200 bg-white">
-                            <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
-                              {item.quantity}
-                            </p>
-                          </td>
-                          <td className="px-5 py-3 border-b border-gray-200 bg-white font-normal text-[16px] text-white">
-                            {orderStatus[item.delivery_id] === undefined ||
-                            orderStatus[item.delivery_id] ? (
-                              <button
-                                className="p-2 bg-red-400 text-white"
-                                onClick={() => handleToggle(item.delivery_id)}
-                              >
-                                Pending
-                              </button>
-                            ) : (
-                              <button
-                                className="p-2 bg-green-400 text-white"
-                                onClick={() => handleDone(item.delivery_id)}
-                              >
-                                Done
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
+                            </td>
+                            <td className="px-5 py-3 border-b border-gray-200 bg-white">
+                              <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
+                                {item.address}
+                              </p>
+                            </td>
+                            <td className="px-5 py-3 border-b border-gray-200 bg-white">
+                              <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
+                                {item.user_id}
+                              </p>
+                            </td>
+                            <td className="px-5 py-3 border-b border-gray-200 bg-white">
+                              <p className="text-textColor whitespace-no-wrap font-normal text-[16px]">
+                                {item.quantity}
+                              </p>
+                            </td>
+                            <td className="px-5 py-3 border-b border-gray-200 bg-white font-normal text-[16px] text-white">
+                              {orderStatus[item.delivery_id] === undefined ||
+                              orderStatus[item.delivery_id] ? (
+                                <button
+                                  className="p-2 bg-red-400 text-white"
+                                  onClick={() => handleToggle(item.delivery_id)}
+                                >
+                                  Pending
+                                </button>
+                              ) : (
+                                <button
+                                  className="p-2 bg-green-400 text-white"
+                                  onClick={() => handleDone(item.delivery_id)}
+                                >
+                                  Done
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
                   </tbody>
                 </table>
               </div>
@@ -251,7 +260,6 @@ const HomeDelivery = () => {
           >
             Prev
           </button>
-          &nbsp; &nbsp;
           <button
             className="text-sm text-textColor transition duration-150  bg-primary font-semibold py-2 px-4 rounded-r"
             onClick={() =>
@@ -261,6 +269,25 @@ const HomeDelivery = () => {
           >
             Next
           </button>
+          {/* <button
+            className="text-sm text-textColor transition duration-150  bg-primary font-semibold py-2 px-4 rounded-l"
+            onClick={() =>
+              setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+            }
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+          &nbsp; &nbsp;
+          <button
+            className="text-sm text-textColor transition duration-150  bg-primary font-semibold py-2 px-4 rounded-r"
+            onClick={() =>
+              setCurrentPage((prevPage) => Math.min(prevPage + 1, lastPage))
+            }
+            disabled={currentPage === lastPage}
+          >
+            Next
+          </button> */}
         </div>
       </div>
       <Footer />
