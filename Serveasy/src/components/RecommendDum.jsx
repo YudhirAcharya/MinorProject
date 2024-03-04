@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -14,21 +15,41 @@ function RecommendDum(props) {
     const fetchData = async () => {
       try {
         // Fetch orders
-        const ordersResponse = await axios.get(
-          "http://127.0.0.1:3001/users/recommendationData"
-        );
-        const dataRows = ordersResponse.data?.data?.rows || [];
-        const sortedOrders = Array.isArray(dataRows)
-          ? dataRows.sort((a, b) => b.created_at - a.created_at)
-          : [];
+        // const ordersResponse = await axios.get(
+        //   "http://127.0.0.1:3001/users/recommendationData"
+        // );
+        // const dataRows =
+        //   ordersResponse.data?.data?.rows || [];
+        // const sortedOrders = Array.isArray(dataRows)
+        //   ? dataRows.sort(
+        //       (a, b) => b.created_at - a.created_at
+        //     )
+        //   : [];
 
-        const userOrders = sortedOrders
-          .filter((order) => order.user_id === currentUser_ID)
-          .slice(0, 5);
-        setOrders(userOrders);
+        // const userOrders = sortedOrders
+        //   .filter(
+        //     (order) => order.user_id === currentUser_ID
+        //   )
+        //   .slice(0, 5);
+        // setOrders(userOrders);
+        // console.log(userOrders);
+
+        //new method
+        const userOrderUrl = "http://127.0.0.1:3001/users/" + currentUser_ID;
+        console.log(userOrderUrl);
+
+        const response = await fetch(userOrderUrl);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const userOrders = await response.json();
 
         const recipeNames = userOrders.map((order) => order.recipe_name);
-
+        console.log(recipeNames);
+        setOrders(userOrders);
+        console.log(userOrders);
         // Fetch recommendations
         const recommendationsResponse = await axios.post(
           "http://127.0.0.1:5000/recommend_multi",
