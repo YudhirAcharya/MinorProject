@@ -41,10 +41,12 @@ function App() {
     localStorage.setItem("userId", []);
     // let cleanUserId = userId && userId.replace(/\/\?status=Completed$/, "");
     let cleanUserId =
-      userId && userId.includes("?status=Completed")
-        ? userId.replace("?status=Completed", "")
+      userId && userId.includes("/?status=Completed")
+        ? userId.replace("/?status=Completed", "")
         : userId;
     localStorage.setItem("userId", cleanUserId);
+    console.log(userId);
+    console.log(cleanUserId);
     setCleanUserId(cleanUserId);
   }, []);
   useEffect(() => {
