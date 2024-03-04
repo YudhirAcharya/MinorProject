@@ -548,12 +548,12 @@ exports.updateAndMoveToRecommendationAndChangeStatus = (req, res) => {
         WHERE o.delivered_count = o.num_of_foods`;
 
       const insertRecommendationSQL = `
-        INSERT INTO dummy_recommendation(delivered_id, orderID, recipeID, recipe_name, user_id, user_name)
-        VALUES (?, ?, ?, ?, ?, ?)`;
+        INSERT INTO dummy_recommendation(delivered_id, orderID,created_at,recipeID, recipe_name, user_id, user_name)
+        VALUES (?, ?, ?,?, ?, ?, ?)`;
 
       const insertIntoRecommendationSQL = `
-        INSERT INTO recommendation_data(delivered_id, orderID, recipeID, recipe_name, user_id, user_name)
-        VALUES (?, ?, ?, ?, ?, ?)`;
+        INSERT INTO recommendation_data(delivered_id, orderID,created_at, recipeID, recipe_name, user_id, user_name)
+        VALUES (?, ?, ?,?, ?, ?, ?)`;
 
       deliveredDeliveryIds.forEach((deliveryId) => {
         connection.query(
@@ -638,7 +638,7 @@ exports.updateAndMoveToRecommendationAndChangeStatus = (req, res) => {
                               }
 
                               connection.query(
-                                "SELECT order_id, user_id, food_name FROM ordered_items WHERE order_id=? AND c_status=1 AND d_status=1",
+                                "SELECT order_id, user_id, food_name,delivery_time FROM ordered_items WHERE order_id=? AND c_status=1 AND d_status=1",
                                 [orderId],
                                 (err, items) => {
                                   if (err) {
@@ -657,8 +657,13 @@ exports.updateAndMoveToRecommendationAndChangeStatus = (req, res) => {
                                   }
 
                                   items.forEach((item) => {
-                                    const { order_id, user_id, food_name } =
-                                      item;
+                                    const {
+                                      order_id,
+                                      user_id,
+                                      food_name,
+                                      delivery_time,
+                                    } = item;
+
                                     connection.query(
                                       "SELECT user_name FROM user WHERE user_id=?",
                                       [user_id],
@@ -708,6 +713,7 @@ exports.updateAndMoveToRecommendationAndChangeStatus = (req, res) => {
                                               [
                                                 sentDeliveryId,
                                                 order_id,
+                                                delivery_time,
                                                 foodID,
                                                 food_name,
                                                 user_id,
@@ -741,6 +747,7 @@ exports.updateAndMoveToRecommendationAndChangeStatus = (req, res) => {
                                                   [
                                                     sentDeliveryId,
                                                     order_id,
+                                                    delivery_time,
                                                     foodID,
                                                     food_name,
                                                     user_id,

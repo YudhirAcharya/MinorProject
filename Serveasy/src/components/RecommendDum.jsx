@@ -7,34 +7,63 @@ import { useMediaQuery } from "react-responsive";
 function RecommendDum(props) {
   const currentUser_ID = props.user_id;
   const [orders, setOrders] = useState([]);
-  const [recommendations, setRecommendations] = useState([]);
+  const [recommendations, setRecommendations] = useState(
+    []
+  );
   const [foods, setFoods] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch orders
-        const ordersResponse = await axios.get(
-          "http://127.0.0.1:3001/users/recommendationData"
+        // const ordersResponse = await axios.get(
+        //   "http://127.0.0.1:3001/users/recommendationData"
+        // );
+        // const dataRows =
+        //   ordersResponse.data?.data?.rows || [];
+        // const sortedOrders = Array.isArray(dataRows)
+        //   ? dataRows.sort(
+        //       (a, b) => b.created_at - a.created_at
+        //     )
+        //   : [];
+
+        // const userOrders = sortedOrders
+        //   .filter(
+        //     (order) => order.user_id === currentUser_ID
+        //   )
+        //   .slice(0, 5);
+        // setOrders(userOrders);
+        // console.log(userOrders);
+
+        //new method
+        const userOrderUrl =
+          "http://127.0.0.1:3001/users/" + currentUser_ID;
+        console.log(userOrderUrl);
+
+        const response = await fetch(userOrderUrl);
+
+        if (!response.ok) {
+          throw new Error(
+            `HTTP error! Status: ${response.status}`
+          );
+        }
+
+        const userOrders = await response.json();
+
+        const recipeNames = userOrders.map(
+          (order) => order.recipe_name
         );
-        const dataRows = ordersResponse.data?.data?.rows || [];
-        const sortedOrders = Array.isArray(dataRows)
-          ? dataRows.sort((a, b) => b.created_at - a.created_at)
-          : [];
-
-        const userOrders = sortedOrders
-          .filter((order) => order.user_id === currentUser_ID)
-          .slice(0, 5);
+        console.log(recipeNames);
         setOrders(userOrders);
-
-        const recipeNames = userOrders.map((order) => order.recipe_name);
-
+        console.log(userOrders);
         // Fetch recommendations
         const recommendationsResponse = await axios.post(
           "http://127.0.0.1:5000/recommend_multi",
           { recipe_names: recipeNames }
         );
-        setRecommendations(recommendationsResponse.data.recommendations);
+        setRecommendations(
+          recommendationsResponse.data.recommendations
+        );
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -47,7 +76,9 @@ function RecommendDum(props) {
     const fetchData = async () => {
       try {
         // Fetch food details
-        const response = await fetch("http://127.0.0.1:3001/foods");
+        const response = await fetch(
+          "http://127.0.0.1:3001/foods"
+        );
         const data = await response.json();
         setFoods(data.data.rows);
       } catch (error) {
@@ -60,7 +91,8 @@ function RecommendDum(props) {
 
   const matchedFoods = foods.filter((food) =>
     recommendations.some(
-      (recommendation) => recommendation.name === food.TranslatedRecipeName
+      (recommendation) =>
+        recommendation.name === food.TranslatedRecipeName
     )
   );
   const isMediumScreen = useMediaQuery({ maxWidth: 800 });
@@ -82,7 +114,9 @@ function RecommendDum(props) {
           className="grid vsm:grid-cols-1 items-start  sm:gap-[2rem]"
         >
           <div className="order-title shadow-md flex flex-col">
-            <span className="mx-auto font-bold p-1">Last 5 orders:</span>
+            <span className="mx-auto font-bold p-1">
+              Last 5 orders:
+            </span>
             <div className="order-list">
               {orders.map((order) => (
                 <div
@@ -104,9 +138,13 @@ function RecommendDum(props) {
                   img={matchedFood.imageurl}
                   name={matchedFood.TranslatedRecipeName}
                   price={matchedFood.price}
-                  TotalTimeInMins={matchedFood.TotalTimeInMins}
+                  TotalTimeInMins={
+                    matchedFood.TotalTimeInMins
+                  }
                   cuisine={matchedFood.Cuisine}
-                  CleanedIngredients={matchedFood.CleanedIngredients}
+                  CleanedIngredients={
+                    matchedFood.CleanedIngredients
+                  }
                 />
               ))}
             </div>
